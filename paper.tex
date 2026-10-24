@@ -1,0 +1,199 @@
+\documentclass{article}
+\usepackage[preprint]{neurips_2026}
+\usepackage[T1]{fontenc}
+\usepackage{microtype,xcolor}
+\usepackage{amsmath,amssymb,amsthm,graphicx,booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\ind}{\mathbf 1}
+\title{Joint Risk and Review-Budget Certification for Consent-Constrained Incident Alerts}
+\author{Aravind Kannappan}
+\date{October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Clinical monitoring must reconcile timely event detection, patient consent and finite review capacity. We show that allowing only the first threshold crossing can make incident missed-event loss non-monotone: a lower threshold may consume the review before the valid warning window. We characterize the minimum feasible review budget using pre-window and in-window score maxima, and apply simultaneous binomial bounds to distinguish certified feasibility, grid infeasibility and insufficient evidence. We also state when consent transformations preserve the sampling assumptions and give a counterexample under consent-mechanism shift. An evaluation on all 40,336 public PhysioNet 2019 patients compares tuned logistic regression, gradient boosting and a GRU across three seeds and two hospitals. Mean pre-onset AUROC reaches 0.794 at hospital A and 0.752 externally. Yet every locally calibrated first-alert grid is excluded at a 5\% conditional missed-event target, even with one review per patient. Positive challenge utility does not resolve this failure because it rewards a different warning window and persistent prediction state. Patient-specific consent and reviewer simulations extend the evaluation but do not establish clinical effectiveness. The study identifies a policy-level obstacle that better score discrimination alone does not remove.
+\end{abstract}
+
+\section{Question and contribution}
+The motivating question is whether a clinical monitoring pipeline can retain useful predictions while its data flows, model errors, and consequential decisions are governed by explicit consent and effective human oversight. This conjunction requires more than a structural graph check or a discrimination score. We separate (i) compliance of a specified information graph, (ii) statistical error and workload of an alert policy, and (iii) timely and correct action by human reviewers.
+
+Our technical development concerns the second component. The main distinction is between nested threshold \emph{crossings} and timely \emph{first alerts}. Their losses need not share monotonicity. We derive a score-distribution feasibility characterization and implement joint confidence certification for a validation-frozen finite grid. The underlying confidence machinery follows Learn then Test (LTT) and risk-controlling prediction sets \citep{ltt,rcps}; simultaneous risk/cost optimization is also studied by Pareto Testing \citep{pareto}. We do not claim to invent these frameworks. The proposed contribution is their careful application to consent-dependent incident alerts, the first-alert failure mode, and an auditable clinical evaluation. Recent clinical selective-prediction work combines conformal prediction with cost-aware deferral \citep{kwon2026}. Here the unit of risk is a missed incident event, and the unit of capacity is a patient review; prediction-set coverage and error on retained cases answer different questions.
+
+\section{Setup and incident policies}
+A patient supplies a finite sequence of causally available observations, consent states, and frozen scores $S_1,\ldots,S_T\in[0,1]$. Let $Z$ indicate an incident event with an observed valid warning window $[a,b]$. For a threshold $\tau$, the first-alert policy is
+\begin{equation}
+ T_\tau=\inf\{t:S_t\ge\tau\},\qquad
+ R_\tau=\ind\{T_\tau\le T\},\qquad
+ L_\tau=\ind\{T_\tau\notin[a,b]\},\quad Z=1.
+ \label{eq:first}
+\end{equation}
+An empty set gives $T_\tau=\infty$. Assume $0<\Pr(Z=1)<1$ and $0<\alpha<1$. We target conditional incident risk $r(\tau)=\E[L_\tau\mid Z=1]$ and expected workload $w(\tau)=\E[R_\tau]$, measured in reviews per patient. Their joint constraints are $r(\tau)\le\alpha$ and $w(\tau)\le K$. For $m$ independent patient arrivals in a period, the expected number of reviews is $mw(\tau)$; an expectation bound does not guarantee a finite waiting time.
+
+For comparison, a repeated-alert policy uses every threshold crossing. Its incident missed-event loss is $\ind\{\max_{a\le t\le b}S_t<\tau\}$, which is monotone in $\tau$. A rule that emits only the first crossing has lower review count but a different risk.
+
+\begin{proposition}[First-alert non-monotonicity]\label{prop:nonmono}
+Nested threshold crossings do not imply monotone timely first-alert loss. There is a trajectory for which lowering $\tau$ changes the incident loss from zero to one, although the probability of any review is non-decreasing as the threshold decreases.
+\end{proposition}
+\begin{proof}
+Let a pre-window score equal $0.6$, an in-window score equal $0.9$, and all other scores equal zero. At threshold $0.8$, the first alert lies inside the window and loss is zero. At threshold $0.5$, the first alert occurs before the window and consumes the only alert; loss is one. Both thresholds trigger exactly one review. A threshold above $0.9$ yields no alert and loss one. Thus the loss sequence as thresholds increase is $1,0,1$. Any-review events remain nested because they depend only on the overall score maximum.
+\end{proof}
+This prevents applying the monotone-loss conformal risk-control theorem \citep{crc} to the first-alert loss without additional assumptions. Counting any in-window crossing while reporting only one early review would evaluate a different policy.
+
+\section{Population feasibility}
+Define the pre-window maximum $A=\max_{t<a}S_t$, with $A=-\infty$ for an empty prefix, the in-window maximum $B=\max_{a\le t\le b}S_t$, and the maximum $C$ over the monitoring interval used to count reviews. For event-positive patients the monitoring interval includes the warning window. Let $\pi=\Pp(Z=1)$ and
+\begin{equation}
+ H(\tau)=\Pp(A<\tau\le B\mid Z=1),\qquad
+ W(\tau)=\pi\Pp(C\ge\tau\mid Z=1)+(1-\pi)\Pp(C\ge\tau\mid Z=0).
+ \label{eq:HW}
+\end{equation}
+
+\begin{theorem}[Exact feasibility of a first-alert threshold family]\label{thm:feas}
+For a fixed threshold domain $\mathcal T$, a jointly feasible first-alert threshold exists if and only if
+\[
+ \{\tau\in\mathcal T:H(\tau)\ge 1-\alpha,\ W(\tau)\le K\}\ne\varnothing.
+\]
+If $\mathcal T_\alpha=\{\tau\in\mathcal T:H(\tau)\ge1-\alpha\}$ is nonempty and has a maximum $\tau_\star$, the minimum feasible expected review budget is
+\begin{equation}
+ K_{\min}=W(\tau_\star).
+ \label{eq:kmin}
+\end{equation}
+Consequently, joint feasibility is equivalent to $K\ge K_{\min}$. Moreover $K_{\min}\ge\pi(1-\alpha)$. If $\mathcal T_\alpha$ is empty, no review budget makes this threshold family feasible.
+\end{theorem}
+The maximum assumption always holds for a finite nonempty policy grid. For a continuous domain it is a substantive attainment condition; replacing a minimum by an infimum without attainment can make a boundary feasibility assertion false. This characterization is exact but needs the joint law of $A$ and $B$, not merely an hourly ROC curve.
+
+\begin{corollary}[Closed form when early consumption is absent]\label{cor:quantile}
+Suppose no alert is possible before the valid window, the positive-patient review interval equals that window, and the conditional distributions of $C$ are continuous, with positive-class CDF $F_1$ strictly increasing at its unique $\alpha$-quantile $q_\alpha$. Let the negative-class CDF be $F_0$. Then
+\begin{equation}
+ K_{\min}=\pi(1-\alpha)+(1-\pi)\{1-F_0(q_\alpha)\},\qquad q_\alpha=F_1^{-1}(\alpha).
+\end{equation}
+This is the familiar threshold/ROC workload identity under an explicit no-early-consumption assumption; it is not a general formula for an unrestricted first-alert policy.
+\end{corollary}
+
+\section{Finite-sample joint certification}
+Let $\mathcal T=\{\tau_1,\ldots,\tau_M\}$ be fixed independently of calibration data, for example using training and validation only. Calibration patients are independent and identically distributed from the deployment population, including the consent mechanism. For each policy compute positive-patient losses and all-patient review indicators. Let $n_+$ be the positive calibration count and $n$ the total count. Use exact one-sided Clopper--Pearson binomial bounds with tail probability $\eta=\delta/(4M)$ to obtain $(\ell^r_j,u^r_j)$ and $(\ell^w_j,u^w_j)$.
+
+\begin{theorem}[Joint certificate and honest abstention]\label{thm:certificate}
+Conditional on any independently trained predictor and frozen grid, with probability at least $1-\delta$ over calibration, all of the following hold simultaneously:
+\begin{enumerate}
+\item Every $j$ with $u^r_j\le\alpha$ and $u^w_j\le K$ satisfies both population constraints.
+\item If every $j$ has $\ell^r_j>\alpha$ or $\ell^w_j>K$, no policy on this grid satisfies both constraints.
+\item Any data-dependent selection among certified policies, including the one with smallest workload upper bound, preserves assertion 1.
+\end{enumerate}
+No monotonicity of $L_\tau$ is required. If neither condition 1 nor condition 2 is met, the output is \emph{undetermined}, not infeasible. For $n_+=0$, the risk interval is $[0,1]$ and no positive-risk claim is certified.
+\end{theorem}
+The construction applies simultaneous-confidence/LTT reasoning to the first-alert policy in Proposition~\ref{prop:nonmono}. The three outputs distinguish an acceptable operating point, an excluded grid, and a calibration sample that cannot resolve the question.
+
+The certificate is a high-probability statement about the population risk of the selected policy, distinct from the expectation-over-calibration guarantee of ordinary CRC. Model selection performed on calibration would require including every candidate model/policy in the multiplicity family; here model tuning uses validation only. Separate per-model certificates are not automatically simultaneous across models or seeds.
+
+\begin{corollary}[Prespecified group or site cells]
+For groups $g=1,\ldots,G$ specified independently of calibration, apply Theorem~\ref{thm:certificate} within each cell using $\delta_g$ with $\sum_g\delta_g\le\delta$. All certified group-conditional risk and workload statements then hold jointly with probability at least $1-\delta$. The groups may overlap. Empty or underpowered cells can remain undetermined. A rule calibrated in one hospital is not certified in another merely by relabeling its population.
+\end{corollary}
+
+\section{Consent, exchangeability and shift}
+Let $U$ denote the complete patient trajectory, $C$ the possibly time-varying consent trajectory, and $V$ any policy randomization. A frozen causal procedure $\Phi(U,C,V)$ produces permitted features, scores, alert decisions, and losses. The procedure may clear cached features and recurrent state after revocation.
+
+\begin{proposition}[Sufficient exchangeability condition]\label{prop:consent}
+If the calibration and future tuples $(U,C,V)$ are identically distributed and independent, and the same frozen measurable transformation $\Phi$ is applied to every tuple, their loss and review vectors are identically distributed and independent. Theorem~\ref{thm:certificate} therefore remains valid, including after conditioning on positive-event membership. Consent need not be independent of the outcome.
+\end{proposition}
+The weaker condition $C\perp Y\mid X$ alone does not guarantee transfer between different consent populations. For a counterexample, let $X=Y\sim\mathrm{Bernoulli}(1/2)$ and score $S=CX$. Calibration consent is always $C=1$, deployment consent always $C=0$, and the threshold is $1/2$. Both populations satisfy $C\perp Y\mid X$, yet positive-patient missed risk changes from zero to one. Conditional ignorability does not make the joint distributions equal.
+
+\begin{theorem}[Known-ratio shift certificate]\label{thm:weighted}
+Suppose the target patient law $Q$ is absolutely continuous with respect to source law $P$, with known density ratio $0\le w\le B_w$ and $\E_Pw=1$. For a fixed grid and $n$ independent source patients define
+\[
+ \widehat a_j=n^{-1}\sum_i w_iZ_iL_{ij},\quad
+ \widehat b=n^{-1}\sum_i w_iZ_i,\quad
+ \widehat c_j=n^{-1}\sum_i w_iR_{ij}.
+\]
+Set $\epsilon=B_w\sqrt{\log((2M+1)/\delta)/(2n)}$.
+With probability at least $1-\delta$, simultaneously for every $j$ with $\widehat b>\epsilon$,
+\[
+ \E_Q[L_j\mid Z=1]\le\min\left\{1,\frac{\widehat a_j+\epsilon}{\widehat b-\epsilon}\right\},\qquad
+ \E_Q[R_j]\le\min\{1,\widehat c_j+\epsilon\}.
+\]
+Thus selecting a policy whose two upper bounds meet $(\alpha,K)$ controls both target quantities. If the denominator is nonpositive, the risk bound is uninformative.
+\end{theorem}
+This is a bounded-importance-weight Hoeffding argument. A feature-only density ratio is valid only under the corresponding conditional outcome invariance and support assumptions. A fitted, clipped domain classifier does not provide a known ratio or a verified bound on approximation error. Our empirical weighted comparison is explicitly exploratory, not an application of Theorem~\ref{thm:weighted} with a guaranteed ratio.
+
+\section{Empirical protocol}
+\paragraph{Data and endpoint.} We use all 20,336 hospital-A and 20,000 hospital-B patient files from the public PhysioNet/CinC 2019 release \citep{physionet}. Published labels already start six hours before inferred onset. We do not shift them again. The primary incident window starts at the first positive label and ends immediately before inferred onset. Initial-positive patients and patients whose inferred onset is outside the observed stay are excluded from conditional incident risk but retained in workload. Reviews are counted before inferred onset in positive patients and over the observed stay in negative patients. This outcome-defined stopping rule is retrospective; deployment would need an observable stopping mechanism. The warning window is stricter than the challenge utility window.
+
+\paragraph{Splits and models.} Each of three seeds splits A 55/15/15/15\% into training, validation, calibration, and test. B reserves 25\% for local calibration and keeps 75\% as a frozen external test. Logistic regression tunes regularization and class weighting; histogram gradient boosting tunes tree size, regularization and weighting; a unidirectional GRU tunes hidden size and validation-selected epoch under a fixed six-epoch budget. Training loss and primary discrimination exclude post-onset rows. Every preprocessing fit uses training data only. Model selection uses validation average precision. Causal tests perturb later observations and verify unchanged earlier features.
+
+\paragraph{Policies and uncertainty.} Candidate score thresholds are quantiles frozen on validation data. We compare repeated crossings with first alerts and report conditional incident missed-event risk, reviews per patient, and the official challenge utility. The latter evaluates full-stay predicted condition states; for once-only review we report a latched positive state after the first alarm, rather than pretend a single positive hour represents all subsequent clinical knowledge. It is a distinct metric. All seeds receive 500 patient-cluster bootstrap replicates. Repeated calibration subsets quantify stability but overlap; their empirical exceedance fractions are not independent clinical trials.
+
+\paragraph{Consent and reviewer process.} Patient-specific opt-outs of labs and vitals are simulated at rates 0, .1, .3 and .5. Separate revocation scenarios apply at hour 12, remove prohibited historical summaries and clear recurrent state. The model is frozen; these stress tests do not claim to infer actual consent preferences. Queue arrivals use sepsis prediction trajectories, with service-time, sensitivity, specificity and fatigue sweeps. Timing of actual clinical response is distinct from active review service time: published TREWS adoption work reports provider response windows \citep{trews}, but does not justify treating a two-, five-, or ten-minute service time as an empirically measured constant. Our service and arrival parameters remain sensitivity assumptions. Five hundred random pipeline DAGs supplement the fixed information graph; neither is a deployed-system audit.
+
+\section{Results and scope}
+\input{revision_results.tex}
+
+The earlier 6,000-patient hourly-alert study is retained as historical supplementary evidence. The small MIMIC demo and five-participant movement track are excluded from the revised primary analysis. Full credentialed MIMIC-IV has not been evaluated. A benchmark row satisfying empirical utility, risk, workload and structural constraints does not establish actual clinician competence or patient benefit.
+
+\section{Discussion}
+The answer to the motivating question is conditional. We can specify consent constraints, verify mandatory review paths and evaluate statistical risk against capacity. The evaluated first-alert pipelines do not meet the declared incident-risk target, despite positive challenge utility. This supplies a concrete negative answer for the tested family; it leaves the broader design question open.
+
+A mathematical certificate must cover the policy actually deployed. Restricting review count can change the shape of incident risk, so a throughput improvement cannot be assumed to preserve a monotone CRC theorem. Our three-way certification outcome prevents a failed bound from being mislabeled as an impossibility result. A successful certificate establishes a retrospective distributional property under explicit sampling assumptions; prospective care effectiveness remains a separate empirical question. A practical follow-up should evaluate cooldown and continuing-review policies that retain the value of an early assessment. Those policies need their own workload definition and certificate; they cannot inherit the first-alert result automatically.
+
+The principal limitations are a strict retrospective warning window, a finite threshold grid, modest tuning budgets, overlapping seed splits, simulated consent and assumed reviewer parameters. We study two public hospitals, not prospective care. Consent masks are not a complete privacy or security mechanism, and a mandatory graph node does not establish that a clinician understands or acts on an alert. Deploying these prototypes as if those properties had been established would create false reassurance and avoidable review burden.
+
+\begin{thebibliography}{9}
+\bibitem[Kwon and Kim(2026)]{kwon2026} H. Kwon and D.-J. Kim. Conformal selective prediction with cost aware deferral for safe clinical triage under distribution shift. Scientific Reports, 16:10016, 2026. \url{https://doi.org/10.1038/s41598-026-40637-w}.
+\bibitem[Angelopoulos et al.(2024)]{crc} A. N. Angelopoulos, S. Bates, A. Fisch, L. Lei, and T. Schuster. Conformal Risk Control. ICLR, 2024. \url{https://arxiv.org/abs/2208.02814}.
+\bibitem[Angelopoulos et al.(2025)]{ltt} A. N. Angelopoulos, S. Bates, E. J. Cand\`es, M. I. Jordan, and L. Lei. Learn then test: Calibrating predictive algorithms to achieve risk control. Annals of Applied Statistics, 2025. \url{https://doi.org/10.1214/24-aoas1998}.
+\bibitem[Bates et al.(2021)]{rcps} S. Bates, A. N. Angelopoulos, L. Lei, J. Malik, and M. I. Jordan. Distribution-free, risk-controlling prediction sets. Journal of the ACM, 2021. \url{https://doi.org/10.1145/3478535}.
+\bibitem[Laufer-Goldshtein et al.(2023)]{pareto} B. Laufer-Goldshtein, A. Fisch, R. Barzilay, and T. Jaakkola. Efficiently Controlling Multiple Risks with Pareto Testing. ICLR, 2023. \url{https://arxiv.org/abs/2210.07913}.
+\bibitem[Reyna et al.(2019)]{physionet} M. A. Reyna et al. Early Prediction of Sepsis from Clinical Data: The PhysioNet/Computing in Cardiology Challenge 2019, version 1.0.0. \url{https://doi.org/10.13026/v64v-d857}.
+\bibitem[Henry et al.(2022)]{trews} K. E. Henry et al. Factors driving provider adoption of the TREWS machine learning-based early warning system and its effects on sepsis treatment timing. Nature Medicine, 2022. \url{https://doi.org/10.1038/s41591-022-01895-z}.
+\end{thebibliography}
+\clearpage
+\appendix
+\section{Proof of population feasibility}
+\begin{proof}[Proof of Theorem~\ref{thm:feas}]
+A first alert is in the warning window exactly when no earlier score reaches threshold and some in-window score does. With inclusive alert ties, those events are $A<\tau$ and $B\ge\tau$. Thus $r(\tau)=1-H(\tau)$. Any review occurs exactly when $C\ge\tau$, giving $w(\tau)=W(\tau)$ by conditioning on $Z$. This proves the set characterization. The function $W$ is non-increasing in $\tau$, regardless of whether $H$ is monotone. If the risk-feasible set has maximum $\tau_\star$, its workload is no larger than at every other risk-feasible threshold, proving Equation~\eqref{eq:kmin} and both directions of the budget equivalence. Timely success implies a review, so for every risk-feasible threshold $W(\tau)\ge\Pp(Z=1,T_\tau\in[a,b])=\pi H(\tau)\ge\pi(1-\alpha)$. If the risk-feasible set is empty, increasing workload cannot create a member of it.
+\end{proof}
+\begin{proof}[Proof of Corollary~\ref{cor:quantile}]
+With no possible earlier alert and $B=C$ on positives, $r(\tau)=\Pp(C<\tau\mid Z=1)=F_1(\tau)$ by continuity. The unique maximal feasible threshold is $q_\alpha$ under the stated strictness and attainment assumptions. Substitution into Equation~\eqref{eq:HW} gives $\pi\{1-F_1(q_\alpha)\}+(1-\pi)\{1-F_0(q_\alpha)\}$, and $F_1(q_\alpha)=\alpha$ completes the result.
+\end{proof}
+
+\section{Proof of finite-sample certification}
+\begin{proof}[Proof of Theorem~\ref{thm:certificate}]
+Condition on the fitted predictor and independently chosen candidate grid. For each policy, positive-patient losses are Bernoulli with mean $r_j$, conditional on the calibration positive count and membership; all-patient review indicators are Bernoulli with mean $w_j$. Inverting the binomial tails gives each one-sided interval coverage at least $1-\eta$. This remains true unconditionally by averaging over the random positive count. Dependence between policies, or between risk and workload statistics, does not affect a union bound. There are $4M$ one-sided bounds, so all cover simultaneously with probability at least $1-4M\eta=1-\delta$. On this event, upper-bound feasibility implies true feasibility for every accepted policy, hence for any selection among them. If every policy has a lower bound violating at least one constraint, each policy violates that population constraint; therefore none on the grid is feasible. If neither condition is satisfied, the intervals do not resolve the question. The $[0,1]$ convention at zero positives makes no unsupported claim.
+\end{proof}
+\begin{proof}[Proof of the group corollary]
+Apply the preceding coverage event within each prespecified group with error probability $\delta_g$. A union bound over groups gives failure probability at most $\sum_g\delta_g$. Groups need not be independent. The conditional sampling assumptions must hold within each group, and post-hoc group discovery is not covered.
+\end{proof}
+
+\section{Proofs under consent and shift}
+\begin{proof}[Proof of Proposition~\ref{prop:consent}]
+For measurable sets $B_1,\ldots,B_n$, independence of the input tuples gives
+$\Pp(\Phi(U_i,C_i,V_i)\in B_i,\ i=1,\ldots,n)=\prod_i\Pp((U_i,C_i,V_i)\in\Phi^{-1}(B_i))$.
+Identical input laws and the same transformation give identical output laws. Conditioning independent patient tuples on their own positive-event indicators preserves the corresponding conditional product law. Nothing in the argument requires consent to be outcome-independent; it requires the complete joint patient/consent mechanism to be stable across calibration and future data.
+\end{proof}
+\begin{proof}[Proof of Theorem~\ref{thm:weighted}]
+The random variables $wZL_j,wZ,wR_j$ all lie in $[0,B_w]$. One-sided Hoeffding bounds with failure probability $\delta/(2M+1)$ control the $M$ numerator upper deviations, one denominator lower deviation, and $M$ workload upper deviations. A union bound yields their simultaneous coverage. Change of measure gives $\E_P[wZL_j]=\E_Q[ZL_j]$, $\E_P[wZ]=\Pp_Q(Z=1)$, and $\E_P[wR_j]=\E_Q[R_j]$. When the denominator lower bound is positive, dividing its numerator upper bound by that lower bound bounds the target conditional risk. Truncation at one uses the Bernoulli range. The same simultaneous event covers data-dependent selection among accepted candidates.
+\end{proof}
+
+\input{supplementary_results.tex}
+
+\section{Mechanised checks and reproducibility}
+The proofs above are mathematical arguments. Tests are checks on their implementation, not substitutes for proofs. \texttt{tests/test\_joint\_risk.py} checks the early-alert counterexample, rejection of non-monotone loss by the monotone CRC helper, exact binomial edge cases, distinction between infeasibility and lack of evidence, and agreement of vectorized utility with the official challenge routine. Existing tests check patient/purpose masks, exhaustive review-path equivalence on small DAGs, cached multi-source revocation, and feature availability invariance. The exact run configuration, source commit and split membership are written to each result snapshot.
+
+
+
+\paragraph{Training and compute details.}
+The primary evaluation ran on an Apple M4 CPU with 16 GiB memory, Python 3.13, and two numerical-library/torch threads. Logistic candidates use $C\in\{0.1,1\}$ and balanced or unweighted classes. Boosting uses 120 iterations, learning rate 0.08, leaf counts 15 or 31 and L2 penalties 1 or 5, with the three exact combinations in the released code. The GRU uses hidden size 32 or 64, Adam at 0.001, batch size 64, gradient clipping at 1, and six epochs per candidate; validation average precision chooses the candidate and epoch. The full revision took 9 minutes 3 seconds after resuming a completed logistic fit from a 2 minute 40 second partial run that failed on constant-feature binning. The prediction-only policy audit took 1 minute 20 seconds. Earlier exploratory studies are retained separately and are not included in these timings. Peak memory was not instrumented.
+
+\paragraph{Provenance and access.}
+The main revision used source commit \texttt{fbfaff0d}; the policy audit used \texttt{652de9e8}. Source archives, locked dependencies, exact patient splits, fitted models, frozen scores and all tables accompany the public repository at \url{https://github.com/aravinds-kannappan/Clinical-AI}. The data retain their CC BY 4.0 license; the official utility evaluator retains its BSD license. The audit corrects false-action eligibility: initial-positive and other incident-ineligible positive patients are not counted as true negatives. The original queue output is retained as superseded evidence. No new patient or clinician recruitment occurred, and no project-specific institutional approval or exemption is asserted in this draft.
+
+\paragraph{Assistance and responsibility.}
+AI assistance was used in implementation, mathematical drafting, analysis and manuscript preparation. The evaluated predictors and simulated reviewers do not use an LLM. Automated tests support implementation checks; the mathematical arguments and scientific interpretation remain subject to author review before submission.
+
+\clearpage
+\input{checklist.tex}
+\end{document}

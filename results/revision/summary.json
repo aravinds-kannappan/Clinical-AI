@@ -1,0 +1,76 @@
+{
+  "status": "complete",
+  "patients": 40336,
+  "seed_count": 3,
+  "models": [
+    "logistic",
+    "boosting",
+    "gru"
+  ],
+  "mean_metrics": [
+    {
+      "model": "boosting",
+      "site": "A",
+      "auroc": 0.7943773761762943,
+      "average_precision": 0.05964161373968486,
+      "brier": 0.06828491741940872
+    },
+    {
+      "model": "boosting",
+      "site": "B",
+      "auroc": 0.730689416228004,
+      "average_precision": 0.032810475847757155,
+      "brier": 0.041526071382990325
+    },
+    {
+      "model": "gru",
+      "site": "A",
+      "auroc": 0.777523751464873,
+      "average_precision": 0.05983947538823573,
+      "brier": 0.059565855811039604
+    },
+    {
+      "model": "gru",
+      "site": "B",
+      "auroc": 0.7522446320137354,
+      "average_precision": 0.03051603823053138,
+      "brier": 0.043916198114554085
+    },
+    {
+      "model": "logistic",
+      "site": "A",
+      "auroc": 0.7448707113107877,
+      "average_precision": 0.0493109739528721,
+      "brier": 0.13037692786504826
+    },
+    {
+      "model": "logistic",
+      "site": "B",
+      "auroc": 0.6659140642222732,
+      "average_precision": 0.02537387129164012,
+      "brier": 0.1529173053180178
+    }
+  ],
+  "certificate_counts": [
+    {
+      "site": "A",
+      "calibration_site": "A",
+      "status": "grid_infeasible",
+      "count": 45
+    },
+    {
+      "site": "B",
+      "calibration_site": "A",
+      "status": "grid_infeasible",
+      "count": 45
+    },
+    {
+      "site": "B",
+      "calibration_site": "B",
+      "status": "grid_infeasible",
+      "count": 45
+    }
+  ],
+  "run_id": "d2efff2d-0525-47d7-ba94-879667d6b795",
+  "commit": "fbfaff0d73a96faf5d9d76764764fcd8321d27e4"
+}

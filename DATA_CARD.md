@@ -1,3 +1,13 @@
+# Revised primary dataset: full public sepsis release
+
+The revised main study uses all **40,336** public PhysioNet/CinC 2019 patient files: 20,336 from hospital A and 20,000 from hospital B, totaling 1,552,210 hourly rows. The full release is redistributed in `data/raw/sepsis-public/sepsis-public-full.zip` under the original **CC BY 4.0** license. Source: Reyna et al., [v1.0.0](https://physionet.org/content/challenge-2019/1.0.0/), DOI 10.13026/v64v-d857. File-level source/checksum records are in `full_manifest.json` and `configs/sepsis_full_selection.json`.
+
+Public patient identifiers are benchmark IDs, not newly collected identifiers. SepsisLabel begins six hours before inferred onset. The paper defines incident eligibility, exclusions, retrospective stopping and patient-wise splits explicitly. Consent and reviewer states are simulated and must not be interpreted as observed attributes. No credentialed MIMIC-IV result is included.
+
+The following original data-card text documents the archived initial study and its smaller inputs.
+
+---
+
 # Data access, provenance and limitations
 
 ## Inputs used

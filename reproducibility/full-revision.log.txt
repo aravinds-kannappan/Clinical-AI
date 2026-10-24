@@ -1,0 +1,314 @@
+Using CPython 3.13.5
+Creating virtual environment at: .venv
+Resolved 63 packages in 2ms
+Installed 38 packages in 1.79s
+ + certifi==2026.10.23
+ + charset-normalizer==3.5.2
+ + cloudpickle==3.1.2
+ + contourpy==1.4.0
+ + cycler==0.12.1
+ + filelock==4.2.4
+ + fonttools==4.67.0
+ + fsspec==2026.9.0
+ + idna==3.20
+ + iniconfig==2.3.1
+ + jinja2==3.1.6
+ + joblib==1.6.0
+ + kiwisolver==1.5.1
+ + markupsafe==3.0.4
+ + matplotlib==3.11.2
+ + mpmath==1.3.0
+ + narwhals==2.27.1
+ + networkx==3.7
+ + numpy==2.5.4
+ + packaging==26.3
+ + pandas==3.1.0
+ + pillow==13.0.0
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pyparsing==3.3.3
+ + pytest==9.1.1
+ + python-dateutil==3.0.0
+ + requests==2.34.2
+ + scikit-learn==1.9.1
+ + scipy==1.18.1
+ + setuptools==84.2.1
+ + six==1.17.0
+ + sympy==1.14.0
+ + threadpoolctl==3.7.0
+ + torch==2.14.1
+ + typing-extensions==4.16.0
+ + tzdata==2026.5
+ + urllib3==2.8.0
+......................                                                   [100%]
+=============================== warnings summary ===============================
+tests/test_joint_risk.py::test_boosting_handles_constant_and_empty_features
+  /Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+    self.variances_ = np.nanvar(X, axis=0)
+
+tests/test_joint_risk.py::test_boosting_handles_constant_and_empty_features
+  /Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+    self.variances_ = np.nanmin(compare_arr, axis=0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+22 passed, 2 warnings in 28.31s
+REVISION_CONFIGURATION {"run_id": "d2efff2d-0525-47d7-ba94-879667d6b795", "commit": "fbfaff0d73a96faf5d9d76764764fcd8321d27e4", "configuration": {"stage": "revision", "seeds": [11, 29, 47], "alpha": 0.05, "delta": 0.05, "budgets": [0.1, 0.25, 0.5, 0.75, 1.0], "split_A": [0.55, 0.15, 0.15, 0.15], "split_B": [0.25, 0.75], "models": ["logistic", "boosting", "gru"], "bootstrap_replicates": 500, "calibration_draws": 200, "threshold_count": 51, "incident_window": "[first positive label, first positive label+6), truncated at observed stay end; early initial-positive patients excluded from incident endpoint", "policy": "first threshold crossing once per patient; repeated-alert comparison; early alert can consume the only review", "consent_rates": [0, 0.1, 0.3, 0.5], "consent": "simulated independent patient opt-out of labs/vitals; scheduled revocation at hour 12; all derived state cleared and feature replayed under permissions", "training": "A train only; validation for hyperparameters and candidate thresholds; calibration disjoint; B calibration separate from frozen B test", "positive_calibration_sizes_B": [25, 50, 100, 200, 400], "review_sensitivity": [0.8, 0.9, 1.0], "review_specificity": [0.9, 0.99], "service_minutes": [2, 5, 10], "patient_arrivals_per_hour": [0.5, 1, 2], "graph_replicates": 500, "max_epochs": 6, "training_rows": "Only rows before inferred onset (first positive label+6); all observed rows for benchmark-negative patients", "utility": "Official challenge utility on full-stay hourly states; once-policy uses latched state after first alarm. This is distinct from review count.", "resume": {"directory": "revision-initial-partial", "completed": [{"seed": 11, "model": "logistic"}], "source_run": "163e8467-10cb-4f72-9a87-ec36769e4ef6", "source_commit": "6e1b8ea9", "sha256": {"thresholds-logistic-11.json": "a0429d17d9be3ddbfc0315e557b8b5ef3a3b6572f2a50d755d2345b035215436", "groups.csv": "1587f575454213989d19cf99850ef9f0f2327cfaadcccfb574182aae4483a366", "predictions-logistic-11-calibration_B.npz": "d11438c6614afeb760221cc5020a549011e824a53141392895424cd88260d433", "provenance.json": "67ff22c6cb91eb5016bad93f9203b67ccb509c6ba3ad0561d8a747fa3b81877e", "logistic-11.pkl": "38f830b7f253733600aaf97804ee11768840e6c5fbfd5726bb1565d0a99845d3", "predictions-logistic-11-calibration.npz": "9c660a8efdf722a717b937f191e3df7cdbd21eefd4e42f3fb23066fd236c7844", "queues.csv": "7779f36df9a1856e93e8822d7a5e92be3424f8428ecec7c46f2226425bbf3f58", "certificates.csv": "f79ab3edfe387688b7eb427455efff8816e2b8c85376f6519da27e84b54e9197", "metrics.csv": "61688969e0f163f909d37e57b9569a12c5f590bbc82f029baa4518204316dcd2", "calibration_draws.csv": "dfcc353b38c8879130e30407e41f28552b29ee41edf545a02f2459d8a4721dd1", "splits-11.json": "23d5393b1e4f8752cedf8a97100ca733e2ff6fe5a3197e73f04bd343c9a0254e", "consent.csv": "73b18bdda8594f3facf361edf2dacb245d6a524060ddc006fdd976801ec32a2f", "predictions-logistic-11-validation.npz": "1d444ff51e83868fd40c723c18492491b0efd50d083988a883e001523c72fed1", "cohort.csv": "61a642b66124a227bd830716fdfdf94c57cab73feb3e60240abb4ed1ae10e4b7", "tuning-logistic-11.json": "05a11d0cf04708fcbba3f60c382aaf4d16d6c7bc33f816c0fb273cb756c0e01d", "predictions-logistic-11-test_A.npz": "ee868753f0f83a3200092427d4bcb8cfeed29e86c9baa3dc7ccf6a5c7f2c7763", "predictions-logistic-11-test_B.npz": "3c7666cf8207fbdcb0dff5ed97031d0006d36f20b5ac16dab8b1b4489fd31421", "weighted_shift.csv": "c466ee18748bc41818e3d5b9d2aefca5a51b9ccda117c1ca72c5544882536bd3", "data_manifest.json": "fb86d44e360afe01bfbb21e27dc9e949188106598d6a95532d60efb2d38d3696", "frontiers.csv": "8b2d8430fdb8f90ff90ec60757ee8f3f3ec14f1ee72c213c2d52eece034aed01"}}}}
+FULL_COHORT {"patients": 40336, "hours": 1552210, "sites": {"A": 20336, "B": 20000}}
+RESUMED_COMPLETED_MODELS {"models": [{"seed": 11, "model": "logistic"}], "source_run": "163e8467-10cb-4f72-9a87-ec36769e4ef6", "source_commit": "6e1b8ea9"}
+MODEL_START 11 boosting
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 11, "hyperparameters": {"max_leaf_nodes": 15, "l2_regularization": 1.0, "class_weight": null}, "validation_ap": 0.05870297234716135, "validation_auc": 0.7976784081934694}
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 11, "hyperparameters": {"max_leaf_nodes": 31, "l2_regularization": 5.0, "class_weight": null}, "validation_ap": 0.05676249860834262, "validation_auc": 0.7918415470242616}
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 11, "hyperparameters": {"max_leaf_nodes": 31, "l2_regularization": 5.0, "class_weight": "balanced"}, "validation_ap": 0.06131273960019083, "validation_auc": 0.7807926610189049}
+REVISION_METRIC {"seed": 11, "model": "boosting", "site": "A", "auroc": 0.7921266435567356, "average_precision": 0.05841169294924124, "brier": 0.09827261853624386, "auroc_lower": 0.7691310891577438, "auroc_upper": 0.8177121300136088, "brier_lower": 0.089923650949203, "brier_upper": 0.1068771929137729, "bootstrap_replicates": 500, "patients": 3051, "hours": 119309}
+REVISION_METRIC {"seed": 11, "model": "boosting", "site": "B", "auroc": 0.7131380747905778, "average_precision": 0.03233347195219785, "brier": 0.060075213507082004, "auroc_lower": 0.6963405427462708, "auroc_upper": 0.7320030688954705, "brier_lower": 0.05753828009105763, "brier_upper": 0.06275499751786262, "bootstrap_replicates": 500, "patients": 15000, "hours": 569330}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 11 boosting
+MODEL_START 11 gru
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/consent_ai/revision_models.py:47: RuntimeWarning: Mean of empty slice
+  mean=np.nanmean(X[tr],axis=0);mean=np.nan_to_num(mean).astype('float32');scale=np.nanstd(X[tr],axis=0);scale=np.where(np.isfinite(scale)&(scale>1e-5),scale,1).astype('float32')
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1997: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 32, "epoch": 1, "train_loss": 0.6298207605736597, "validation_ap": 0.0439295949014726}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 32, "epoch": 2, "train_loss": 0.5362876711572919, "validation_ap": 0.047099696507505215}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 32, "epoch": 3, "train_loss": 0.5150179221800395, "validation_ap": 0.04815538108279101}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 32, "epoch": 4, "train_loss": 0.501468004499163, "validation_ap": 0.05064554404686921}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 32, "epoch": 5, "train_loss": 0.48831505349704196, "validation_ap": 0.04785856343874904}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 32, "epoch": 6, "train_loss": 0.47595969455582754, "validation_ap": 0.05087820138969576}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 64, "epoch": 1, "train_loss": 0.5934783737148558, "validation_ap": 0.04592227344097574}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 64, "epoch": 2, "train_loss": 0.5303176354510444, "validation_ap": 0.04863251735380519}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 64, "epoch": 3, "train_loss": 0.511943387389183, "validation_ap": 0.04767777909811202}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 64, "epoch": 4, "train_loss": 0.49535315930843354, "validation_ap": 0.05450579117200542}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 64, "epoch": 5, "train_loss": 0.47888446194784984, "validation_ap": 0.05057618226482388}
+GRU_TRAIN {"model": "gru", "seed": 11, "hidden": 64, "epoch": 6, "train_loss": 0.46209207543304986, "validation_ap": 0.05227062147593047}
+REVISION_METRIC {"seed": 11, "model": "gru", "site": "A", "auroc": 0.7893100046018464, "average_precision": 0.05824231984502946, "brier": 0.055913735181093216, "auroc_lower": 0.7656933101202802, "auroc_upper": 0.8156817195287389, "brier_lower": 0.04964521660820244, "brier_upper": 0.06176482179896935, "bootstrap_replicates": 500, "patients": 3051, "hours": 119309}
+REVISION_METRIC {"seed": 11, "model": "gru", "site": "B", "auroc": 0.7416717708306466, "average_precision": 0.02800515587394299, "brier": 0.043320830911397934, "auroc_lower": 0.7260067466964133, "auroc_upper": 0.7588819617961997, "brier_lower": 0.04125726584989432, "brier_upper": 0.045571833549692166, "bootstrap_replicates": 500, "patients": 15000, "hours": 569330}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 245, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 11, "model": "gru", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 242, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 11 gru
+MODEL_START 29 logistic
+TUNING {"model": "logistic", "seed": 29, "hyperparameters": {"C": 0.1, "class_weight": null}, "validation_ap": 0.042828637459389265, "validation_auc": 0.7438839498971217}
+TUNING {"model": "logistic", "seed": 29, "hyperparameters": {"C": 0.1, "class_weight": "balanced"}, "validation_ap": 0.04374898616275412, "validation_auc": 0.7529088428823624}
+TUNING {"model": "logistic", "seed": 29, "hyperparameters": {"C": 1.0, "class_weight": null}, "validation_ap": 0.04244648094559782, "validation_auc": 0.7429219673056894}
+TUNING {"model": "logistic", "seed": 29, "hyperparameters": {"C": 1.0, "class_weight": "balanced"}, "validation_ap": 0.043751175193637824, "validation_auc": 0.752874876229929}
+REVISION_METRIC {"seed": 29, "model": "logistic", "site": "A", "auroc": 0.7381869921118499, "average_precision": 0.04321041805336758, "brier": 0.18720529973506927, "auroc_lower": 0.7113719603093648, "auroc_upper": 0.7664849017954413, "brier_lower": 0.17866529906742043, "brier_upper": 0.19671914794735745, "bootstrap_replicates": 500, "patients": 3051, "hours": 116988}
+REVISION_METRIC {"seed": 29, "model": "logistic", "site": "B", "auroc": 0.6792980874112262, "average_precision": 0.026317133619948856, "brier": 0.23454424738883972, "auroc_lower": 0.6607525104448323, "auroc_upper": 0.6947707650321346, "brier_lower": 0.2304551098429649, "brier_upper": 0.23982563110073266, "bootstrap_replicates": 500, "patients": 15000, "hours": 567310}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 29 logistic
+MODEL_START 29 boosting
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 29, "hyperparameters": {"max_leaf_nodes": 15, "l2_regularization": 1.0, "class_weight": null}, "validation_ap": 0.06042763797048857, "validation_auc": 0.8066451147025913}
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 29, "hyperparameters": {"max_leaf_nodes": 31, "l2_regularization": 5.0, "class_weight": null}, "validation_ap": 0.06139576892962108, "validation_auc": 0.8106047239531333}
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 29, "hyperparameters": {"max_leaf_nodes": 31, "l2_regularization": 5.0, "class_weight": "balanced"}, "validation_ap": 0.06246235590024917, "validation_auc": 0.7957857093675766}
+REVISION_METRIC {"seed": 29, "model": "boosting", "site": "A", "auroc": 0.798801841502109, "average_precision": 0.06079580318076526, "brier": 0.09232764815623962, "auroc_lower": 0.7752534204753859, "auroc_upper": 0.8209827802147521, "brier_lower": 0.08531440376672514, "brier_upper": 0.10007648739674954, "bootstrap_replicates": 500, "patients": 3051, "hours": 116988}
+REVISION_METRIC {"seed": 29, "model": "boosting", "site": "B", "auroc": 0.7312849299626037, "average_precision": 0.029298171520426387, "brier": 0.05531719566681775, "auroc_lower": 0.7151335602794539, "auroc_upper": 0.7462093328590337, "brier_lower": 0.052838502842500044, "brier_upper": 0.057863076754665385, "bootstrap_replicates": 500, "patients": 15000, "hours": 567310}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 29 boosting
+MODEL_START 29 gru
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/consent_ai/revision_models.py:47: RuntimeWarning: Mean of empty slice
+  mean=np.nanmean(X[tr],axis=0);mean=np.nan_to_num(mean).astype('float32');scale=np.nanstd(X[tr],axis=0);scale=np.where(np.isfinite(scale)&(scale>1e-5),scale,1).astype('float32')
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1997: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 32, "epoch": 1, "train_loss": 0.6197094751255853, "validation_ap": 0.0602563042370986}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 32, "epoch": 2, "train_loss": 0.5434847495385579, "validation_ap": 0.0682292071053153}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 32, "epoch": 3, "train_loss": 0.5199208796024323, "validation_ap": 0.06872063989170876}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 32, "epoch": 4, "train_loss": 0.5024008201701301, "validation_ap": 0.0706357382736943}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 32, "epoch": 5, "train_loss": 0.4908784603221076, "validation_ap": 0.06154156926874478}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 32, "epoch": 6, "train_loss": 0.47561543004853385, "validation_ap": 0.06381068413960381}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 64, "epoch": 1, "train_loss": 0.6010856916223254, "validation_ap": 0.060389035873636525}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 64, "epoch": 2, "train_loss": 0.5447369903326035, "validation_ap": 0.05962550120424791}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 64, "epoch": 3, "train_loss": 0.5206184467247554, "validation_ap": 0.06098940218644711}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 64, "epoch": 4, "train_loss": 0.5021288781506674, "validation_ap": 0.06533037851212914}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 64, "epoch": 5, "train_loss": 0.48824914617197857, "validation_ap": 0.060166017804300115}
+GRU_TRAIN {"model": "gru", "seed": 29, "hidden": 64, "epoch": 6, "train_loss": 0.4678756550380162, "validation_ap": 0.05952815764197042}
+REVISION_METRIC {"seed": 29, "model": "gru", "site": "A", "auroc": 0.7873667436548011, "average_precision": 0.05805043269714299, "brier": 0.05683638155460358, "auroc_lower": 0.7614186743921444, "auroc_upper": 0.8127455946992695, "brier_lower": 0.05084121663157202, "brier_upper": 0.06339530265318302, "bootstrap_replicates": 500, "patients": 3051, "hours": 116988}
+REVISION_METRIC {"seed": 29, "model": "gru", "site": "B", "auroc": 0.7518698527451237, "average_precision": 0.02878098391598125, "brier": 0.03563834726810455, "auroc_lower": 0.7365775264225491, "auroc_upper": 0.7656833506184069, "brier_lower": 0.03373019519014494, "brier_upper": 0.03799819711447155, "bootstrap_replicates": 500, "patients": 15000, "hours": 567310}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 253, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 29, "model": "gru", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 240, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 29 gru
+MODEL_START 47 logistic
+TUNING {"model": "logistic", "seed": 47, "hyperparameters": {"C": 0.1, "class_weight": null}, "validation_ap": 0.04926852924805622, "validation_auc": 0.7402236481663349}
+TUNING {"model": "logistic", "seed": 47, "hyperparameters": {"C": 0.1, "class_weight": "balanced"}, "validation_ap": 0.050633929581741795, "validation_auc": 0.750257990598211}
+TUNING {"model": "logistic", "seed": 47, "hyperparameters": {"C": 1.0, "class_weight": null}, "validation_ap": 0.04942167430769524, "validation_auc": 0.7405420233391081}
+TUNING {"model": "logistic", "seed": 47, "hyperparameters": {"C": 1.0, "class_weight": "balanced"}, "validation_ap": 0.05062979131022132, "validation_auc": 0.7501341056849306}
+REVISION_METRIC {"seed": 47, "model": "logistic", "site": "A", "auroc": 0.7462348671537317, "average_precision": 0.05754509009211936, "brier": 0.18922320008277893, "auroc_lower": 0.7180800912628225, "auroc_upper": 0.7725595338939065, "brier_lower": 0.1807290924451929, "brier_upper": 0.19794878308665093, "bootstrap_replicates": 500, "patients": 3051, "hours": 117568}
+REVISION_METRIC {"seed": 47, "model": "logistic", "site": "B", "auroc": 0.667342015152585, "average_precision": 0.02662034649010727, "brier": 0.209880530834198, "auroc_lower": 0.649174773638045, "auroc_upper": 0.682113008540189, "brier_lower": 0.2058264621516678, "brier_upper": 0.2144339209946958, "bootstrap_replicates": 500, "patients": 15000, "hours": 568917}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "logistic", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 47 logistic
+MODEL_START 47 boosting
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 47, "hyperparameters": {"max_leaf_nodes": 15, "l2_regularization": 1.0, "class_weight": null}, "validation_ap": 0.05879667920102806, "validation_auc": 0.8027041173848646}
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 47, "hyperparameters": {"max_leaf_nodes": 31, "l2_regularization": 5.0, "class_weight": null}, "validation_ap": 0.06933668214972294, "validation_auc": 0.808239035396913}
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:114: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  self.variances_ = np.nanvar(X, axis=0)
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/sklearn/feature_selection/_variance_threshold.py:122: RuntimeWarning: All-NaN slice encountered
+  self.variances_ = np.nanmin(compare_arr, axis=0)
+TUNING {"model": "boosting", "seed": 47, "hyperparameters": {"max_leaf_nodes": 31, "l2_regularization": 5.0, "class_weight": "balanced"}, "validation_ap": 0.06231176982763286, "validation_auc": 0.8037929464681253}
+REVISION_METRIC {"seed": 47, "model": "boosting", "site": "A", "auroc": 0.7922036434700385, "average_precision": 0.05971734508904808, "brier": 0.01425448556574269, "auroc_lower": 0.7667030425994927, "auroc_upper": 0.8155839793522331, "brier_lower": 0.012651326652737514, "brier_upper": 0.015960777026288533, "bootstrap_replicates": 500, "patients": 3051, "hours": 117568}
+REVISION_METRIC {"seed": 47, "model": "boosting", "site": "B", "auroc": 0.7476452439308302, "average_precision": 0.03679978407064723, "brier": 0.009185804975071205, "auroc_lower": 0.7301065227592195, "auroc_upper": 0.7626441758336324, "brier_lower": 0.008639520677803209, "brier_upper": 0.009771584743502792, "bootstrap_replicates": 500, "patients": 15000, "hours": 568917}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "boosting", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 47 boosting
+MODEL_START 47 gru
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/consent_ai/revision_models.py:47: RuntimeWarning: Mean of empty slice
+  mean=np.nanmean(X[tr],axis=0);mean=np.nan_to_num(mean).astype('float32');scale=np.nanstd(X[tr],axis=0);scale=np.where(np.isfinite(scale)&(scale>1e-5),scale,1).astype('float32')
+/Users/aravindkannappan/.local/share/openresearch/local-runs/d2efff2d-0525-47d7-ba94-879667d6b795/repo/.venv/lib/python3.13/site-packages/numpy/lib/_nanfunctions_impl.py:1997: RuntimeWarning: Degrees of freedom <= 0 for slice.
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 32, "epoch": 1, "train_loss": 0.6363593207938331, "validation_ap": 0.049707802369459965}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 32, "epoch": 2, "train_loss": 0.547335017493793, "validation_ap": 0.0512718720051022}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 32, "epoch": 3, "train_loss": 0.525515290243285, "validation_ap": 0.05304767249785702}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 32, "epoch": 4, "train_loss": 0.5114919832774572, "validation_ap": 0.05222655643330455}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 32, "epoch": 5, "train_loss": 0.4994114216736385, "validation_ap": 0.05274413065259323}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 32, "epoch": 6, "train_loss": 0.48367752092225214, "validation_ap": 0.05474570993459225}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 64, "epoch": 1, "train_loss": 0.6291404273680278, "validation_ap": 0.06492537662548406}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 64, "epoch": 2, "train_loss": 0.5456332386391504, "validation_ap": 0.05801557413192545}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 64, "epoch": 3, "train_loss": 0.5239276383604322, "validation_ap": 0.05594194416901586}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 64, "epoch": 4, "train_loss": 0.508108578154019, "validation_ap": 0.05684302314622961}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 64, "epoch": 5, "train_loss": 0.49252630642482215, "validation_ap": 0.05569850803363047}
+GRU_TRAIN {"model": "gru", "seed": 47, "hidden": 64, "epoch": 6, "train_loss": 0.4748964307137898, "validation_ap": 0.05945243487983113}
+REVISION_METRIC {"seed": 47, "model": "gru", "site": "A", "auroc": 0.7558945061379715, "average_precision": 0.06322567362253477, "brier": 0.06594745069742203, "auroc_lower": 0.7320482248742404, "auroc_upper": 0.7815033101726754, "brier_lower": 0.06047972478981012, "brier_upper": 0.07187573231783906, "bootstrap_replicates": 500, "patients": 3051, "hours": 117568}
+REVISION_METRIC {"seed": 47, "model": "gru", "site": "B", "auroc": 0.7631922724654356, "average_precision": 0.0347619749016699, "brier": 0.052789416164159775, "auroc_lower": 0.7489818863756698, "auroc_upper": 0.7766300845111305, "brier_lower": 0.05112595030715739, "brier_upper": 0.05460375114239088, "bootstrap_replicates": 500, "patients": 15000, "hours": 568917}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "A", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "A", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.1, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.25, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.5, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "A", "budget": 0.75, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "A", "budget": 1.0, "status": "grid_infeasible", "n_positive": 219, "n": 3050, "threshold": null, "guarantee_applies": false}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.1, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.25, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.5, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "B", "budget": 0.75, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+JOINT_CERTIFICATE {"seed": 47, "model": "gru", "site": "B", "calibration_site": "B", "budget": 1.0, "status": "grid_infeasible", "n_positive": 230, "n": 5000, "threshold": null, "guarantee_applies": true}
+MODEL_COMPLETE 47 gru
+FIGURE AUDIT /Users/aravindkannappan/.local/share/openresearch/files/consent-clinical-ai/end-to-end/results/revision/figures/incident_risk_workload: 1 problem(s) — fix before using
+  - width 7.20in is not a known column width (3.25/5.5/6.75); it will be rescaled on import and the text with it
+REVISION_SUMMARY {"status": "complete", "patients": 40336, "seed_count": 3, "models": ["logistic", "boosting", "gru"], "mean_metrics": [{"model": "boosting", "site": "A", "auroc": 0.7943773761762943, "average_precision": 0.05964161373968486, "brier": 0.06828491741940872}, {"model": "boosting", "site": "B", "auroc": 0.730689416228004, "average_precision": 0.032810475847757155, "brier": 0.041526071382990325}, {"model": "gru", "site": "A", "auroc": 0.777523751464873, "average_precision": 0.05983947538823573, "brier": 0.059565855811039604}, {"model": "gru", "site": "B", "auroc": 0.7522446320137354, "average_precision": 0.03051603823053138, "brier": 0.043916198114554085}, {"model": "logistic", "site": "A", "auroc": 0.7448707113107877, "average_precision": 0.0493109739528721, "brier": 0.13037692786504826}, {"model": "logistic", "site": "B", "auroc": 0.6659140642222732, "average_precision": 0.02537387129164012, "brier": 0.1529173053180178}], "certificate_counts": [{"site": "A", "calibration_site": "A", "status": "grid_infeasible", "count": 45}, {"site": "B", "calibration_site": "A", "status": "grid_infeasible", "count": 45}, {"site": "B", "calibration_site": "B", "status": "grid_infeasible", "count": 45}], "run_id": "d2efff2d-0525-47d7-ba94-879667d6b795", "commit": "fbfaff0d73a96faf5d9d76764764fcd8321d27e4"}
+REVISION_COMPLETE {"seconds": 497.2283401489258, "patients": 40336, "models": 18, "output": "/Users/aravindkannappan/.local/share/openresearch/files/consent-clinical-ai/end-to-end/results/revision"}

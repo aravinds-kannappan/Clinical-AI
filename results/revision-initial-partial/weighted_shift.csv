@@ -1,0 +1,2 @@
+seed,model,site,policy,threshold,test_risk,any_review_fraction,effective_positive_n,ratio_clip,formal_guarantee,assumption
+11,logistic,B,repeated_window_weighted_crc_diagnostic,0.0053205895237624645,0.05120481927710843,0.9636,175.24034118652344,"[.05,20]",False,Estimated ratios; covariate-shift and conditional invariance unverified

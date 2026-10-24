@@ -1,0 +1,17 @@
+seed,model,site,mode,optout_rate,status,certified_threshold,empirical_selected_threshold,test_risk,reviews_per_patient,selection,guarantee_applies
+11,logistic,A,opt_out,0.0,grid_infeasible,,0.012566415593028074,0.924812030075188,0.5450671910848902,empirical when no certificate; not a guarantee,False
+11,logistic,B,opt_out,0.0,grid_infeasible,,0.012566415593028074,0.9051204819277109,0.5675333333333333,empirical when no certificate; not a guarantee,False
+11,logistic,A,opt_out,0.1,grid_infeasible,,0.019361258298158646,0.9323308270676691,0.28580793182563097,empirical when no certificate; not a guarantee,False
+11,logistic,B,opt_out,0.1,grid_infeasible,,0.019361258298158646,0.9262048192771084,0.3586,empirical when no certificate; not a guarantee,False
+11,logistic,A,opt_out,0.3,grid_infeasible,,0.012079380825161934,0.9135338345864662,0.5421173385775155,empirical when no certificate; not a guarantee,False
+11,logistic,B,opt_out,0.3,grid_infeasible,,0.012079380825161934,0.9246987951807228,0.5450666666666667,empirical when no certificate; not a guarantee,False
+11,logistic,A,opt_out,0.5,grid_infeasible,,0.012079380825161934,0.8947368421052632,0.5191740412979351,empirical when no certificate; not a guarantee,False
+11,logistic,B,opt_out,0.5,grid_infeasible,,0.012079380825161934,0.9246987951807228,0.5180666666666667,empirical when no certificate; not a guarantee,False
+11,logistic,A,revocation_12h,0.0,grid_infeasible,,0.012566415593028074,0.924812030075188,0.5450671910848902,empirical when no certificate; not a guarantee,False
+11,logistic,B,revocation_12h,0.0,grid_infeasible,,0.012566415593028074,0.9051204819277109,0.5675333333333333,empirical when no certificate; not a guarantee,False
+11,logistic,A,revocation_12h,0.1,grid_infeasible,,0.019361258298158646,0.9285714285714286,0.2962962962962963,empirical when no certificate; not a guarantee,False
+11,logistic,B,revocation_12h,0.1,grid_infeasible,,0.019361258298158646,0.9231927710843374,0.3685333333333333,empirical when no certificate; not a guarantee,False
+11,logistic,A,revocation_12h,0.3,grid_infeasible,,0.019361258298158646,0.924812030075188,0.28089151098000653,empirical when no certificate; not a guarantee,False
+11,logistic,B,revocation_12h,0.3,grid_infeasible,,0.019361258298158646,0.9322289156626506,0.3420666666666667,empirical when no certificate; not a guarantee,False
+11,logistic,A,revocation_12h,0.5,grid_infeasible,,0.019361258298158646,0.9285714285714286,0.2605703048180924,empirical when no certificate; not a guarantee,False
+11,logistic,B,revocation_12h,0.5,grid_infeasible,,0.019361258298158646,0.9367469879518072,0.3107333333333333,empirical when no certificate; not a guarantee,False

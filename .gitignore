@@ -23,3 +23,7 @@ website/public/research.json
 
 .env*
 website/.env*
+
+*.aux
+*.log
+*.out

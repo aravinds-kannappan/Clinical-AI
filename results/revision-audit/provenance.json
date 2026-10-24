@@ -1,0 +1,115 @@
+{
+  "run_id": "a5b85a5f-3001-4207-9b7d-31902ad8f4c0",
+  "commit": "652de9e8a813d901c801ed1d0f8edba33f60be7c",
+  "parent_run": "d2efff2d-0525-47d7-ba94-879667d6b795",
+  "inputs": [
+    {
+      "file": "predictions-logistic-11-validation.npz",
+      "sha256": "1d444ff51e83868fd40c723c18492491b0efd50d083988a883e001523c72fed1"
+    },
+    {
+      "file": "predictions-logistic-11-test_A.npz",
+      "sha256": "ee868753f0f83a3200092427d4bcb8cfeed29e86c9baa3dc7ccf6a5c7f2c7763"
+    },
+    {
+      "file": "predictions-logistic-11-test_B.npz",
+      "sha256": "3c7666cf8207fbdcb0dff5ed97031d0006d36f20b5ac16dab8b1b4489fd31421"
+    },
+    {
+      "file": "predictions-boosting-11-validation.npz",
+      "sha256": "e47ce8e0bf09a359baf52292039047b480ba0a9c4a01da5040001c1dc1f902e0"
+    },
+    {
+      "file": "predictions-boosting-11-test_A.npz",
+      "sha256": "b8eed41d76339658aa204b5eb2698b7c51fe8a5f8c4a5cc4b5acc0378226d681"
+    },
+    {
+      "file": "predictions-boosting-11-test_B.npz",
+      "sha256": "8879e5782e692c61f52c717854404a6482b153385088193469728f7dabad20c1"
+    },
+    {
+      "file": "predictions-gru-11-validation.npz",
+      "sha256": "55f2634a1403f4400c5c239d1797cd802fc922a2af24ba8a8de6dc5fb8c1b3e1"
+    },
+    {
+      "file": "predictions-gru-11-test_A.npz",
+      "sha256": "f959e3ec498d9eb7206f000e446ca2e0153f49fb52e93b561fb83a3a9febbf3b"
+    },
+    {
+      "file": "predictions-gru-11-test_B.npz",
+      "sha256": "e3c2f36c7514df52f68a6f1fd65f673faa60bcb312dea3686e006b35b3c86a25"
+    },
+    {
+      "file": "predictions-logistic-29-validation.npz",
+      "sha256": "e62a6655b6b44874e559b7185461960c5f0550e2a2855eaf52544fd5ca4b9cc6"
+    },
+    {
+      "file": "predictions-logistic-29-test_A.npz",
+      "sha256": "8c82b674dd84905a053b6a721861ee08580ff9bfd2122f8fb12ed04e5af1e1fd"
+    },
+    {
+      "file": "predictions-logistic-29-test_B.npz",
+      "sha256": "20053fabbc864f51e923f1b6d322d6b257db3172929727fcb8276a7721fc3068"
+    },
+    {
+      "file": "predictions-boosting-29-validation.npz",
+      "sha256": "0596480a0481a1fa3b69850beda0d1e0f2085d4f4462dda4f60c80fc83571b44"
+    },
+    {
+      "file": "predictions-boosting-29-test_A.npz",
+      "sha256": "26a40fe7e2935c7e8f4fa0e28939073bf21c21dcec57517de9eb8ad3613614ce"
+    },
+    {
+      "file": "predictions-boosting-29-test_B.npz",
+      "sha256": "bd69235ecb93569ab0888e15c9bc0834af2fe7f1711b75572f3c2f1065c28478"
+    },
+    {
+      "file": "predictions-gru-29-validation.npz",
+      "sha256": "fb377e4dbebaa7124a06bbea0908116979bcbc712f8e684d86e5157bc72cdd47"
+    },
+    {
+      "file": "predictions-gru-29-test_A.npz",
+      "sha256": "9d67a878e381f5fd76a381e10765e1b68ef9d10095c7802eadc781917b674f59"
+    },
+    {
+      "file": "predictions-gru-29-test_B.npz",
+      "sha256": "f2d55034dd0f0532a77c18a1231b945880edc34afa00f9909075970972d62eea"
+    },
+    {
+      "file": "predictions-logistic-47-validation.npz",
+      "sha256": "7436b4148ed087a1852a72785fbe08821093dc56c829de18b5eb4dbaa4da41ef"
+    },
+    {
+      "file": "predictions-logistic-47-test_A.npz",
+      "sha256": "b9714856233b44841dcd5a98786e44e763f45926b5ef3e69198d490f658a1b96"
+    },
+    {
+      "file": "predictions-logistic-47-test_B.npz",
+      "sha256": "d71342ee652c66b8831dee7ccb900b8182a6981302a482f77a8425e98d77dca5"
+    },
+    {
+      "file": "predictions-boosting-47-validation.npz",
+      "sha256": "e8f5b14f05a58f84e2ceff2abe2bb3993f16991b3f828c55df3b4c419a33a30b"
+    },
+    {
+      "file": "predictions-boosting-47-test_A.npz",
+      "sha256": "521ff2fe5da953b061e8086dd256f9c26747de4a6f3859d15a9d32f194bcef38"
+    },
+    {
+      "file": "predictions-boosting-47-test_B.npz",
+      "sha256": "bd5d7e021612ad1c5b4d73fb926a4384bc448621845b173c013b7885580e4f29"
+    },
+    {
+      "file": "predictions-gru-47-validation.npz",
+      "sha256": "b8a3136a8d2876ff1cc175f9628b28e020582f7734ddbce71f663c799f6ed6c8"
+    },
+    {
+      "file": "predictions-gru-47-test_A.npz",
+      "sha256": "598bb31307c54b3dbfaec419167f54e763fc29a880ac5dfd929dbd30f81753f3"
+    },
+    {
+      "file": "predictions-gru-47-test_B.npz",
+      "sha256": "4067dec978e659383779495b6b3141e3ff159dc9e33ac0a66824e2f346b4b6cb"
+    }
+  ]
+}

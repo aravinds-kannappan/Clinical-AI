@@ -1,0 +1,33 @@
+\section{Seed-specific uncertainty and feasibility}
+\begin{table}[h]\centering\small
+\caption{All-seed pre-onset AUROC with 95\% percentile intervals from 500 whole-patient bootstrap replicates. Brier scores are point estimates; their intervals are released in the machine-readable metrics table. Intervals describe patient-sampling uncertainty conditional on each fitted model.}
+\label{tab:allseeds}
+\begin{tabular}{llrrrr}\toprule
+Model & Seed & AUROC A [95\% CI] & AUROC B [95\% CI] & Brier A & Brier B\\\midrule
+Logistic & 11 & 0.750 [0.724, 0.776] & 0.651 [0.634, 0.669] & 0.015 & 0.014 \\
+Logistic & 29 & 0.738 [0.711, 0.766] & 0.679 [0.661, 0.695] & 0.187 & 0.235 \\
+Logistic & 47 & 0.746 [0.718, 0.773] & 0.667 [0.649, 0.682] & 0.189 & 0.210 \\
+Boosting & 11 & 0.792 [0.769, 0.818] & 0.713 [0.696, 0.732] & 0.098 & 0.060 \\
+Boosting & 29 & 0.799 [0.775, 0.821] & 0.731 [0.715, 0.746] & 0.092 & 0.055 \\
+Boosting & 47 & 0.792 [0.767, 0.816] & 0.748 [0.730, 0.763] & 0.014 & 0.009 \\
+GRU & 11 & 0.789 [0.766, 0.816] & 0.742 [0.726, 0.759] & 0.056 & 0.043 \\
+GRU & 29 & 0.787 [0.761, 0.813] & 0.752 [0.737, 0.766] & 0.057 & 0.036 \\
+GRU & 47 & 0.756 [0.732, 0.782] & 0.763 [0.749, 0.777] & 0.066 & 0.053 \\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[h]\centering\small
+\caption{Feasibility of the validation-selected first-alert policy under conditional incident loss. Each row aggregates three seeds: ``Y'' means every seed meets the empirical criterion; ``N'' means none does. Storage and review checks concern the specified graph, not a deployed system. Actual human oversight was not measured.}
+\label{tab:feasible}
+\begin{tabular}{llccccc}\toprule
+Model & Site & Utility $>0$ & Risk $\le .05$ & Reviews $\le .5$ & Storage cut & Review path\\\midrule
+Logistic & A & Y & N & Y & Modeled & Modeled \\
+Logistic & B & Y & N & Y & Modeled & Modeled \\
+Boosting & A & Y & N & Y & Modeled & Modeled \\
+Boosting & B & Y & N & Y & Modeled & Modeled \\
+GRU & A & Y & N & Y & Modeled & Modeled \\
+GRU & B & Y & N & Y & Modeled & Modeled \\
+\bottomrule\end{tabular}\end{table}
+
+\paragraph{Fixed-policy risk intervals.}
+The policy audit reports 36 validation-selected operating points with exact pointwise 95\% binomial intervals in \texttt{selected\_policies.csv}. They are not simultaneous across models, sites and seeds. The confidence intervals in that table assess realized test risk; the certificate uses an independent calibration population. No certified policy is available for a certified-policy test-risk distribution.
+

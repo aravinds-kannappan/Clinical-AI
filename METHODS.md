@@ -1,112 +1,41 @@
-# Methods and mathematical specification
+# Methods
 
-This study asks whether consent-aware information restrictions and calibrated
-review retain useful prediction while enforcing auditable flow and capacity
-constraints. EHR plus system-graph analysis is primary; skeletons are secondary.
-No raw video is required for these central tests.
+The revised primary study uses all **40,336 public PhysioNet/CinC 2019 patients** (20,336 hospital A; 20,000 hospital B; 1,552,210 hourly rows). The data manifest records source URLs, ETags and SHA256 checksums. The full public archive is supplied under its original CC BY 4.0 terms. No credentialed MIMIC-IV experiment is claimed.
 
-## Endpoints and split design
+## Splits and prediction
 
-The EHR endpoint is **in-hospital death in the next 48 hours**, evaluated at ICU
-hours 6, 12 and 24. Features require both event and storage timestamps no later
-than the landmark. Training-only imputation/scaling and patient-disjoint
-training/calibration/test partitions prevent ordinary feature and patient leakage.
-Metadata, full EHR, no-labs and no-vitals models use fixed C=1 logistic regression.
-The public data contain no observed consent decisions; restrictions are experimental.
+Seeds 11, 29 and 47 independently split A into 55% training, 15% validation, 15% calibration and 15% test. B reserves 25% for local calibration and 75% for a frozen external test. The resulting test sets overlap across seeds; seed averages are descriptive, not three independent cohorts.
 
-Random splits use 50% training, 25% calibration and 25% test patients. A separate
-coarse anchor-era stress test trains/calibrates on the earlier era and tests on
-later eras. This is not exact calendar chronology: patient dates are shifted.
-One institution precludes an external-hospital evaluation.
+Causal features use available current/last values, expanding means and observation counts. Preprocessing fits only training rows. Training and primary discrimination exclude rows from inferred onset onward. Logistic regression tunes C in {0.1, 1} and unweighted/balanced classes. Histogram gradient boosting tests three leaf/regularization/class-weight settings with 120 iterations, learning rate 0.08 and training-only removal of constant/all-missing columns. The unidirectional GRU tests hidden sizes 32 and 64, six epochs each, Adam learning rate 0.001, batch size 64, clipped gradients and positive-weighted BCE. Validation average precision selects configurations and epochs. The complete settings are in code and tuning JSON files.
 
-Skeleton windows use 32 observed frames, stride 8, and the last observed frame's
-impact label. Features exclude filename labels, subject IDs and activity codes.
-Every test participant is held out with another participant reserved for
-calibration; three remain for fitting. Both views/repetitions stay with the subject.
-Trial 3 is a repetition-order stress subset, not a calendar holdout.
+## Incident endpoint and review count
 
-The compact ST-GCN has two spatial/temporal blocks, 32/64 channels and a 3-frame
-temporal kernel, trained for 20 epochs with Adam at .001. Graph, topology-free
-and degree-preserving rewired variants share training budgets and seeds. The
-summary baseline uses per-joint means, variability and absolute frame differences.
+The first positive SepsisLabel already precedes inferred onset by six hours. The eligible incident window is [first positive label, first positive label + 6), with onset required inside the observed stay and the first positive label strictly after admission. Initial-positive and right-censored-onset patients are excluded from conditional incident risk but remain in workload. This is a retrospective benchmark definition.
+
+The first-alert policy emits at most one review per patient. A review before the valid warning window consumes that review and is a missed incident under this endpoint. A repeated-alert comparison emits a review at each above-threshold hour; its incident loss counts any alert in the window. Reviews are counted before inferred onset for positive patients and over the full observed stay for negative patients. This outcome-defined stopping time is not itself a deployable operational stopping rule.
+
+Thresholds are 51 validation-score quantiles plus all-alert/no-alert endpoints, deduplicated. No test curve selects a threshold. The headline frontier is descriptive. A separate audit chooses the threshold maximizing validation challenge utility for each policy and evaluates it on both test sites.
+
+The official challenge utility uses full-stay predicted condition states. For one-review policies, that state stays positive after the first crossing. It is intentionally distinct from the strict incident endpoint and review count. The official BSD-licensed evaluator is pinned and checked against the vectorized implementation.
+
+## Statistical analysis
+
+All seeds have 500 whole-patient bootstrap replicates for AUROC and Brier intervals. The fixed validation-selected policy audit gives pointwise exact 95% binomial intervals for conditional incident risk. These are separate from the joint calibration certificate.
+
+The latter uses exact binomial bounds with tail delta/(4M), alpha=0.05 and delta=0.05; budgets are 0.1, 0.25, 0.5, 0.75 and 1 review per patient. It returns certified, grid infeasible or undetermined. Each confidence statement applies to one frozen model/grid. Four prespecified overlapping demographic groups divide delta by four. Local A and B calibration are distinguished from unguaranteed A-to-B transport.
+
+For each available positive calibration size in {25, 50, 100, 200, 400}, 200 subsets are sampled without replacement from the same calibration pool. Overlapping draws diagnose stability, not independent coverage trials. A fitted domain classifier supplies clipped importance ratios only for an exploratory repeated-alert comparison; exact weighted guarantees are not asserted.
 
 ## Consent and oversight
 
-The system is a typed directed temporal graph $G_t=(V,E_t,\tau)$ with patient,
-purpose, provenance and edge-time attributes.
+Each patient independently denies labs and vitals with probabilities 0, 0.1, 0.3 or 0.5 per group. A separate hour-12 revocation intervention removes denied historical summaries and resets recurrent state. Models remain frozen. Thresholds are recalibrated on A under each consent scenario. If no certificate exists, the clearly labeled empirical fallback is used for descriptive costs. Real consent preferences are not observed.
 
-$$A^{allowed}_{i,p}=A\odot M_{i,p}.$$
+FCFS queues use the sepsis score trajectories and a validation-selected first-alert threshold. Arrivals are 0.5/1/2 patients per hour; service times 2/5/10 minutes; reviewer sensitivity 0.8/0.9/1 and specificity 0.9/0.99. Sensitivity is multiplied by max(0.5, 1-0.05 times waiting hours). A successful action requires a timely alert, correct review and completion before inferred onset. False actions in the corrected audit count only patients with no positive sepsis label. These parameters are sensitivity assumptions; published provider response times do not identify active review duration.
 
-Permissions are deny-by-default. Withdrawal invalidates future use of a source
-and provenance-linked stored derivatives for the revoked purpose. It does not
-claim physical erasure or machine unlearning. Every persistent sink, including
-an EHR write, is blocked when storage of video-derived information is denied.
-Ephemeral bedside alerts can remain reachable.
+Five hundred random DAGs with 50–300 nodes supplement the original constructed graph. Structural path checks do not establish effective human oversight. No clinicians or new patients participated.
 
-$$\forall\pi\in\mathcal P(S,D),\quad\pi\cap H\ne\varnothing.$$
+## Reproducibility
 
-The exact review test deletes H and enumerates surviving simple S-to-D paths.
-Any reachable path has a simple witness; thus this is exact for the finite static
-graph. Time-respecting reachability is additionally checked. Endpoint-protected
-minimum vertex cuts, degree and betweenness identify structural candidates.
-Removal, delay and corruption tests measure availability and exposure separately.
-Passing the review constraint on a disconnected system is not useful availability.
+`bash run_all.sh` reproduces the full revision and selected-policy audit using locked dependencies. The release defaults to a fresh run; exact original source snapshots preserve the completed run and its hash-verified partial-run resume. The original revision's `queues.csv` is retained for provenance; use `results/revision-audit/queues.csv` for corrected false-action counts. See `reproducibility/README.md` for the run lineage.
 
-## Statistical risk
-
-For patient i, $L_i(\lambda)$ is the fraction of positive windows not alerted,
-with zero loss when that patient has no positive windows. Alert when
-$1-s_{it}\le\lambda$. Then $0\le L_i\le1$, and L is non-increasing and
-right-continuous in lambda. Ties enter together.
-
-$$\widehat\lambda=\inf\{\lambda:(n\widehat R_n(\lambda)+B)/(n+1)\le\alpha\},
-\qquad B=1,\quad\alpha=.05.$$
-
-If the set is empty, use the terminal all-alert rule lambda=1. Assumptions:
-frozen model/loss; exchangeable calibration and future patient loss functions;
-bounded monotone right-continuous loss; terminal loss zero. The expectation is
-over calibration and a new patient, not a per-patient, subgroup, or fixed-sample
-bound. This unconditional loss differs from positive-patient conditional misses,
-which are reported separately. No guarantee is asserted under era, hospital,
-missingness or score shift, nor after queue-based suppression of alerts.
-
-Synthetic validation uses independent patients with correlated eight-window
-trajectories. Each of three seeds has 200 repetitions per calibration size
-(10,25,100); each is evaluated on 100 new patients. Monte Carlo uncertainty is
-not uncertainty about clinical performance.
-
-## Capacity
-
-$$\sum_i\mathbb E[r_i]\le K.$$
-
-K is reviews/hour. The expected alert fraction is estimated using held-out demo
-scores. Opportunity rates 5/15/30/60 per hour, service times 2/5/10 minutes and
-8-hour periods are assumptions, not observed clinical operations. The FCFS queue
-has one server and a 20-place waiting buffer. Backlog, waiting, overflow and
-completed review are reported separately; expected feasibility is not a hard cap.
-
-## Uncertainty, privacy and inference limits
-
-Three fixed seeds are 11,29,47. Patient-cluster bootstrap uses 500 replicates
-for prespecified seed-11 comparisons. Paired model differences resample the same
-patients. Valid bootstrap counts are reported; sparse positives and five motion
-participants can make intervals unstable. No test-set model selection occurs.
-
-Prohibited storage reachability and corrupted-descendant counts measure modeled
-information exposure. They are not measured re-identification or reconstruction
-leakage. Raw-versus-skeleton privacy attacks are outside this execution's revised
-scope. No privacy benefit is inferred from skeletons alone.
-
-Provider→order→patient graphs represent observed ordering relationships before
-prediction, not note-access logs, communication quality, or effective teamwork.
-Semi-synthetic pairing attaches unrelated demo profiles to movement participants;
-it does not create additional independent people or clinical associations.
-
-All conclusions concern framework behavior on public/demo/simulated inputs.
-
-
-## Larger open-cohort follow-up
-
-The primary follow-up is specified in `configs/sepsis_protocol.json`: 3,000 randomly sampled patients per public PhysioNet 2019 hospital, fixed before labels were inspected. Train/calibrate/internal test on A (60/20/20%), evaluate all sampled B patients externally. The provided early-sepsis target is used unchanged at each observed hour; it includes later positive hours and is not incident-only prediction. Causal forward-fill, expanding means and observed counts use only the observed prefix. Absolute dates and store times are unavailable.
-
-Compare all-patient CRC with positive-patient conditional CRC, using the corresponding independent calibration-patient count for each. The latter needs conditional exchangeability. Its threshold is applied to all test patients to measure workload. Hospital B and missingness shift do not inherit an exchangeable guarantee. Patient-cluster bootstrap uses 500 replicates and paired model weights. See `MATHEMATICS.md` for the estimand decomposition and risk–capacity argument.
+The initial 6,000-patient hourly-loss study, sparse MIMIC demo and five-subject movement track are historical supplementary results, excluded from the revised primary conclusion.

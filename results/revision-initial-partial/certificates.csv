@@ -1,0 +1,16 @@
+seed,model,site,calibration_site,budget,status,n_positive,n,threshold,guarantee_applies
+11,logistic,A,A,0.1,grid_infeasible,245,3050,,True
+11,logistic,A,A,0.25,grid_infeasible,245,3050,,True
+11,logistic,A,A,0.5,grid_infeasible,245,3050,,True
+11,logistic,A,A,0.75,grid_infeasible,245,3050,,True
+11,logistic,A,A,1.0,grid_infeasible,245,3050,,True
+11,logistic,B,A,0.1,grid_infeasible,245,3050,,False
+11,logistic,B,A,0.25,grid_infeasible,245,3050,,False
+11,logistic,B,A,0.5,grid_infeasible,245,3050,,False
+11,logistic,B,A,0.75,grid_infeasible,245,3050,,False
+11,logistic,B,A,1.0,grid_infeasible,245,3050,,False
+11,logistic,B,B,0.1,grid_infeasible,242,5000,,True
+11,logistic,B,B,0.25,grid_infeasible,242,5000,,True
+11,logistic,B,B,0.5,grid_infeasible,242,5000,,True
+11,logistic,B,B,0.75,grid_infeasible,242,5000,,True
+11,logistic,B,B,1.0,grid_infeasible,242,5000,,True

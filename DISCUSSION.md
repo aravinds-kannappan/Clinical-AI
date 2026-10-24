@@ -1,76 +1,31 @@
-# Conclusion on the research question
+# Answer to the research question
 
-**This study does not establish a complete affirmative answer.** It demonstrates
-an implementable, auditable approach to consent and mandatory review, while
-leaving clinically useful prediction and effective human oversight unestablished.
+**The design and evaluation are possible; the full conjunction has not been demonstrated.** This revision gives a concrete reason: under the tested strict first-alert policy, useful score discrimination and positive challenge utility coexist with failure of the incident-review requirement.
 
-The research question requires all these properties simultaneously. Showing
-that a graph obeys a rule is insufficient to show that a healthcare system
-benefits patients or that human reviewers can manage its output.
+## What changed the scientific answer
 
-## What the evidence establishes
+The revised study uses all 40,336 public patients, validation-tuned logistic regression, gradient boosting and a GRU. Mean pre-onset AUROC improves from 0.745 for logistic to 0.794 for boosting at hospital A; externally, the GRU reaches 0.752 versus logistic's 0.666. These are descriptive three-seed means, with every seed's patient-bootstrap intervals released.
 
-**Sensitive data flows:** In the constructed system graph, purpose-specific
-consent masks remove prohibited storage routes, and provenance-aware withdrawal
-blocks future reuse of affected cached derivatives. These are exact properties
-of the modeled graph, not evidence of informed consent or an audited deployment.
+Despite this improvement, all local first-alert grids are excluded by the simultaneous confidence certificate at a 5% conditional incident missed-event target—even with a budget of one review per patient. This rules out those finite grids under the sampling assumptions. It does not rule out every threshold, model, monitoring design or healthcare AI pipeline.
 
-**Consequential decisions:** Requiring a review node on every modeled path to an
-action eliminates the modeled bypasses. This establishes a structural review
-requirement. It does not measure whether a clinician actually completes a timely,
-competent review or takes the correct action.
+## Why a better predictor can still fail
 
-**Model errors and useful prediction:** The 6,000-patient retrospective EHR study
-finds a substantial risk-definition/workload tradeoff. With the full-EHR model
-in the prespecified seed-11 internal test, the all-patient calibrated rule had
-4.68% average patient missed-window loss but 50.14% average missed-window loss
-among positive patients. Calibrating on positive patients reduced that conditional
-loss to 4.13%, while alerting on 92.69% of hourly observations. These are fractions
-of positive windows, averaged within the indicated patient population; they are
-not percentages of patients completely missed. At the other hospital, conditional
-missed loss for that same frozen rule increased to 26.25%.
+A first alert has to occur inside the specified six-hour pre-onset window. An earlier alert consumes the one review and counts as a miss under this endpoint. At hospital A, the validation-selected boosting policy averages 0.193 reviews per patient and positive challenge utility of 0.332, but strict incident missed risk is 0.960. The utility rewards a wider warning window and a latched positive condition state. The metrics answer different questions.
 
-These calibration procedures use alpha=.05 and B=1; calibration n was 600 for the
-all-patient rule and 60 for the positive-patient rule. The loss is each patient's
-missed-positive-window fraction, zero for patients with no positives. The
-expectation guarantee requires a frozen predictor/loss, exchangeable calibration
-and future patient loss functions, bounded non-increasing right-continuous loss,
-a terminal zero-loss rule, and no post-calibration alert suppression. The
-positive-patient rule additionally requires exchangeability conditional on
-positive status. Neither individual patients nor the shifted hospital receive
-an asserted guarantee. These reported test losses are point estimates, not
-confidence bounds or evidence that every future test cohort meets the target.
+This is also a mathematical issue. Nested score thresholds do not make timely first-alert loss monotone. The manuscript provides an explicit counterexample, a population feasibility characterization, and a finite-grid certificate that does not require monotonicity. It distinguishes a genuinely excluded grid from a sample too small to certify anything. The general certificate is an application of established simultaneous-confidence/Learn then Test methods, not an invented new general theorem.
 
-The high alert fraction indicates a workload problem to investigate; it is not
-proof of impossibility for every future design. Capacity parameters and queues
-were simulated. Actual staffing, review time, review quality, alert suppression
-policies and patient benefit were not measured.
+## Consent and oversight
 
-## Hypothesis-level conclusion
+Consent is now patient-specific, with lab/vital opt-outs and hour-12 revocation that clears derived and recurrent state. These are simulated preferences. Their cost curves do not establish what real patients would choose.
 
-| Hypothesis | Conclusion |
-|---|---|
-| H1: structure reveals risk | Supported within the constructed graph: path analysis reveals bypass/storage risks that accuracy does not describe. |
-| H2: constraints preserve useful performance | Not established. Structural constraints work, but clinically useful performance together with manageable, effective review was not demonstrated. |
-| H3: structure adds value over simpler approaches | Demonstrated as structural audit capability only. The small skeleton comparison does not establish predictive graph-model superiority; operational advantage was not evaluated. |
+The review audit uses the actual sepsis scores and 972 arrival/service/noise scenarios. It counts successful action only when a correct review completes before inferred onset. This makes oversight a process, but its parameter values remain assumptions. No human reviewers participated. Published provider response delays do not justify equating them with two-, five- or ten-minute active service times.
 
-**Video is not necessary to study the core research question.** The EHR models,
-explicit consent graph, loss definitions and review-capacity analysis can be
-evaluated without video. Video/skeleton data would be needed for additional
-claims specifically about movement monitoring or video privacy, which this
-primary study does not make.
+Review-path and storage constraints are verified on the modeled graph. Five hundred random DAGs broaden structural testing: 126 have a source-to-action path and 103 have an unreviewed bypass. These synthetic results show why placing a review node in a diagram is insufficient; they do not audit a deployed hospital system.
 
-A defensible conclusion is: **explicit consent and review constraints are
-technically feasible and mathematically auditable, but their coexistence with
-clinically useful predictions and effective human oversight remains an open
-empirical question.** Establishing that conjunction would require stronger
-predictive validation, operational review studies and prospective clinical
-evaluation; structural compliance and an expected-risk theorem alone do not
-establish it.
+## Scope of the conclusion
 
-Evidence: [primary report](results/sepsis/REPORT.md),
-[exact metrics](results/sepsis/metrics.csv),
-[paired statistical comparisons](results/sepsis/paired_effects.csv),
-[graph checks](results/sepsis/graph/graph_scenarios.csv),
-[secondary study](results/REPORT.md), and
-[mathematical assumptions and proofs](MATHEMATICS.md).
+There is **no row that establishes the original research question in full**. The empirical alert policies fail the stated risk target, while actual clinician effectiveness and patient benefit remain unmeasured. The strongest supported claim is that explicit controls and a mathematically valid evaluation can expose where a particular pipeline fails.
+
+The strict window penalizes potentially useful early assessments. Workload also stops retrospectively at inferred onset for positive patients. A practical next study should evaluate continuing review or cooldown policies with an observable stopping rule and a guarantee matched to that policy. It should then measure clinician response and outcomes prospectively. Full credentialed MIMIC-IV and clinical deployment were outside the completed public-data study.
+
+See [the paper](paper.pdf), [methods](METHODS.md), and [the measured outputs](results/revision/REPORT.md).

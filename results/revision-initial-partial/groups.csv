@@ -1,0 +1,9 @@
+seed,model,site,group,status,n_positive,test_positive,risk,workload
+11,logistic,A,female,grid_infeasible,88,107,,
+11,logistic,A,male,grid_infeasible,157,159,,
+11,logistic,A,age_under65,grid_infeasible,126,131,,
+11,logistic,A,age65plus,grid_infeasible,119,135,,
+11,logistic,B,female,grid_infeasible,107,284,,
+11,logistic,B,male,grid_infeasible,135,380,,
+11,logistic,B,age_under65,grid_infeasible,130,352,,
+11,logistic,B,age65plus,grid_infeasible,112,312,,

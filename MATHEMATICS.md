@@ -1,129 +1,67 @@
-# Mathematical guarantees and their limits
+# Mathematical results
 
-This document distinguishes exact statements about the implemented finite graph
-from statistical statements requiring assumptions about future patients.
+Full statements and proofs are in [the manuscript](paper.pdf), with editable [LaTeX source](paper.tex). The simultaneous-confidence construction applies established Learn then Test reasoning; it is not a new general risk-control framework.
 
-## 1. Patient- and purpose-specific edge masks
+## 1. The policy and the estimands
 
-For a fixed time t, index the vertices consistently in A and M(i,p). Define
-
-$$
-A^{allowed}_{i,p}[u,v]=A[u,v]M_{i,p}[u,v],\quad M_{i,p}[u,v]\in\{0,1\}.
-$$
-
-The implementation constructs a graph with edge (u,v) iff this product is 1.
-Thus the adjacency equality is an identity, checked entry by entry. It is not
-proof that the supplied consent policy represents informed consent.
-
-A derived object's provenance is the union of its inputs' source provenance.
-Future use for purpose p is allowed only if every contributing source remains
-permitted for the same patient and p. Revocation invalidates cached derivatives
-as well as direct reads. No physical deletion or model-unlearning claim follows.
-
-## 2. Exact review-path equivalence
-
-Let S and D be sensitive-source and consequential-action nodes, and let H be
-mandatory review nodes, disjoint from S and D. Then
+For a patient's score sequence, let $T_\tau$ be the first threshold crossing. For an incident-positive patient, the valid warning window is $[a,b]$.
 
 $$
-[\forall\pi\in\mathcal P_G(S,D),\ \pi\cap H\ne\varnothing]
-\iff [\mathcal P_{G-H}(S,D)=\varnothing].
+T_\tau=\inf\{t:S_t\ge\tau\},\quad L_\tau=\mathbf 1\{T_\tau\notin[a,b]\},\quad R_\tau=\mathbf 1\{T_\tau\le T\}.
 $$
 
-**Proof.** A surviving path in G-H is a path in G avoiding H and violates the
-left condition. Conversely, any path in G avoiding H survives deletion of H.
-Any reachable directed walk contains a simple path after removing cycles, so
-simple-path witnesses are sufficient. The tests exhaustively compare both
-formulations for the 64 forward DAGs on four ordered vertices and test bypass,
-disconnection, patient isolation and temporal-order counterexamples.
+We require conditional incident risk $r(\tau)=\mathbb E[L_\tau\mid Z=1]\le\alpha$ and expected reviews per patient $w(\tau)=\mathbb E[R_\tau]\le K$. Workload uses the retrospective pre-onset monitoring interval for positive patients and the observed stay for negative patients. This benchmark stopping rule is not available prospectively without an onset-detection process.
 
-For persistent storage that is completely forbidden, the stronger requirement
-is no S-to-storage path at all, not merely a path passing through review.
-A path to an ephemeral nurse alert can remain. An EHR write is still persistent
-storage and is blocked if it would store a forbidden source's derivative.
+## 2. First-alert loss need not be monotone
 
-Static reachability can overestimate feasible temporal paths. The temporal
-routine propagates earliest arrival times, requires event order where specified,
-and includes processing latency. Centrality ranks candidates for interventions;
-it does not prove safety or reviewer competence.
+A pre-window score of 0.6 and an in-window score of 0.9 provide a counterexample. Threshold 0.8 gives a timely alert; threshold 0.5 gives an early alert and consumes the one review. Loss across thresholds 0.5, 0.8 and 1.0 is 1, 0 and 1. The review indicators remain nested.
 
-## 3. Monotone patient loss and finite-sample correction
+Ordinary monotone-loss conformal risk control therefore cannot be applied to this first-alert loss without an additional assumption. Repeated-alert loss, which counts any crossing in the valid window, is a different, monotone endpoint.
 
-Let s_it be a frozen model score in [0,1]. At conservativeness lambda, alert iff
-1-s_it <= lambda. Define
+## 3. Population feasibility
+
+Let $A$ and $B$ be the pre-window and in-window score maxima; $C$ is the maximum over the review-monitoring interval. Define
 
 $$
-L_i(\lambda)=\frac{\sum_t y_{it}\mathbf1\{1-s_{it}>\lambda\}}
-{\max(1,\sum_t y_{it})}.
+H(\tau)=\Pr(A<\tau\le B\mid Z=1),\qquad W(\tau)=\Pr(C\ge\tau).
 $$
 
-Every summand is non-increasing and right-continuous in lambda. Therefore L_i
-is non-increasing, right-continuous, lies in [0,1], and L_i(1)=0. Ties are
-included together at the score knot. Calibration units are whole patients.
-
-With B=1 and alpha=.05, choose
+**Theorem.** If the risk-feasible set $\mathcal T_\alpha=\{\tau:H(\tau)\ge1-\alpha\}$ has a maximum $\tau_\star$, then
 
 $$
-\widehat\lambda=\inf\{\lambda:(n\widehat R_n(\lambda)+1)/(n+1)\le .05\}.
+K_{\min}=W(\tau_\star)\ge\Pr(Z=1)(1-\alpha).
 $$
 
-If the set is empty, choose lambda=1. In particular, for n<19 the correction
-1/(n+1) exceeds .05 even at zero empirical loss, so the rule must fall back to
-alerting every opportunity. Repeated frames cannot be counted as extra patients.
+A jointly feasible threshold exists exactly when $K\ge K_{\min}$. An empty risk-feasible set cannot be rescued by increasing the review budget. A finite grid guarantees attainment when nonempty. The proof uses the exact timely-alert event and monotonicity of workload, not monotonicity of incident loss.
 
-**Why the expectation bound holds (proof sketch).** Assume exchangeable patient
-loss functions and a frozen predictor, along with boundedness, monotonicity,
-right-continuity and the terminal condition. Compare lambda_hat with the oracle
-threshold selected using all n+1 loss functions. The extra loss is at most B,
-so the finite-sample correction makes lambda_hat at least as conservative as
-that oracle threshold. Monotonicity bounds the future loss by its loss at the
-oracle threshold. Conditional on the unordered collection of loss functions,
-exchangeability makes the future index uniform, so its expected loss equals
-the average oracle loss, at most alpha. Taking expectations gives the result.
-This averages over calibration and the future patient, not each realized
-calibration set or individual patient. See [Conformal Risk Control, Eq. 4 and
-Theorem 1](https://www.alphaxiv.org/pdf/2208.02814?page=2).
-
-## 4. The estimand can hide clinically important misses
-
-Let Z_i indicate at least one positive window. Since L_i=0 when Z_i=0,
+**Corollary.** When early consumption is impossible and the positive monitoring interval equals the warning window, continuous class-conditional maximum-score CDFs yield the familiar ROC identity
 
 $$
-\mathbb E[L_i]=\Pr(Z_i=1)\mathbb E[L_i\mid Z_i=1].
+K_{\min}=\pi(1-\alpha)+(1-\pi)\left[1-F_0(F_1^{-1}(\alpha))\right].
 $$
 
-If positive-patient prevalence is below alpha, missing every positive window
-can still satisfy the unconditional target. This does not contradict CRC: the
-loss definition may be inadequate for the intended safety commitment.
+This special-case identity is not a novel general feasibility result.
 
-The follow-up therefore calibrates a second rule on positive calibration
-patients only, using their count n in the same finite-sample formula. Its
-interpretation is expected conditional missed-window loss for a future positive
-patient, under conditional exchangeability. Apply its threshold to all patients
-to measure the workload cost. Neither rule has an asserted guarantee after
-hospital shift, feature corruption, or post-calibration alert dropping.
+## 4. A finite-sample joint certificate
 
-## 5. Risk–capacity compatibility
+Freeze $M$ thresholds using training/validation data. With independent calibration patients, compute exact one-sided binomial lower and upper bounds for positive-patient risk and all-patient review probability. Each tail receives $\delta/(4M)$.
 
-For a specified period, let W(lambda)=sum_i E[r_i(lambda)]. Nested alerts make
-W non-decreasing in lambda, while missed-event loss is non-increasing. Among
-thresholds at least as conservative as lambda_hat, a capacity K is feasible
-only if W(lambda_hat)<=K. If it fails there, increasing lambda cannot restore
-capacity. This is a useful incompatibility check, not a guarantee that an
-empirically estimated W equals future workload.
+With probability at least $1-\delta$, all $4M$ bounds cover simultaneously. Hence:
 
-An expectation bound does not cap realized arrivals, waiting time or backlog.
-The implementation therefore separately simulates a finite-buffer FCFS queue,
-service times, overload, completed reviews and delay. Clinical actions cannot
-inherit an alert-level risk statement without accounting for completed review
-and correct action.
+- **Certified:** some policy has both upper bounds at or below $(\alpha,K)$.
+- **Grid infeasible:** every policy has at least one lower bound above its target.
+- **Undetermined:** neither statement is established.
 
-## 6. Statistical uncertainty
+Selection among certified policies preserves the guarantee. There is no monotonicity requirement. These certificates are per frozen model/grid; the confidence statement is not automatically joint across all fitted models and seeds. Prespecified overlapping groups can allocate $\delta$ by a further union bound.
 
-Patient-cluster bootstrap preserves within-patient dependence. Paired model
-comparisons use the same resampled patient counts for both models. For AUROC,
-weights replicate all rows belonging to each sampled patient. A tie-aware
-weighted-rank calculation is tested against explicit resampling. Brier is a
-proper probability score, not a pure calibration error; reliability bins are
-reported independently. Synthetic Monte Carlo intervals quantify the simulation
-estimator, not uncertainty about clinical benefit.
+## 5. Consent and hospital shift
+
+A fixed measurable consent transformation preserves independence and identical distribution when the full patient/consent/randomization tuples have the same joint law in calibration and deployment. Consent need not be outcome-independent. Conditional ignorability alone does not protect against a changed consent mechanism.
+
+For known bounded target/source density ratio $w\le B_w$, a Hoeffding construction bounds target conditional risk through a weighted numerator and a positive lower bound on weighted prevalence. The manuscript gives its complete statement. Estimated, clipped domain-classifier ratios used in the empirical diagnostic do **not** satisfy the known-ratio premise by construction.
+
+## 6. Structural controls
+
+Patient/purpose masks remove prohibited data-flow edges; withdrawal clears dependent cached state. Every sensitive-source-to-action path passes through review exactly when deleting review nodes disconnects those sources from actions. This is a standard graph equivalence and concerns the specified graph. It does not prove reviewer competence, timely action, or compliance by an external system.
+
+`tests/test_joint_risk.py` checks the counterexample, binomial boundaries, certificate outcomes, evaluator agreement, constant features, and reviewer-error eligibility. Tests are mechanised checks, not substitutes for the proofs.

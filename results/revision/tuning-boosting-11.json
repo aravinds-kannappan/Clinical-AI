@@ -1,0 +1,35 @@
+[
+  {
+    "model": "boosting",
+    "seed": 11,
+    "hyperparameters": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 1.0,
+      "class_weight": null
+    },
+    "validation_ap": 0.05870297234716135,
+    "validation_auc": 0.7976784081934694
+  },
+  {
+    "model": "boosting",
+    "seed": 11,
+    "hyperparameters": {
+      "max_leaf_nodes": 31,
+      "l2_regularization": 5.0,
+      "class_weight": null
+    },
+    "validation_ap": 0.05676249860834262,
+    "validation_auc": 0.7918415470242616
+  },
+  {
+    "model": "boosting",
+    "seed": 11,
+    "hyperparameters": {
+      "max_leaf_nodes": 31,
+      "l2_regularization": 5.0,
+      "class_weight": "balanced"
+    },
+    "validation_ap": 0.06131273960019083,
+    "validation_auc": 0.7807926610189049
+  }
+]

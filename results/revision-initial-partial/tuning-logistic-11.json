@@ -1,0 +1,42 @@
+[
+  {
+    "model": "logistic",
+    "seed": 11,
+    "hyperparameters": {
+      "C": 0.1,
+      "class_weight": null
+    },
+    "validation_ap": 0.04829850059630442,
+    "validation_auc": 0.7220787480679527
+  },
+  {
+    "model": "logistic",
+    "seed": 11,
+    "hyperparameters": {
+      "C": 0.1,
+      "class_weight": "balanced"
+    },
+    "validation_ap": 0.04639959359069179,
+    "validation_auc": 0.7411311058277062
+  },
+  {
+    "model": "logistic",
+    "seed": 11,
+    "hyperparameters": {
+      "C": 1.0,
+      "class_weight": null
+    },
+    "validation_ap": 0.0481918565776736,
+    "validation_auc": 0.7209937586036702
+  },
+  {
+    "model": "logistic",
+    "seed": 11,
+    "hyperparameters": {
+      "C": 1.0,
+      "class_weight": "balanced"
+    },
+    "validation_ap": 0.046243331813351655,
+    "validation_auc": 0.7410614674875983
+  }
+]
