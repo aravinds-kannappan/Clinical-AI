@@ -12,9 +12,7 @@ are simulated. Public UP-Fall skeletons provide a secondary modality check.
 
 ## Results
 
-- [Live interactive results and discussion](https://aravinds-kannappan.github.io/Clinical-AI/)
-- [Offline interactive report](results/sepsis/index.html) — self-contained HTML;
-  download and open locally, or serve this checkout with `python3 -m http.server`.
+- [Live interactive results and discussion](https://consent-clinical-ai.vercel.app)
 - [Research report](results/sepsis/REPORT.md)
 - [Methods and limitations](METHODS.md)
 - [Mathematical proofs and statistical estimands](MATHEMATICS.md)
@@ -98,15 +96,22 @@ to obtain access; the code never accepts agreements or bypasses access controls.
 
 ## Website
 
-The live website is a static copy of the measured results. To build it locally:
+The interactive application lives in `website/` and is deployed on [Vercel](https://consent-clinical-ai.vercel.app).
+It renders equations with KaTeX and provides selectable hospital, seed and metric views.
 
 ```bash
-python3 scripts/build_site.py /tmp/clinical-ai-site
-python3 -m http.server --directory /tmp/clinical-ai-site 8000
+cd website
+npm ci
+npm run dev
 ```
 
-Open `http://localhost:8000`. Six selectable views cover hospital-specific
-AUROC/Brier, positive-patient missed loss, and alert burden. Charts include
-keyboard focus, exact-value tooltips, and horizontal scrolling on narrow screens.
-No external JavaScript, analytics, login or paid hosting is required.
-See [exact run snapshots and provenance](reproducibility/README.md).
+`npm run build` refreshes its measured-data snapshot from repository results when available.
+The application includes a committed snapshot so isolated Vercel builds remain reproducible.
+The old standalone HTML pages are retired. Exact original run source archives remain unchanged.
+
+## Scientific revision
+
+A full-release incident-alert evaluation is in development. The website labels completed
+initial results separately from the revision. No proposed theorem or pending experiment is
+presented as a measured result. The revision tests the non-monotonicity of first-alert
+incident loss and distinguishes a lack of certification from proven grid infeasibility.

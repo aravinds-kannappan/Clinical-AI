@@ -25,7 +25,7 @@ def main():
     figdir=out/'figures';figures.diagrams(graphs,figdir);figures.risk_capacity(cap,queues,figdir)
     # Keep the complete plotting script and style beside the figures for correction.
     shutil.copy('consent_ai/figures.py',figdir/'figures_source.py');shutil.copy('consent_ai/orx_figstyle.py',figdir/'orx_figstyle.py')
-    report.write_report(out,cfg,provenance);figures.dashboard(out,out/'index.html')
+    report.write_report(out,cfg,provenance)
     print('FINAL_SUMMARY',json.dumps({'seconds':time.time()-start,'ehr_metric_rows':len(em),'movement_metric_rows':len(mm),'output':str(out),'status':'completed public-data and simulation scope','clinical_validation':False}),flush=True)
 
 if __name__=='__main__':main()

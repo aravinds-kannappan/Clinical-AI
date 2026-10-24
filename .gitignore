@@ -15,3 +15,11 @@ PROGRESS.md
 [Pp][Rr][Oo][Mm][Pp][Tt]*
 [Pp][Rr][Oo][Pp][Oo][Ss][Aa][Ll]*
 [Pp][Rr][Oo][Gg][Rr][Ee][Ss][Ss]*
+node_modules/
+.next/
+.vercel/
+website/out/
+website/public/research.json
+
+.env*
+website/.env*

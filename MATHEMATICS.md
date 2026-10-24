@@ -7,7 +7,9 @@ from statistical statements requiring assumptions about future patients.
 
 For a fixed time t, index the vertices consistently in A and M(i,p). Define
 
-$$A^{allowed}_{i,p}[u,v]=A[u,v]M_{i,p}[u,v],\quad M_{i,p}[u,v]\in\{0,1\}.$$
+$$
+A^{allowed}_{i,p}[u,v]=A[u,v]M_{i,p}[u,v],\quad M_{i,p}[u,v]\in\{0,1\}.
+$$
 
 The implementation constructs a graph with edge (u,v) iff this product is 1.
 Thus the adjacency equality is an identity, checked entry by entry. It is not
@@ -23,8 +25,10 @@ as well as direct reads. No physical deletion or model-unlearning claim follows.
 Let S and D be sensitive-source and consequential-action nodes, and let H be
 mandatory review nodes, disjoint from S and D. Then
 
-$$[\forall\pi\in\mathcal P_G(S,D),\ \pi\cap H\ne\varnothing]
-\iff [\mathcal P_{G-H}(S,D)=\varnothing].$$
+$$
+[\forall\pi\in\mathcal P_G(S,D),\ \pi\cap H\ne\varnothing]
+\iff [\mathcal P_{G-H}(S,D)=\varnothing].
+$$
 
 **Proof.** A surviving path in G-H is a path in G avoiding H and violates the
 left condition. Conversely, any path in G avoiding H survives deletion of H.
@@ -48,8 +52,10 @@ it does not prove safety or reviewer competence.
 Let s_it be a frozen model score in [0,1]. At conservativeness lambda, alert iff
 1-s_it <= lambda. Define
 
-$$L_i(\lambda)=\frac{\sum_t y_{it}\mathbf1\{1-s_{it}>\lambda\}}
-{\max(1,\sum_t y_{it})}.$$
+$$
+L_i(\lambda)=\frac{\sum_t y_{it}\mathbf1\{1-s_{it}>\lambda\}}
+{\max(1,\sum_t y_{it})}.
+$$
 
 Every summand is non-increasing and right-continuous in lambda. Therefore L_i
 is non-increasing, right-continuous, lies in [0,1], and L_i(1)=0. Ties are
@@ -57,7 +63,9 @@ included together at the score knot. Calibration units are whole patients.
 
 With B=1 and alpha=.05, choose
 
-$$\widehat\lambda=\inf\{\lambda:(n\widehat R_n(\lambda)+1)/(n+1)\le .05\}.$$
+$$
+\widehat\lambda=\inf\{\lambda:(n\widehat R_n(\lambda)+1)/(n+1)\le .05\}.
+$$
 
 If the set is empty, choose lambda=1. In particular, for n<19 the correction
 1/(n+1) exceeds .05 even at zero empirical loss, so the rule must fall back to
@@ -80,7 +88,9 @@ Theorem 1](https://www.alphaxiv.org/pdf/2208.02814?page=2).
 
 Let Z_i indicate at least one positive window. Since L_i=0 when Z_i=0,
 
-$$\mathbb E[L_i]=\Pr(Z_i=1)\mathbb E[L_i\mid Z_i=1].$$
+$$
+\mathbb E[L_i]=\Pr(Z_i=1)\mathbb E[L_i\mid Z_i=1].
+$$
 
 If positive-patient prevalence is below alpha, missing every positive window
 can still satisfy the unconditional target. This does not contradict CRC: the

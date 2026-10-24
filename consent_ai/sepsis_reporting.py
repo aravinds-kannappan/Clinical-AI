@@ -7,7 +7,6 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from .orx_figstyle import use_style,save,TEXT,PALETTE
 from .risk import ASSUMPTIONS,LOSS
-from .figures import HTML
 
 def create(out,cfg,provenance):
     out=Path(out);m=pd.read_csv(out/'metrics.csv');ci=pd.read_csv(out/'intervals.csv');cal=pd.read_csv(out/'calibration.csv');cohort=pd.read_csv(out/'cohort_summary.csv');effects=pd.read_csv(out/'paired_effects.csv')
@@ -61,32 +60,4 @@ def create(out,cfg,provenance):
     'Primary source: [PhysioNet/CinC 2019 v1.0.0](https://physionet.org/content/challenge-2019/1.0.0/), Reyna et al., DOI 10.13026/v64v-d857, CC BY 4.0. Statistical source: [Conformal Risk Control, Eq. 4 and Theorem 1](https://www.alphaxiv.org/pdf/2208.02814?page=2).',
     '', '## Provenance','```json',json.dumps(provenance,indent=2),'```']
     (out/'REPORT.md').write_text('\n'.join(lines)+'\n')
-    views=[]
-    for site in ['A','B']:
-        for metric,unit in [('auroc','AUROC'),('brier','Brier score (lower is better)')]:
-            points=[]
-            for r in m[(m.seed==11)&(m.site==site)&(m.rule=='fixed_0.5')].itertuples():
-                c=ci[(ci.site==site)&(ci.model==r.model)&(ci.metric==metric)].iloc[0]
-                points.append(dict(label=r.model.replace('_',' '),value=float(getattr(r,metric)),low=float(c.lower),high=float(c.upper)))
-            views.append(dict(label=f'Hospital {site} · {unit}',unit=unit,points=points,note='REAL OPEN DATA. Prespecified seed 11; whiskers are 95% percentile intervals from 500 patient-cluster bootstrap replicates. A is internal patient holdout; B is an external-site shift test. See report for all three seeds.'))
-    for metric,unit in [('positive_patient_missed_loss','Positive-patient missed-window fraction'),('review_fraction','Fraction of hourly opportunities alerted')]:
-        pts=[]
-        for r in m[(m.seed==11)&(m.model=='full_ehr')&m.rule.isin(['crc_unconditional','crc_positive_conditional'])].itertuples():
-            value=float(getattr(r,metric));pts.append(dict(label=f'{r.site} '+('all-patient CRC' if r.rule=='crc_unconditional' else 'positive CRC'),value=value,low=value,high=value))
-        views.append(dict(label=unit,unit=unit,points=pts,note='Seed-11 frozen full-EHR policies; point estimates only. Alpha=.05, B=1. Unconditional loss and positive-patient conditional loss are different estimands. See calibration.csv for n and threshold. Hospital B has no asserted exchangeable CRC guarantee.'))
-    html=HTML.replace('__DATA__',json.dumps(views,allow_nan=False))
-    html=html.replace('EHR results use the 100-patient MIMIC-IV demo.','Primary EHR results use 6,000 public sepsis-benchmark patients. The earlier 100-patient MIMIC demo is retained as a separate limited check.')
-    html=html.replace('EHR outcome: in-hospital death within 48 hours at ICU hours 6, 12 and 24. Both observation and storage timestamps precede prediction.','Sepsis endpoint: the provided hourly early-warning target, already shifted six hours early; it also includes later positive hours. Features use current/past rows only. Store timestamps are unavailable.')
-    html=html.replace('Random patient holdout and a separate coarse anchor-era shift test. Date de-identification prevents a strict calendar-time claim. No external hospital exists in this dataset.','Hospital A is split 60/20/20% by patient; all sampled hospital B patients form an external-site shift test. Absolute dates are unavailable, so no calendar holdout is claimed.')
-    html=html.replace('Seed ranges in this chart are not confidence intervals.','Whiskers in discrimination views are patient-bootstrap confidence intervals; risk/workload views show point estimates only.')
-    html=html.replace('ehr_metrics.csv','metrics.csv').replace('ehr_paired_effects.csv','paired_effects.csv').replace('capacity_sweep.csv','capacity.csv').replace('queue_sweep.csv','../queue_sweep.csv').replace('movement_metrics.csv','../movement_metrics.csv')
-    html=html.replace('<a href="https://physionet.org/content/mimic-iv-demo/2.2/">MIMIC-IV demo</a>','<a href="https://physionet.org/content/challenge-2019/1.0.0/">PhysioNet 2019 sepsis</a> · <a href="../REPORT.md">Initial demo/skeleton report</a>')
-    html=html.replace('select the smallest lambda satisfying','for the selected patient population (all patients or positive patients), select the smallest lambda satisfying')
-    discussion='<section class="notice"><h2>What the study found</h2><p><strong>Conclusion: a complete affirmative answer was not established.</strong> Consent and mandatory-review constraints are implementable and auditable in this model. Their coexistence with clinically useful predictions and effective human oversight remains unproven; clinician review quality and patient outcomes were not measured.</p><p>In the prespecified seed-11 hospital-A test, the all-patient rule had <strong>4.68% average missed-window loss</strong>, but <strong>50.14% missed-window loss among positive patients</strong>. Calibrating on positive patients reduced conditional missed loss to <strong>4.13%</strong>, while alerting on <strong>92.69% of hourly observations</strong>.</p><p>For the same positive-patient rule, conditional missed loss rose to <strong>26.25%</strong> in held-out hospital B. There is no asserted risk guarantee under that hospital shift. The question is therefore both <em>which risk is controlled</em> and <em>whether the resulting review demand can be served</em>.</p><p>These are benchmark point estimates for one prespecified seed; the report includes all three seeds. <a href="REPORT.md">Read the full results and limitations</a>.</p></section>'
-    lookup={(r.site,r.rule):r for r in m[(m.seed==11)&(m.model=='full_ehr')].itertuples()}
-    for old,site,rule,metric in [('4.68','A','crc_unconditional','patient_missed_loss'),('50.14','A','crc_unconditional','positive_patient_missed_loss'),('4.13','A','crc_positive_conditional','positive_patient_missed_loss'),('92.69','A','crc_positive_conditional','review_fraction'),('26.25','B','crc_positive_conditional','positive_patient_missed_loss')]:
-        discussion=discussion.replace(old+'%',f'{100*getattr(lookup[(site,rule)],metric):.2f}%')
-    html=html.replace('<section class="chart"',discussion+'<section class="chart"')
-    html=html.replace('exchangeable patient loss functions;', 'exchangeable patient loss functions (conditional on positive-patient status for the positive-patient rule);')
-    (out/'index.html').write_text(html)
     print('SEPSIS_REPORT_READY',str(out/'REPORT.md'),flush=True)
