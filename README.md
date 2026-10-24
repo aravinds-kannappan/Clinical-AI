@@ -1,25 +1,23 @@
-# Consent-constrained clinical AI
+# Benchmarking AI Under Consent Constraints
 
-Can a healthcare AI monitoring pipeline remain useful while sensitive data flows, errors and consequential decisions are subject to explicit consent and effective human oversight?
+Can a sepsis prediction system retain useful performance when patients restrict its inputs? This benchmark study compares full-input reference AI with the same AI under explicit, simulated information-access restrictions.
 
-This repository studies that question with **40,336 public PhysioNet/CinC 2019 patients**, three validation-tuned predictors, patient-specific consent simulations, mathematical risk/workload certificates and review-process simulations.
+The public cohort contains **40,336 PhysioNet/CinC 2019 patients**. Three supervised model families, three split seeds, two hospitals and eight permission conditions are evaluated with matched patients, fixed fitted models and fixed validation-selected alert thresholds. Restrictions affect inference-time inputs and derived state; the models were trained using full public inputs.
 
-**Result:** better discrimination did not make the tested first-alert policies satisfy the declared incident-risk target. Consent and review-path constraints are auditable in the modeled system; their coexistence with effective clinical oversight is **not demonstrated**. This is a negative result for a specific policy family, not a general impossibility theorem.
+**Main finding:** similar AUROC can conceal worse alert behavior. At hospital B, removing labs from the GRU changes mean AUROC from 0.752 to 0.745, but increases missed-incident risk by 11.2 percentage points at its fixed hourly threshold while reducing reviews by 1.42 per patient. At 30% independent denial per feature group, mean AUROC falls by 0.019–0.051 across model/hospital combinations. These are three-seed averages, not evidence of clinical equivalence.
 
-- [Two-column research paper (PDF)](paper.pdf) · [LaTeX source](paper.tex)
-- [Live interactive results, equations and discussion](https://consent-clinical-ai.vercel.app)
-- [Full-release report](results/revision/REPORT.md) · [Direct research conclusion](DISCUSSION.md)
-- [Mathematics](MATHEMATICS.md) · [Methods](METHODS.md) · [Data card](DATA_CARD.md)
+- [Two-column paper (PDF)](paper.pdf) · [LaTeX source](paper.tex)
+- [Live paper and interactive results](https://consent-clinical-ai.vercel.app)
+- [Benchmark protocol](BENCHMARK.md) · [Paired experiment report](results/consent-comparison/REPORT.md)
+- [Methods](METHODS.md) · [Mathematics and proofs](MATHEMATICS.md) · [Interpretation](DISCUSSION.md) · [Data card](DATA_CARD.md)
 
-## What the revision found
+## What the benchmark measures
 
-Across seeds 11, 29 and 47, mean pre-onset AUROC was 0.794 for boosting at hospital A and 0.752 for the GRU at hospital B. Every local first-alert calibration grid was excluded at conditional missed risk alpha=0.05, including at one review per patient. This confidence claim is per frozen model/grid, not simultaneous across every fitted model and seed.
+The primary comparison separates changes in input permissions from changes in the decision threshold. It reports paired discrimination, incident misses, review burden, utility and information-availability proxies. Permission assignment is simulated; the experiment does not collect consent, measure privacy leakage, or decide which performance loss patients should accept.
 
-A first alert before the specified six-hour warning window consumes the only review and is a miss under the strict incident endpoint. Lowering a threshold can therefore make this loss worse. The paper proves the counterexample, characterizes population feasibility and applies simultaneous exact-binomial bounds to certify feasibility, grid infeasibility or insufficient evidence. The general confidence machinery is attributed to existing risk-control work.
+A secondary evaluation studies the first-alert policy. Every tested local calibration grid is excluded at the 5% conditional missed-risk target, even with one review per patient. An early first alert can consume the review before the strict warning window. Positive challenge utility evaluates a different endpoint and does not repair this failure. The exclusion is per frozen model/grid, not a general impossibility result.
 
-The validation-selected boosting policy at hospital A had mean challenge utility 0.332 and 0.193 reviews per patient, yet strict incident missed risk 0.960. Challenge utility credits a broader warning window and a persistent positive condition state. **Positive utility is not evidence that the first-review timing target was met.**
-
-The paper includes all-seed patient-bootstrap intervals, local hospital-B calibration, repeated calibration draws, consent opt-out/revocation, 500 random graphs and 972 corrected reviewer-queue scenarios. Actual clinician behavior, privacy/security of a deployed system and patient benefit were not measured. Full credentialed MIMIC-IV was not available.
+The mathematical contribution makes the estimands and assumptions explicit: a paired bounded-loss criterion, first-alert feasibility characterization and simultaneous finite-grid confidence bounds. The concentration machinery is classical. The empirical contribution is the benchmark design and failure analysis, not a new predictor. Actual human oversight, clinical benefit, training consent and retraining under restricted features remain unmeasured.
 
 ## Reproduce
 
@@ -29,7 +27,7 @@ Install Python 3.13 and [uv](https://docs.astral.sh/uv/), then run:
 bash run_all.sh
 ```
 
-The default stage is `revision`. This installs locked dependencies, runs 23 tests, acquires/verifies the public data, fits all models and generates the revision plus policy audit. No GPU, paid service or dataset approval is required for these public inputs. It uses a separate local `.venv`; do not share an environment between concurrent checkouts.
+The default stage is `revision`. This installs locked dependencies, runs 26 tests, acquires/verifies the public data, fits all models and generates the full revision, policy audit and paired consent comparison. No GPU, paid service or dataset approval is required for these public inputs. It uses a separate local `.venv`; do not share an environment between concurrent checkouts.
 
 Set `CONSENT_DATA_ROOT` and `CONSENT_RESULTS_DIR` to relocate inputs and outputs. A clean run trains every model. Exact original source archives and the hash-verified partial-run resume are described in [reproducibility/README.md](reproducibility/README.md).
 
@@ -38,12 +36,15 @@ To regenerate paper tables and figures from saved results:
 ```bash
 uv run --locked python scripts/build_paper_results.py
 uv run --locked python figs/research_figures.py
+uv run --locked python scripts/build_consent_tables.py
+uv run --locked python figs/paired_consent_figures.py
+tectonic figs/paired_design.tex
 tectonic paper.tex
 ```
 
-The figure script reads versioned snapshots in `figs/`: `frontiers.csv` and `consent.csv` from `results/revision/`, and `selected_policies.csv` from `results/revision-audit/`. Replace them only when deliberately producing a new analysis. The table generator updates four tables without overwriting the manuscript prose.
+The figure script reads versioned snapshots in `figs/`: `frontiers.csv` and `consent.csv` from `results/revision/`, and `selected_policies.csv` from `results/revision-audit/`. Replace them only when deliberately producing a new analysis. The original table generator updates four tables without overwriting manuscript prose. The paired generator adds the complete AUROC table; paired figures read `paired_discrimination.csv` and `paired_policies.csv`, copied from `results/consent-comparison/`. The paper contains seven vector figures.
 
-The paper uses a two-column, 10-point research layout with full-width vector figures, detailed methods, theorem statements and appendix proofs, and 23 references. This layout follows the author’s preference; it is not the official single-column NeurIPS submission template. It is a research draft, not an accepted or submitted NeurIPS paper. Author: Aravind Kannappan.
+The paper uses a two-column, 10-point research layout with full-width vector figures, detailed methods, theorem statements and appendix proofs, and 24 references. Sections, equations and captions are unnumbered, with author–year citations. This layout follows the author’s preference; it is not the official single-column NeurIPS submission template. It is a research draft, not an accepted or submitted NeurIPS paper. Author: Aravind Kannappan.
 
 `cohort_statistics.json` records cohort and incident-eligibility counts. Recreate it with `uv run --locked python scripts/cohort_summary.py --archive data/raw/sepsis-public/sepsis-public-full.zip --output cohort_statistics.json`.
 
@@ -51,6 +52,9 @@ The paper uses a two-column, 10-point research layout with full-width vector fig
 
 | File | What it records |
 |---|---|
+| `results/consent-comparison/discrimination.csv` | Primary paired ranking/probability metrics and pointwise uncertainty |
+| `results/consent-comparison/policies.csv` | Primary paired fixed-policy outcomes and uncertainty |
+| `results/consent-comparison/provenance.json` | Frozen comparison settings and parent model/prediction hashes |
 | `results/revision/metrics.csv` | All model/site/seed discrimination estimates and bootstrap intervals |
 | `results/revision/frontiers.csv` | Frozen-grid first and repeated alert risk/workload/utility |
 | `results/revision/certificates.csv` | Joint certificate outcomes and calibration support |
@@ -69,6 +73,7 @@ The original `results/revision/queues.csv` is retained for provenance. Its false
 - `joint_risk.py`: incident loss and simultaneous finite-grid certificates.
 - `revision_evaluation.py`: challenge utility, bootstrap and calibration analysis.
 - `revision_stress.py`: consent, graph and reviewer simulations.
+- `consent_comparison.py`: matched permission interventions, paired bootstrap differences and score-reproduction checks.
 - `revision_audit.py`: frozen-score operating-policy audit and uncertainty.
 - `graph.py`: patient/purpose masks, revocation and review-path checks.
 - `tests/`: mathematical counterexamples, certificate boundaries and leakage checks.
@@ -83,7 +88,7 @@ The earlier 6,000-patient hourly-loss study is in `results/sepsis/`. The sparse 
 
 ## Website
 
-The Next.js application in `website/` is deployed on [Vercel](https://consent-clinical-ai.vercel.app). It renders equations with KaTeX and allows hospital, seed, metric and consent-scenario selection.
+The Next.js application in `website/` is deployed on [Vercel](https://consent-clinical-ai.vercel.app). It renders equations with KaTeX and presents the paper as a reading experience with vector figures, author–year references and interactive hospital, seed and permission-condition comparisons.
 
 ```bash
 cd website

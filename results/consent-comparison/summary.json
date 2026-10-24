@@ -1,0 +1,398 @@
+{
+  "discrimination_rows": 144,
+  "policy_rows": 288,
+  "patients": 40336,
+  "models": 3,
+  "seeds": [
+    11,
+    29,
+    47
+  ],
+  "mean_deltas": [
+    {
+      "scenario": "full_input",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": 0.0,
+      "delta_brier": 0.0,
+      "permitted_source_hour_fraction": 1.0
+    },
+    {
+      "scenario": "full_input",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": 0.0,
+      "delta_brier": 0.0,
+      "permitted_source_hour_fraction": 1.0
+    },
+    {
+      "scenario": "full_input",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": 0.0,
+      "delta_brier": 0.0,
+      "permitted_source_hour_fraction": 1.0
+    },
+    {
+      "scenario": "full_input",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": 0.0,
+      "delta_brier": 0.0,
+      "permitted_source_hour_fraction": 1.0
+    },
+    {
+      "scenario": "full_input",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": 0.0,
+      "delta_brier": 0.0,
+      "permitted_source_hour_fraction": 1.0
+    },
+    {
+      "scenario": "full_input",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": 0.0,
+      "delta_brier": 0.0,
+      "permitted_source_hour_fraction": 1.0
+    },
+    {
+      "scenario": "metadata_only",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.08464531955782295,
+      "delta_brier": 0.06109734083837589,
+      "permitted_source_hour_fraction": 0.0
+    },
+    {
+      "scenario": "metadata_only",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.12855058454141163,
+      "delta_brier": 0.08540618001665339,
+      "permitted_source_hour_fraction": 0.0
+    },
+    {
+      "scenario": "metadata_only",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.22845025634055247,
+      "delta_brier": -0.030981427058577538,
+      "permitted_source_hour_fraction": 0.0
+    },
+    {
+      "scenario": "metadata_only",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.22672727164135695,
+      "delta_brier": -0.019392022242148716,
+      "permitted_source_hour_fraction": 0.0
+    },
+    {
+      "scenario": "metadata_only",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.05589051261452819,
+      "delta_brier": -0.023784471646649763,
+      "permitted_source_hour_fraction": 0.0
+    },
+    {
+      "scenario": "metadata_only",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.06161732589647092,
+      "delta_brier": -0.04975240662073096,
+      "permitted_source_hour_fraction": 0.0
+    },
+    {
+      "scenario": "no_labs",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.029218949807713262,
+      "delta_brier": 0.0203856084573136,
+      "permitted_source_hour_fraction": 0.2352941176470588
+    },
+    {
+      "scenario": "no_labs",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.04159314756207747,
+      "delta_brier": 0.023786917201205782,
+      "permitted_source_hour_fraction": 0.2352941176470588
+    },
+    {
+      "scenario": "no_labs",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.0437237665214939,
+      "delta_brier": -0.014819210084776083,
+      "permitted_source_hour_fraction": 0.2352941176470588
+    },
+    {
+      "scenario": "no_labs",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.006826206375895853,
+      "delta_brier": -0.009145985823124647,
+      "permitted_source_hour_fraction": 0.2352941176470588
+    },
+    {
+      "scenario": "no_labs",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.015611641291311429,
+      "delta_brier": -0.0106593958043959,
+      "permitted_source_hour_fraction": 0.2352941176470588
+    },
+    {
+      "scenario": "no_labs",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.026952243133567328,
+      "delta_brier": -0.052726250141859055,
+      "permitted_source_hour_fraction": 0.2352941176470588
+    },
+    {
+      "scenario": "no_vitals",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.05337410913527899,
+      "delta_brier": 0.0025076428434063825,
+      "permitted_source_hour_fraction": 0.7647058823529411
+    },
+    {
+      "scenario": "no_vitals",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.09478513794317056,
+      "delta_brier": 0.016442030378922223,
+      "permitted_source_hour_fraction": 0.7647058823529411
+    },
+    {
+      "scenario": "no_vitals",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.08070812599853416,
+      "delta_brier": -0.02071393436441819,
+      "permitted_source_hour_fraction": 0.7647058823529411
+    },
+    {
+      "scenario": "no_vitals",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.09568019958422717,
+      "delta_brier": -0.011989458153645197,
+      "permitted_source_hour_fraction": 0.7647058823529411
+    },
+    {
+      "scenario": "no_vitals",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.030095109321512714,
+      "delta_brier": -0.011385358074524751,
+      "permitted_source_hour_fraction": 0.7647058823529411
+    },
+    {
+      "scenario": "no_vitals",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.02624773864865822,
+      "delta_brier": 0.006237702444195747,
+      "permitted_source_hour_fraction": 0.7647058823529411
+    },
+    {
+      "scenario": "optout_10",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.014388134019988175,
+      "delta_brier": 0.002531799020652157,
+      "permitted_source_hour_fraction": 0.9018021190750178
+    },
+    {
+      "scenario": "optout_10",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.01440224784066979,
+      "delta_brier": 0.004328795939829288,
+      "permitted_source_hour_fraction": 0.8994291457167615
+    },
+    {
+      "scenario": "optout_10",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.019310292316441175,
+      "delta_brier": -0.003897521955271562,
+      "permitted_source_hour_fraction": 0.9018021190750178
+    },
+    {
+      "scenario": "optout_10",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.011101285002208602,
+      "delta_brier": -0.0024576704017817974,
+      "permitted_source_hour_fraction": 0.8994291457167615
+    },
+    {
+      "scenario": "optout_10",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.008759538430605654,
+      "delta_brier": -0.0024778112432007524,
+      "permitted_source_hour_fraction": 0.9018021190750178
+    },
+    {
+      "scenario": "optout_10",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.004157364735723738,
+      "delta_brier": -0.004711392587826897,
+      "permitted_source_hour_fraction": 0.8994291457167615
+    },
+    {
+      "scenario": "optout_30",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.031533738218824214,
+      "delta_brier": 0.009285710793603722,
+      "permitted_source_hour_fraction": 0.7051328691439029
+    },
+    {
+      "scenario": "optout_30",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.04298858408636893,
+      "delta_brier": 0.015889425969670894,
+      "permitted_source_hour_fraction": 0.7001592336663126
+    },
+    {
+      "scenario": "optout_30",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.05136191503658416,
+      "delta_brier": -0.010382093799610933,
+      "permitted_source_hour_fraction": 0.7051328691439029
+    },
+    {
+      "scenario": "optout_30",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.03979634788968508,
+      "delta_brier": -0.006442804199953874,
+      "permitted_source_hour_fraction": 0.7001592336663126
+    },
+    {
+      "scenario": "optout_30",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.018889959893159707,
+      "delta_brier": -0.006521697586019097,
+      "permitted_source_hour_fraction": 0.7051328691439029
+    },
+    {
+      "scenario": "optout_30",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.019217665336241103,
+      "delta_brier": -0.013978536784028014,
+      "permitted_source_hour_fraction": 0.7001592336663126
+    },
+    {
+      "scenario": "optout_50",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.04709062844342349,
+      "delta_brier": 0.020302477702878092,
+      "permitted_source_hour_fraction": 0.5065618568378482
+    },
+    {
+      "scenario": "optout_50",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.0690820290823649,
+      "delta_brier": 0.03169294844377517,
+      "permitted_source_hour_fraction": 0.5003976237234725
+    },
+    {
+      "scenario": "optout_50",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.09007732713666983,
+      "delta_brier": -0.016087922578056652,
+      "permitted_source_hour_fraction": 0.5065618568378482
+    },
+    {
+      "scenario": "optout_50",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.0689657868803492,
+      "delta_brier": -0.010336221506198248,
+      "permitted_source_hour_fraction": 0.5003976237234725
+    },
+    {
+      "scenario": "optout_50",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.02617165116789751,
+      "delta_brier": -0.010881154844961808,
+      "permitted_source_hour_fraction": 0.5065618568378482
+    },
+    {
+      "scenario": "optout_50",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.03168570196564572,
+      "delta_brier": -0.02407072422405084,
+      "permitted_source_hour_fraction": 0.5003976237234725
+    },
+    {
+      "scenario": "revoke_30_at12",
+      "model": "boosting",
+      "site": "A",
+      "delta_auroc": -0.02818765185457735,
+      "delta_brier": 0.006853353135674277,
+      "permitted_source_hour_fraction": 0.7953005760000212
+    },
+    {
+      "scenario": "revoke_30_at12",
+      "model": "boosting",
+      "site": "B",
+      "delta_auroc": -0.037821909068484406,
+      "delta_brier": 0.011302510624101694,
+      "permitted_source_hour_fraction": 0.7940383727026393
+    },
+    {
+      "scenario": "revoke_30_at12",
+      "model": "gru",
+      "site": "A",
+      "delta_auroc": -0.060278732531624746,
+      "delta_brier": -0.004195164889097214,
+      "permitted_source_hour_fraction": 0.7953005760000212
+    },
+    {
+      "scenario": "revoke_30_at12",
+      "model": "gru",
+      "site": "B",
+      "delta_auroc": -0.05414300513843943,
+      "delta_brier": -0.0012552572782927502,
+      "permitted_source_hour_fraction": 0.7940383727026393
+    },
+    {
+      "scenario": "revoke_30_at12",
+      "model": "logistic",
+      "site": "A",
+      "delta_auroc": -0.013588505631457415,
+      "delta_brier": -0.005522728724827175,
+      "permitted_source_hour_fraction": 0.7953005760000212
+    },
+    {
+      "scenario": "revoke_30_at12",
+      "model": "logistic",
+      "site": "B",
+      "delta_auroc": -0.014349809998357813,
+      "delta_brier": -0.013093692910236618,
+      "permitted_source_hour_fraction": 0.7940383727026393
+    }
+  ],
+  "clinical_noninferiority_claim": false
+}

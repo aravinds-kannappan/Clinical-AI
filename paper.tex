@@ -4,13 +4,16 @@
 \usepackage{microtype}
 \usepackage{amsmath,amsthm,graphicx,booktabs,enumitem}
 \usepackage{newtxtext,newtxmath}
-\usepackage[numbers,sort&compress]{natbib}
+\usepackage[authoryear,round]{natbib}
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Joint Risk and Review-Budget Certification for Consent-Constrained Incident Alerts},pdfauthor={Aravind Kannappan}}
-\usepackage[font=small,labelfont=normalfont]{caption}
+\hypersetup{pdftitle={Benchmarking AI Under Consent Constraints},pdfauthor={Aravind Kannappan}}
+\usepackage[font=small,labelformat=empty]{caption}
 \usepackage{placeins}
 \usepackage{algorithm,algpseudocode}
+\captionsetup[algorithm]{labelformat=empty}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
 \setlength{\parindent}{1em}
 \setlength{\parskip}{0pt}
 \setlength{\emergencystretch}{1.5em}
@@ -25,34 +28,42 @@
 \setlength{\@dblfpsep}{24pt}
 \setlength{\@dblfpbot}{0pt plus 1fil}
 \makeatother
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
 \newcommand{\E}{\mathbb E}
 \newcommand{\Pp}{\mathbb P}
 \newcommand{\ind}{\mathbf 1}
-\title{Joint Risk and Review-Budget Certification\\for Consent-Constrained Incident Alerts}
+\title{Benchmarking AI Under Consent Constraints}
 \author{Aravind Kannappan}
 \date{}
 \begin{document}
 \twocolumn[\begin{@twocolumnfalse}
 \maketitle
+\thispagestyle{empty}
 \begin{abstract}
-Clinical monitoring must reconcile timely event detection, patient consent and finite review capacity. We show that allowing only the first threshold crossing can make incident missed-event loss non-monotone: a lower threshold may consume the review before the valid warning window. We characterize the minimum feasible review budget using pre-window and in-window score maxima, and apply simultaneous binomial bounds to distinguish certified feasibility, grid infeasibility and insufficient evidence. We also state when consent transformations preserve the sampling assumptions and give a counterexample under consent-mechanism shift. An evaluation on all 40,336 public PhysioNet 2019 patients compares tuned logistic regression, gradient boosting and a GRU across three seeds and two hospitals. Mean pre-onset AUROC reaches 0.794 at hospital A and 0.752 externally. Yet every locally calibrated first-alert grid is excluded at a 5\% conditional missed-event target, even with one review per patient. Positive challenge utility does not resolve this failure because it rewards a different warning window and persistent prediction state. Patient-specific consent and reviewer simulations extend the evaluation but do not establish clinical effectiveness. The study identifies a policy-level obstacle that better score discrimination alone does not remove.
+Can a sepsis prediction system retain useful performance when patients restrict its inputs? We present a reproducible benchmark evaluation on all 40,336 public PhysioNet 2019 patients, comparing three supervised models across three split seeds, two hospitals and eight simulated permission conditions. Within each comparison, patients, labels, fitted predictors and alert thresholds remain fixed; only permitted information and derived state change. Paired whole-patient resampling measures differences in discrimination, incident misses and review burden. At a 30\% independent denial probability for each physiological feature group, mean AUROC falls by 0.019--0.051 across model--hospital combinations. Effects depend strongly on the restricted source. At hospital B, removing laboratory inputs changes GRU AUROC from 0.752 to 0.745, yet increases missed-incident risk by 11.2 percentage points at the original hourly alert threshold while reducing reviews by 1.42 per patient. Thus similar ranking performance can conceal a substantial change in alert behavior. We formalize paired loss changes and give a bounded-loss preservation criterion with an explicit proof based on established concentration methods. Supplementary policy analyses examine why alert timing and review capacity require separate evaluation. The contribution is an evaluation protocol and measured failure analysis, not a new predictor or a determination of ethical acceptability. Restrictions act at inference time on models trained with full public inputs; real consent, clinical non-inferiority and patient benefit remain unmeasured.
 \end{abstract}
 \vspace{1.5em}
 \end{@twocolumnfalse}]
 \input{paper_sections/introduction.tex}
 \input{paper_sections/data_models.tex}
-\input{paper_sections/theory.tex}
-\input{paper_sections/evaluation.tex}
-\input{paper_sections/results.tex}
+\input{paper_sections/paired_theory.tex}
+\input{paper_sections/paired_methods.tex}
+\input{paper_sections/paired_results.tex}
 \FloatBarrier
 \input{paper_sections/discussion.tex}
 \input{paper_sections/references.tex}
 \clearpage
 \appendix
+\section*{Supplementary policy and oversight analysis}
+The main benchmark compares full-input and consent-constrained AI at fixed model parameters and thresholds. The following material provides secondary analyses of first-alert timing, joint risk/workload certification and simulated oversight. These results concern additional policy requirements, not the primary consent contrast.
+\input{paper_sections/policy_theory.tex}
+\input{paper_sections/policy_methods.tex}
+\input{paper_sections/results.tex}
+\FloatBarrier
+\input{paper_sections/policy_discussion.tex}
 \input{paper_sections/weighted.tex}
 \input{paper_sections/proofs.tex}
 \input{supplementary_results.tex}

@@ -66,3 +66,7 @@ The GitHub deliverable includes public inputs only, their license/provenance,
 and clearly labeled derived research results. Credentialed data must remain
 local and must never be committed. The default ignore rules exclude all data;
 only this reviewed public subset is explicitly added for this release.
+
+## Paired consent benchmark derivatives
+
+The paired comparison uses only the existing public A/B data. Permission states are synthetic independent lab/vital denial draws, plus time-12 revocation. They are not observed patient choices. Full-input models are reused without retraining; denied histories and recurrent state are cleared during inference. `results/consent-comparison/` contains aggregated metrics and patient-indexed derived policy contributions with public benchmark identifiers. Input-availability proxies do not quantify privacy leakage. Original licenses and patient-level split definitions continue to apply.

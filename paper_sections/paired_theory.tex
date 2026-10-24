@@ -1,0 +1,20 @@
+\section*{Paired performance under consent restrictions}
+Let $f$ be a predictor trained independently of the evaluation patients, and let $M_i$ encode patient $i$'s permitted inputs. Write $S_i^{\mathrm{full}}=f(X_i)$ and $S_i^{M}=f(\Phi(X_i,M_i))$, where $\Phi$ includes causal masking and any required state clearing. For a fixed decision policy $\tau$ and bounded patient loss $L\in[0,1]$, define
+\[
+ D_i=L(S_i^M,Y_i;\tau)-L(S_i^{\mathrm{full}},Y_i;\tau),
+ \qquad \Delta=\E[D_i].
+\]
+A positive $\Delta$ is deterioration under the specified restriction. A negative value is improvement for that particular loss. Neither sign measures the ethical value of respecting a patient's choice. Pairing compares both procedures on the same patient trajectory; it is a computational intervention on model access, not a causal estimate of changing patient health outcomes.
+
+\begin{proposition}[Paired bounded-loss preservation criterion]
+For $J$ fixed model/policy/permission comparisons on $n$ independent, identically distributed evaluation units, let $\bar D_j$ be the observed mean loss difference. With probability at least $1-\delta$, simultaneously for all comparisons,
+\[
+ \Delta_j\le \bar D_j+
+ \sqrt{\frac{2\log(J/\delta)}{n}}.
+\]
+Thus an upper bound no larger than a prespecified tolerance $\epsilon$ certifies non-inferiority for that bounded loss and tolerance. It does not establish equality, clinical acceptability or ethical justification. For conditional incident risk, the units are incident-eligible patients and $n$ is their count, conditional on membership.
+\end{proposition}
+\begin{proof}
+Each paired difference lies in $[-1,1]$. Hoeffding's one-sided inequality gives $\Pr(\Delta_j-\bar D_j>t)\le\exp(-nt^2/2)$. Set $t=\sqrt{2\log(J/\delta)/n}$ and union-bound the $J$ events. Comparisons may share patients; independence is required between evaluation units, not between comparisons. The conditional argument applies to the positive-patient sampling law under the same fixed-procedure assumptions.
+\end{proof}
+This is a direct application of a classical concentration inequality \citep{hoeffding}, not a new distribution-free result. AUROC is a ranking functional rather than a mean of these patient losses, so its paired bootstrap interval is reported separately and is not asserted to follow from this proposition. Repeated-review counts and normalized challenge utility also require their own range analysis before this bounded-loss statement can be applied.

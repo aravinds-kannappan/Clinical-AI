@@ -1,7 +1,7 @@
 \begin{table*}[t]
 \centering\small
 \caption{Validation-selected operating policies, means over three seeds. ``Repeated'' reviews every above-threshold hour. Utility uses full-stay states; risk and review count use the retrospective pre-onset endpoint. No test metric chooses a threshold.}
-\label{tab:policies}
+
 \begin{tabular}{lllrrr}\toprule
 Model & Site & Policy & Missed risk & Reviews/patient & Utility\\\midrule
 {{ROWS}}

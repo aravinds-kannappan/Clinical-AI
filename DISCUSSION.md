@@ -1,31 +1,17 @@
-# Answer to the research question
+# What the study concludes
 
-**The design and evaluation are possible; the full conjunction has not been demonstrated.** This revision gives a concrete reason: under the tested strict first-alert policy, useful score discrimination and positive challenge utility coexist with failure of the incident-review requirement.
+The matched experiment now directly asks whether a sepsis AI system retains performance when its permitted inputs change. It shows a conditional, model- and source-dependent cost. All non-reference conditions lower mean AUROC within each model/hospital combination. Some reductions are small, but ranking alone can hide worse incident detection at the fixed threshold.
 
-## What changed the scientific answer
+The clearest example is the hospital-B GRU without laboratory inputs: mean AUROC changes from 0.752 to 0.745, while missed-incident risk rises by 11.2 percentage points and review demand falls by 1.42 per patient. Small ranking differences do not establish preserved alert behavior. The three seed-specific missed-risk intervals all exclude zero. These are retrospective benchmark outcomes, not observed effects on patient health.
 
-The revised study uses all 40,336 public patients, validation-tuned logistic regression, gradient boosting and a GRU. Mean pre-onset AUROC improves from 0.745 for logistic to 0.794 for boosting at hospital A; externally, the GRU reaches 0.752 versus logistic's 0.666. These are descriptive three-seed means, with every seed's patient-bootstrap intervals released.
+This supports framing the work as a sepsis benchmark and evaluation study. Its contribution is a reusable matched protocol, reference baselines, measured contrasts, uncertainty and documented failure cases. It is not a new learning algorithm or an ethical certification. Broader benchmarking would benefit from another clinical task and models trained specifically for permitted data.
 
-Despite this improvement, all local first-alert grids are excluded by the simultaneous confidence certificate at a 5% conditional incident missed-event target—even with a budget of one review per patient. This rules out those finite grids under the sampling assumptions. It does not rule out every threshold, model, monitoring design or healthcare AI pipeline.
+The original research question also requires explicit consent and effective oversight. The implementation enforces modeled input restrictions and tests modeled review paths. That is narrower than obtaining valid informed consent, preventing data leakage or demonstrating effective clinicians. Reviewers and preferences are simulated. All models were originally trained on full public inputs, so training consent and removal of learned influence are not tested.
 
-## Why a better predictor can still fail
+The secondary first-alert study finds every tested local grid infeasible at the declared 5% missed-risk target, including a one-review-per-patient budget. The problem is the strict first-review timing definition: early review can consume the available action before the valid window. Positive challenge utility does not resolve that different endpoint. Other policies, models and clinical review processes are not ruled out.
 
-A first alert has to occur inside the specified six-hour pre-onset window. An earlier alert consumes the one review and counts as a miss under this endpoint. At hospital A, the validation-selected boosting policy averages 0.193 reviews per patient and positive challenge utility of 0.332, but strict incident missed risk is 0.960. The utility rewards a wider warning window and a latched positive condition state. The metrics answer different questions.
+TRACER motivates the broader question about sensitive bedside monitoring; it uses different tasks and nonpublic video/record data. Its authors report ethics approval and restricted data handling while discussing consent and surveillance issues. This study neither reproduces TRACER nor alleges unauthorized collection or leakage.
 
-This is also a mathematical issue. Nested score thresholds do not make timely first-alert loss monotone. The manuscript provides an explicit counterexample, a population feasibility characterization, and a finite-grid certificate that does not require monotonicity. It distinguishes a genuinely excluded grid from a sample too small to certify anything. The general certificate is an application of established simultaneous-confidence/Learn then Test methods, not an invented new general theorem.
+The mathematics defines what a performance-preservation claim would require. A bounded-loss upper bound must lie below a prespecified, justified tolerance. A bootstrap interval crossing zero is not proof of equivalence. Statistical proofs cannot determine what patients should consent to or how much authority AI should receive.
 
-## Consent and oversight
-
-Consent is now patient-specific, with lab/vital opt-outs and hour-12 revocation that clears derived and recurrent state. These are simulated preferences. Their cost curves do not establish what real patients would choose.
-
-The review audit uses the actual sepsis scores and 972 arrival/service/noise scenarios. It counts successful action only when a correct review completes before inferred onset. This makes oversight a process, but its parameter values remain assumptions. No human reviewers participated. Published provider response delays do not justify equating them with two-, five- or ten-minute active service times.
-
-Review-path and storage constraints are verified on the modeled graph. Five hundred random DAGs broaden structural testing: 126 have a source-to-action path and 103 have an unreviewed bypass. These synthetic results show why placing a review node in a diagram is insufficient; they do not audit a deployed hospital system.
-
-## Scope of the conclusion
-
-There is **no row that establishes the original research question in full**. The empirical alert policies fail the stated risk target, while actual clinician effectiveness and patient benefit remain unmeasured. The strongest supported claim is that explicit controls and a mathematically valid evaluation can expose where a particular pipeline fails.
-
-The strict window penalizes potentially useful early assessments. Workload also stops retrospectively at inferred onset for positive patients. A practical next study should evaluate continuing review or cooldown policies with an observable stopping rule and a guarantee matched to that policy. It should then measure clinician response and outcomes prospectively. Full credentialed MIMIC-IV and clinical deployment were outside the completed public-data study.
-
-See [the paper](paper.pdf), [methods](METHODS.md), and [the measured outputs](results/revision/REPORT.md).
+The next comparisons should distinguish inference restriction, training adaptation and policy adaptation. Missingness-aware training, consent-aware training masks and source-specific models can be evaluated on the released protocol. Real participant preferences and prospective clinician outcomes remain necessary for claims about ethical deployment or patient benefit.

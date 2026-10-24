@@ -1,0 +1,191 @@
+{
+  "run_id": "42f07f68-d91c-4994-93ac-ed30e8085d18",
+  "commit": "b270a1cbd39109646334a1aca517b3a60f4f4e49",
+  "configuration": {
+    "seeds": [
+      11,
+      29,
+      47
+    ],
+    "models": [
+      "logistic",
+      "boosting",
+      "gru"
+    ],
+    "sites": [
+      "A",
+      "B"
+    ],
+    "scenarios": [
+      {
+        "name": "full_input",
+        "lab_denial": 0,
+        "vital_denial": 0,
+        "start": 0
+      },
+      {
+        "name": "optout_10",
+        "lab_denial": 0.1,
+        "vital_denial": 0.1,
+        "start": 0
+      },
+      {
+        "name": "optout_30",
+        "lab_denial": 0.3,
+        "vital_denial": 0.3,
+        "start": 0
+      },
+      {
+        "name": "optout_50",
+        "lab_denial": 0.5,
+        "vital_denial": 0.5,
+        "start": 0
+      },
+      {
+        "name": "no_labs",
+        "lab_denial": 1,
+        "vital_denial": 0,
+        "start": 0
+      },
+      {
+        "name": "no_vitals",
+        "lab_denial": 0,
+        "vital_denial": 1,
+        "start": 0
+      },
+      {
+        "name": "metadata_only",
+        "lab_denial": 1,
+        "vital_denial": 1,
+        "start": 0
+      },
+      {
+        "name": "revoke_30_at12",
+        "lab_denial": 0.3,
+        "vital_denial": 0.3,
+        "start": 12
+      }
+    ],
+    "discrimination_bootstrap": 200,
+    "policy_bootstrap": 500,
+    "interval": "pointwise paired patient percentile 95%; conditional on fitted model, split, and simulated permissions",
+    "policy": "Reuse parent validation-utility thresholds unchanged in every permission scenario; once and hourly",
+    "consent_scope": "inference-time input availability only; parent models trained on full public benchmark features",
+    "utility": "official full-stay challenge utility, distinct from clinical outcomes",
+    "primary_contrast": "restricted minus full input on identical held-out patients",
+    "noninferiority_margin": null,
+    "privacy": "permitted source-hours and available observed-feature cells are exposure proxies, not measured leakage",
+    "source_stage": "revision"
+  },
+  "source_run": "d2efff2d-0525-47d7-ba94-879667d6b795",
+  "inputs": [
+    {
+      "file": "logistic-11.pkl",
+      "sha256": "38f830b7f253733600aaf97804ee11768840e6c5fbfd5726bb1565d0a99845d3"
+    },
+    {
+      "file": "predictions-logistic-11-test_A.npz",
+      "sha256": "ee868753f0f83a3200092427d4bcb8cfeed29e86c9baa3dc7ccf6a5c7f2c7763"
+    },
+    {
+      "file": "predictions-logistic-11-test_B.npz",
+      "sha256": "3c7666cf8207fbdcb0dff5ed97031d0006d36f20b5ac16dab8b1b4489fd31421"
+    },
+    {
+      "file": "boosting-11.pkl",
+      "sha256": "e5b2c0dbb086d3a72eba7f15675e0d1096ab16bd8f8491ada173635d0dc91091"
+    },
+    {
+      "file": "predictions-boosting-11-test_A.npz",
+      "sha256": "b8eed41d76339658aa204b5eb2698b7c51fe8a5f8c4a5cc4b5acc0378226d681"
+    },
+    {
+      "file": "predictions-boosting-11-test_B.npz",
+      "sha256": "8879e5782e692c61f52c717854404a6482b153385088193469728f7dabad20c1"
+    },
+    {
+      "file": "gru-11.pt",
+      "sha256": "7a4b6c0d668f7eb2fdb70ac3df4dda04cc05d414d58f7007755b443e8c565e67"
+    },
+    {
+      "file": "predictions-gru-11-test_A.npz",
+      "sha256": "f959e3ec498d9eb7206f000e446ca2e0153f49fb52e93b561fb83a3a9febbf3b"
+    },
+    {
+      "file": "predictions-gru-11-test_B.npz",
+      "sha256": "e3c2f36c7514df52f68a6f1fd65f673faa60bcb312dea3686e006b35b3c86a25"
+    },
+    {
+      "file": "logistic-29.pkl",
+      "sha256": "7c01f5f9e337d387661d0b2db1cd57d1ec6fffc876dfc4b47ace49461fae4524"
+    },
+    {
+      "file": "predictions-logistic-29-test_A.npz",
+      "sha256": "8c82b674dd84905a053b6a721861ee08580ff9bfd2122f8fb12ed04e5af1e1fd"
+    },
+    {
+      "file": "predictions-logistic-29-test_B.npz",
+      "sha256": "20053fabbc864f51e923f1b6d322d6b257db3172929727fcb8276a7721fc3068"
+    },
+    {
+      "file": "boosting-29.pkl",
+      "sha256": "1a2d6c3635f5a016386a4b6caaf862cc51547dc14b4017c85e1083eaf9da83c5"
+    },
+    {
+      "file": "predictions-boosting-29-test_A.npz",
+      "sha256": "26a40fe7e2935c7e8f4fa0e28939073bf21c21dcec57517de9eb8ad3613614ce"
+    },
+    {
+      "file": "predictions-boosting-29-test_B.npz",
+      "sha256": "bd69235ecb93569ab0888e15c9bc0834af2fe7f1711b75572f3c2f1065c28478"
+    },
+    {
+      "file": "gru-29.pt",
+      "sha256": "771aea648bae09e3c75c3b8cd69a5b8d98b2dcf7a48d855297f98d562b657493"
+    },
+    {
+      "file": "predictions-gru-29-test_A.npz",
+      "sha256": "9d67a878e381f5fd76a381e10765e1b68ef9d10095c7802eadc781917b674f59"
+    },
+    {
+      "file": "predictions-gru-29-test_B.npz",
+      "sha256": "f2d55034dd0f0532a77c18a1231b945880edc34afa00f9909075970972d62eea"
+    },
+    {
+      "file": "logistic-47.pkl",
+      "sha256": "29f420225922b046a0a1794007e2bcf799c86b4b57dc135f387bd5c4dd4c5121"
+    },
+    {
+      "file": "predictions-logistic-47-test_A.npz",
+      "sha256": "b9714856233b44841dcd5a98786e44e763f45926b5ef3e69198d490f658a1b96"
+    },
+    {
+      "file": "predictions-logistic-47-test_B.npz",
+      "sha256": "d71342ee652c66b8831dee7ccb900b8182a6981302a482f77a8425e98d77dca5"
+    },
+    {
+      "file": "boosting-47.pkl",
+      "sha256": "bad1a4bf13fcb62a2bd3522d2b15456a30b7d79ed14d90bdf03c4a55ec4981a7"
+    },
+    {
+      "file": "predictions-boosting-47-test_A.npz",
+      "sha256": "521ff2fe5da953b061e8086dd256f9c26747de4a6f3859d15a9d32f194bcef38"
+    },
+    {
+      "file": "predictions-boosting-47-test_B.npz",
+      "sha256": "bd5d7e021612ad1c5b4d73fb926a4384bc448621845b173c013b7885580e4f29"
+    },
+    {
+      "file": "gru-47.pt",
+      "sha256": "b2024acbfac0342569122b2e7324eacbb410147df70c43211c2968deafc66e60"
+    },
+    {
+      "file": "predictions-gru-47-test_A.npz",
+      "sha256": "598bb31307c54b3dbfaec419167f54e763fc29a880ac5dfd929dbd30f81753f3"
+    },
+    {
+      "file": "predictions-gru-47-test_B.npz",
+      "sha256": "4067dec978e659383779495b6b3141e3ff159dc9e33ac0a66824e2f346b4b6cb"
+    }
+  ]
+}

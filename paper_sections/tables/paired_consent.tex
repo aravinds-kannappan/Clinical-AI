@@ -1,0 +1,11 @@
+\begin{table*}[t]\centering\small\setlength{\tabcolsep}{4pt}
+\caption{Mean pre-onset AUROC across three matched patient splits. Denial probabilities apply independently to the lab and vital groups; revocation uses probability 0.3 beginning at hour 12. Model parameters and test populations are unchanged. Across-seed means are descriptive; pointwise paired intervals for every split are released in the comparison CSV and illustrated for source-group restrictions.}
+\begin{tabular}{llrrrrrrrr}\toprule
+Model & Site & Full & 10\% & 30\% & 50\% & No labs & No vitals & Metadata & Revoke\\\midrule
+Logistic & A & 0.745 & 0.736 & 0.726 & 0.719 & 0.729 & 0.715 & 0.689 & 0.731 \\
+Logistic & B & 0.666 & 0.662 & 0.647 & 0.634 & 0.639 & 0.640 & 0.604 & 0.652 \\
+Boosting & A & 0.794 & 0.780 & 0.763 & 0.747 & 0.765 & 0.741 & 0.710 & 0.766 \\
+Boosting & B & 0.731 & 0.716 & 0.688 & 0.662 & 0.689 & 0.636 & 0.602 & 0.693 \\
+GRU & A & 0.778 & 0.758 & 0.726 & 0.687 & 0.734 & 0.697 & 0.549 & 0.717 \\
+GRU & B & 0.752 & 0.741 & 0.712 & 0.683 & 0.745 & 0.657 & 0.526 & 0.698 \\
+\bottomrule\end{tabular}\end{table*}

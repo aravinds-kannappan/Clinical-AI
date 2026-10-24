@@ -1,4 +1,4 @@
 import './style.css';
 import 'katex/dist/katex.min.css';
-export const metadata={title:'Clinical AI · Consent, risk & human review',description:'An auditable study of clinical prediction, patient consent, and the capacity of human oversight.'};
+export const metadata={title:'Benchmarking AI Under Consent Constraints · Aravind Kannappan',description:'A benchmark comparing full-input and consent-constrained AI using public sepsis data. Methods, mathematical analysis, measured results and limitations.'};
 export default function Layout({children}){return <html lang="en"><body>{children}</body></html>}

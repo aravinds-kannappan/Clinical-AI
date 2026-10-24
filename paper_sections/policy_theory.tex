@@ -1,18 +1,24 @@
-\section{Alert policies and joint guarantees}\label{sec:theory}
-\subsection{Patient-level estimands}
+\section*{Related statistical methods}
+Conformal risk control bounds an expected loss under exchangeability and the required regularity of a nested loss family \citep{crc}. Risk-controlling prediction sets and Learn then Test instead provide high-probability statements about candidate procedures, with selection justified by valid tests or simultaneous confidence statements \citep{rcps,ltt}. Pareto Testing addresses the efficient selection of configurations subject to multiple risk constraints \citep{pareto}. Our finite-grid construction is deliberately elementary: exact binomial intervals and a union bound provide a transparent reference method for a non-monotone first-alert loss.
+
+The distinction between the guarantees is consequential. An expectation over calibration and a future patient is not the same object as a high-probability upper bound on the population risk of a fitted rule. Likewise, failing to pass a test is not evidence that every candidate is infeasible. We use lower bounds to support the latter statement and retain an undetermined outcome when neither direction is established. We make no claim that the underlying binomial, union-bound or importance-weight arguments are new.
+
+Recent clinical selective-prediction work combines conformal prediction with cost-aware deferral and evaluates group-conditional and shifted settings \citep{kwon2026}. Such work is closely related in motivation. Our loss is a missed incident among event-positive patients, and our capacity variable is the number of patient reviews. Prediction-set coverage, error on retained cases and timely first review are different random variables, so a guarantee for one does not transfer automatically to the others. Under hospital shift, weighted conformal methods further require a relationship between source and target distributions \citep{weighted}; an estimated domain-classifier ratio alone does not verify that relationship.
+
+
+\section*{Alert policies and joint guarantees}
 A patient supplies a finite sequence of causally available observations, consent states, and frozen scores $S_1,\ldots,S_T\in[0,1]$. Let $Z$ indicate an incident event with an observed valid warning window $[a,b]$. For a threshold $\tau$, the first-alert policy is
-\begin{equation}
+\begin{equation*}
  \begin{aligned}
  T_\tau&=\inf\{t:S_t\ge\tau\},\quad R_\tau=\ind\{T_\tau\le T\},\\
  L_\tau&=\ind\{T_\tau\notin[a,b]\},\quad Z=1.
  \end{aligned}
- \label{eq:first}
-\end{equation}
+\end{equation*}
 An empty set gives $T_\tau=\infty$. Assume $0<\Pr(Z=1)<1$ and $0<\alpha<1$. We target conditional incident risk $r(\tau)=\E[L_\tau\mid Z=1]$ and expected workload $w(\tau)=\E[R_\tau]$, measured in reviews per patient. Their joint constraints are $r(\tau)\le\alpha$ and $w(\tau)\le K$. For $m$ independent patient arrivals in a period, the expected number of reviews is $mw(\tau)$; an expectation bound does not guarantee a finite waiting time.
 
 For comparison, a repeated-alert policy uses every threshold crossing. Its incident missed-event loss is $\ind\{\max_{a\le t\le b}S_t<\tau\}$, which is monotone in $\tau$. A rule that emits only the first crossing has lower review count but a different risk.
 
-\begin{proposition}[First-alert non-monotonicity]\label{prop:nonmono}
+\begin{proposition}[First-alert non-monotonicity]
 Nested threshold crossings do not imply monotone timely first-alert loss. There is a trajectory for which lowering $\tau$ changes the incident loss from zero to one, although the probability of any review is non-decreasing as the threshold decreases.
 \end{proposition}
 \begin{proof}
@@ -20,68 +26,66 @@ Let a pre-window score equal $0.6$, an in-window score equal $0.9$, and all othe
 \end{proof}
 This prevents applying the monotone-loss conformal risk-control theorem \citep{crc} to the first-alert loss without additional assumptions. Counting any in-window crossing while reporting only one early review would evaluate a different policy.
 
-\subsection{Population feasibility}
 Define the pre-window maximum $A=\max_{t<a}S_t$, with $A=-\infty$ for an empty prefix, the in-window maximum $B=\max_{a\le t\le b}S_t$, and the maximum $C$ over the monitoring interval used to count reviews. For event-positive patients the monitoring interval includes the warning window. Let $\pi=\Pp(Z=1)$ and
-\begin{equation}
+\begin{equation*}
  \begin{aligned}
  H(\tau)&=\Pp(A<\tau\le B\mid Z=1),\\
  W(\tau)&=\pi\Pp(C\ge\tau\mid Z=1)\\
  &\quad +(1-\pi)\Pp(C\ge\tau\mid Z=0).
  \end{aligned}
- \label{eq:HW}
-\end{equation}
+\end{equation*}
 
-\begin{theorem}[Exact feasibility of a first-alert threshold family]\label{thm:feas}
+\begin{theorem}[Exact feasibility of a first-alert threshold family]
 For a fixed threshold domain $\mathcal T$, a jointly feasible first-alert threshold exists if and only if
 \[
  \{\tau\in\mathcal T:H(\tau)\ge 1-\alpha,\ W(\tau)\le K\}\ne\varnothing.
 \]
 If $\mathcal T_\alpha=\{\tau\in\mathcal T:H(\tau)\ge1-\alpha\}$ is nonempty and has a maximum $\tau_\star$, the minimum feasible expected review budget is
-\begin{equation}
+\begin{equation*}
  K_{\min}=W(\tau_\star).
- \label{eq:kmin}
-\end{equation}
+\end{equation*}
 Consequently, joint feasibility is equivalent to $K\ge K_{\min}$. Moreover $K_{\min}\ge\pi(1-\alpha)$. If $\mathcal T_\alpha$ is empty, no review budget makes this threshold family feasible.
 \end{theorem}
 The maximum assumption always holds for a finite nonempty policy grid. For a continuous domain it is a substantive attainment condition; replacing a minimum by an infimum without attainment can make a boundary feasibility assertion false. This characterization is exact but needs the joint law of $A$ and $B$, not merely an hourly ROC curve.
 
-\begin{corollary}[Closed form when early consumption is absent]\label{cor:quantile}
+\begin{corollary}[Closed form when early consumption is absent]
 Suppose no alert is possible before the valid window, the positive-patient review interval equals that window, and the conditional distributions of $C$ are continuous, with positive-class CDF $F_1$ strictly increasing at its unique $\alpha$-quantile $q_\alpha$. Let the negative-class CDF be $F_0$. Then
-\begin{equation}
+\begin{equation*}
  \begin{aligned}
  K_{\min}&=\pi(1-\alpha)+(1-\pi)\{1-F_0(q_\alpha)\},\\
  q_\alpha&=F_1^{-1}(\alpha).
  \end{aligned}
-\end{equation}
+\end{equation*}
 This is the familiar threshold/ROC workload identity under an explicit no-early-consumption assumption; it is not a general formula for an unrestricted first-alert policy.
 \end{corollary}
 
-\subsection{Finite-sample joint certification}
 Let $\mathcal T=\{\tau_1,\ldots,\tau_M\}$ be fixed independently of calibration data, for example using training and validation only. Calibration patients are independent and identically distributed from the deployment population, including the consent mechanism. For each policy compute positive-patient losses and all-patient review indicators. Let $n_+$ be the positive calibration count and $n$ the total count. Use exact one-sided Clopper--Pearson binomial bounds \citep{clopper} with tail probability $\eta=\delta/(4M)$ to obtain $(\ell^r_j,u^r_j)$ and $(\ell^w_j,u^w_j)$.
 
-\begin{theorem}[Joint certificate and honest abstention]\label{thm:certificate}
+\begin{theorem}[Joint certificate and honest abstention]
 Conditional on any independently trained predictor and frozen grid, with probability at least $1-\delta$ over calibration, all of the following hold simultaneously:
-\begin{enumerate}
-\item Every $j$ with $u^r_j\le\alpha$ and $u^w_j\le K$ satisfies both population constraints.
-\item If every $j$ has $\ell^r_j>\alpha$ or $\ell^w_j>K$, no policy on this grid satisfies both constraints.
-\item Any data-dependent selection among certified policies, including the one with smallest workload upper bound, preserves assertion 1.
-\end{enumerate}
-No monotonicity of $L_\tau$ is required. If neither condition 1 nor condition 2 is met, the output is \emph{undetermined}, not infeasible. For $n_+=0$, the risk interval is $[0,1]$ and no positive-risk claim is certified.
+
+
+Every $j$ with $u^r_j\le\alpha$ and $u^w_j\le K$ satisfies both population constraints.
+
+If every $j$ has $\ell^r_j>\alpha$ or $\ell^w_j>K$, no policy on this grid satisfies both constraints.
+
+Any data-dependent selection among certified policies, including the one with smallest workload upper bound, preserves both population constraints.
+
+No monotonicity of $L_\tau$ is required. If neither certification nor grid exclusion is established, the output is \emph{undetermined}, not infeasible. For $n_+=0$, the risk interval is $[0,1]$ and no positive-risk claim is certified.
 \end{theorem}
-The construction applies simultaneous-confidence/LTT reasoning to the first-alert policy in Proposition~\ref{prop:nonmono}. The three outputs distinguish an acceptable operating point, an excluded grid, and a calibration sample that cannot resolve the question.
+The construction applies simultaneous-confidence/LTT reasoning to the first-alert policy in the first-alert non-monotonicity proposition. The three outputs distinguish an acceptable operating point, an excluded grid, and a calibration sample that cannot resolve the question.
 
 The certificate is a high-probability statement about the population risk of the selected policy, distinct from the expectation-over-calibration guarantee of ordinary CRC. Model selection performed on calibration would require including every candidate model/policy in the multiplicity family; here model tuning uses validation only. Separate per-model certificates are not automatically simultaneous across models or seeds.
 
 \begin{corollary}[Prespecified group or site cells]
-For groups $g=1,\ldots,G$ specified independently of calibration, apply Theorem~\ref{thm:certificate} within each cell using $\delta_g$ with $\sum_g\delta_g\le\delta$. All certified group-conditional risk and workload statements then hold jointly with probability at least $1-\delta$. The groups may overlap. Empty or underpowered cells can remain undetermined. A rule calibrated in one hospital is not certified in another merely by relabeling its population.
+For groups $g=1,\ldots,G$ specified independently of calibration, apply the joint-certification theorem within each cell using $\delta_g$ with $\sum_g\delta_g\le\delta$. All certified group-conditional risk and workload statements then hold jointly with probability at least $1-\delta$. The groups may overlap. Empty or underpowered cells can remain undetermined. A rule calibrated in one hospital is not certified in another merely by relabeling its population.
 \end{corollary}
 
-\subsection{Consent, exchangeability and shift}
 Let $U$ denote the complete patient trajectory, $C$ the possibly time-varying consent trajectory, and $V$ any policy randomization. A frozen causal procedure $\Phi(U,C,V)$ produces permitted features, scores, alert decisions, and losses. The procedure may clear cached features and recurrent state after revocation.
 
-\begin{proposition}[Sufficient exchangeability condition]\label{prop:consent}
-If the calibration and future tuples $(U,C,V)$ are identically distributed and independent, and the same frozen measurable transformation $\Phi$ is applied to every tuple, their loss and review vectors are identically distributed and independent. Theorem~\ref{thm:certificate} therefore remains valid, including after conditioning on positive-event membership. Consent need not be independent of the outcome.
+\begin{proposition}[Sufficient exchangeability condition]
+If the calibration and future tuples $(U,C,V)$ are identically distributed and independent, and the same frozen measurable transformation $\Phi$ is applied to every tuple, their loss and review vectors are identically distributed and independent. The joint-certification theorem therefore remains valid, including after conditioning on positive-event membership. Consent need not be independent of the outcome.
 \end{proposition}
 The weaker condition $C\perp Y\mid X$ alone does not guarantee transfer between different consent populations. For a counterexample, let $X=Y\sim\mathrm{Bernoulli}(1/2)$ and score $S=CX$. Calibration consent is always $C=1$, deployment consent always $C=0$, and the threshold is $1/2$. Both populations satisfy $C\perp Y\mid X$, yet positive-patient missed risk changes from zero to one. Conditional ignorability does not make the joint distributions equal.
 
-Weighted conformal methods address particular distribution shifts when suitable likelihood-ratio information is available \citep{weighted}. Appendix~\ref{sec:weighted-proof} gives a bounded-ratio risk/workload certificate derived from Hoeffding's inequality \citep{hoeffding}. Its known-ratio assumption is stronger than fitting a hospital classifier. Our empirical weighted comparison is consequently a diagnostic, not a guaranteed hospital-transfer procedure.
+Weighted conformal methods address particular distribution shifts when suitable likelihood-ratio information is available \citep{weighted}. The known-ratio appendix gives a bounded-ratio risk/workload certificate derived from Hoeffding's inequality \citep{hoeffding}. Its known-ratio assumption is stronger than fitting a hospital classifier. Our empirical weighted comparison is consequently a diagnostic, not a guaranteed hospital-transfer procedure.

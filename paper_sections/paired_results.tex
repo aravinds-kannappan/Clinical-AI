@@ -1,0 +1,23 @@
+\section*{Results}
+The paired comparison evaluates eight input-permission conditions for three models, three split seeds and two hospitals. It produces 144 discrimination records and 288 fixed-policy records. Full-input scores are recomputed and checked against the saved parent predictions before any intervention. Every reference-versus-reference contrast has zero difference by construction; restricted comparisons use the same patients and thresholds rather than independently selected test samples.
+
+
+
+\input{paper_sections/paired_findings.tex}
+
+\begin{figure*}[t]\centering
+\includegraphics[width=\linewidth]{figs/paired_discrimination.pdf}
+\caption{Pre-onset discrimination under increasing independent denial of laboratory and vital inputs. Points are means over three matched split seeds and shading spans their observed range, not a confidence interval. The vertical scale is restricted to emphasize differences in AUROC. Models are frozen and no consent-specific retraining occurs.}
+\end{figure*}
+
+\begin{figure*}[t]\centering
+\includegraphics[width=\linewidth]{figs/paired_effects.pdf}
+\caption{Paired AUROC differences for complete feature-group restrictions. Each point is one split seed and each interval is the pointwise 95\% percentile interval from 200 paired whole-patient bootstrap replicates. The same patient multiplicities are used in the full and restricted conditions. Intervals are not simultaneous across the displayed comparisons. Zero denotes unchanged AUROC, not an ethical or clinical acceptability threshold.}
+\end{figure*}
+
+\begin{figure*}[t]\centering
+\includegraphics[width=\linewidth]{figs/paired_policy_effects.pdf}
+\caption{Changes in missed-incident risk and review demand at fixed repeated-hourly alert thresholds. Positive risk change is deterioration; negative review change means fewer reviews. Lines are three-seed means and bands are descriptive seed ranges. All thresholds were selected on the original validation population and remain fixed across the denial-rate sweep. Paired policy confidence intervals are released separately.}
+\end{figure*}
+
+These comparisons answer a narrower, explicit version of the consent question: what happens to a frozen sepsis AI system when its permitted inputs change? They do not establish that the observed losses are unavoidable. Retraining under permitted features, adapting missingness handling or choosing a new validation-only threshold could change the outcome. Those are different interventions that would require separately evaluated models, rather than being folded into the same consent contrast. The present results also do not identify a clinically acceptable tolerance, so apparent similarity on an individual metric is not labeled non-inferiority.

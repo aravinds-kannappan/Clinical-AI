@@ -1,3 +1,13 @@
+# Paired consent comparison
+
+The primary consent comparison now holds trained models, held-out patients, outcomes and validation-selected decision thresholds fixed. Eight inference-time permission conditions are evaluated on each of three models, three split seeds and two hospitals. Full-input reference, independent lab/vital opt-out at 10%, 30% and 50%, no labs, no vitals, metadata only, and revocation at hour 12 are specified in `configs/consent_comparison.json` before execution.
+
+Models retain their original full-public-data training. This is not a training-consent, machine-unlearning or weak-supervision experiment. Missing inputs are transformed with the frozen training preprocessing; denied cached features and observation counts are cleared, and recurrent state resets at revocation. Patient-specific permission draws are shared across models and nested across denial rates.
+
+`results/consent-comparison/discrimination.csv` reports paired differences in pre-onset AUROC, average precision and Brier score. AUROC/Brier intervals use 200 paired whole-patient resamples. `policies.csv` reports fixed-policy incident risk, reviews, utility and false-review changes with 500 paired resamples. Intervals are pointwise 95% percentile intervals, conditional on the trained model, split and permission assignment. Average precision has no bootstrap interval in this comparison. No clinical non-inferiority margin is specified; similarity or a nonsignificant difference is not proof of equivalence.
+
+Permitted source-hours and available last-value feature cells quantify input availability only. They do not quantify privacy leakage or the ethical value of consent. The earlier scenario-adaptive consent experiment below is secondary and must not be treated as the fixed-policy comparison.
+
 # Methods
 
 The revised primary study uses all **40,336 public PhysioNet/CinC 2019 patients** (20,336 hospital A; 20,000 hospital B; 1,552,210 hourly rows). The data manifest records source URLs, ETags and SHA256 checksums. The full public archive is supplied under its original CC BY 4.0 terms. No credentialed MIMIC-IV experiment is claimed.

@@ -1,26 +1,25 @@
-
-\section{Proof of population feasibility}
-\begin{proof}[Proof of Theorem~\ref{thm:feas}]
-A first alert is in the warning window exactly when no earlier score reaches threshold and some in-window score does. With inclusive alert ties, those events are $A<\tau$ and $B\ge\tau$. Thus $r(\tau)=1-H(\tau)$. Any review occurs exactly when $C\ge\tau$, giving $w(\tau)=W(\tau)$ by conditioning on $Z$. This proves the set characterization. The function $W$ is non-increasing in $\tau$, regardless of whether $H$ is monotone. If the risk-feasible set has maximum $\tau_\star$, its workload is no larger than at every other risk-feasible threshold, proving Equation~\eqref{eq:kmin} and both directions of the budget equivalence. Timely success implies a review, so for every risk-feasible threshold $W(\tau)\ge\Pp(Z=1,T_\tau\in[a,b])=\pi H(\tau)\ge\pi(1-\alpha)$. If the risk-feasible set is empty, increasing workload cannot create a member of it.
+\section*{Proof of population feasibility}
+\begin{proof}[Proof of the population-feasibility theorem]
+A first alert is in the warning window exactly when no earlier score reaches threshold and some in-window score does. With inclusive alert ties, those events are $A<\tau$ and $B\ge\tau$. Thus $r(\tau)=1-H(\tau)$. Any review occurs exactly when $C\ge\tau$, giving $w(\tau)=W(\tau)$ by conditioning on $Z$. This proves the set characterization. The function $W$ is non-increasing in $\tau$, regardless of whether $H$ is monotone. If the risk-feasible set has maximum $\tau_\star$, its workload is no larger than at every other risk-feasible threshold, proving the minimum-budget identity and both directions of the budget equivalence. Timely success implies a review, so for every risk-feasible threshold $W(\tau)\ge\Pp(Z=1,T_\tau\in[a,b])=\pi H(\tau)\ge\pi(1-\alpha)$. If the risk-feasible set is empty, increasing workload cannot create a member of it.
 \end{proof}
-\begin{proof}[Proof of Corollary~\ref{cor:quantile}]
-With no possible earlier alert and $B=C$ on positives, $r(\tau)=\Pp(C<\tau\mid Z=1)=F_1(\tau)$ by continuity. The unique maximal feasible threshold is $q_\alpha$ under the stated strictness and attainment assumptions. Substitution into Equation~\eqref{eq:HW} gives $\pi\{1-F_1(q_\alpha)\}+(1-\pi)\{1-F_0(q_\alpha)\}$, and $F_1(q_\alpha)=\alpha$ completes the result.
+\begin{proof}[Proof of the no-early-consumption corollary]
+With no possible earlier alert and $B=C$ on positives, $r(\tau)=\Pp(C<\tau\mid Z=1)=F_1(\tau)$ by continuity. The unique maximal feasible threshold is $q_\alpha$ under the stated strictness and attainment assumptions. Substitution into the workload decomposition gives $\pi\{1-F_1(q_\alpha)\}+(1-\pi)\{1-F_0(q_\alpha)\}$, and $F_1(q_\alpha)=\alpha$ completes the result.
 \end{proof}
 
-\section{Proof of finite-sample certification}
-\begin{proof}[Proof of Theorem~\ref{thm:certificate}]
+\section*{Proof of finite-sample certification}
+\begin{proof}[Proof of the joint-certification theorem]
 Condition on the fitted predictor and independently chosen candidate grid. For each policy, positive-patient losses are Bernoulli with mean $r_j$, conditional on the calibration positive count and membership; all-patient review indicators are Bernoulli with mean $w_j$. Inverting the binomial tails gives each one-sided interval coverage at least $1-\eta$. This remains true unconditionally by averaging over the random positive count. Dependence between policies, or between risk and workload statistics, does not affect a union bound. There are $4M$ one-sided bounds, so all cover simultaneously with probability at least $1-4M\eta=1-\delta$. On this event, upper-bound feasibility implies true feasibility for every accepted policy, hence for any selection among them. If every policy has a lower bound violating at least one constraint, each policy violates that population constraint; therefore none on the grid is feasible. If neither condition is satisfied, the intervals do not resolve the question. The $[0,1]$ convention at zero positives makes no unsupported claim.
 \end{proof}
 \begin{proof}[Proof of the group corollary]
 Apply the preceding coverage event within each prespecified group with error probability $\delta_g$. A union bound over groups gives failure probability at most $\sum_g\delta_g$. Groups need not be independent. The conditional sampling assumptions must hold within each group, and post-hoc group discovery is not covered.
 \end{proof}
 
-\section{Proofs under consent and shift}
-\begin{proof}[Proof of Proposition~\ref{prop:consent}]
+\section*{Proofs under consent and shift}
+\begin{proof}[Proof of the consent-exchangeability proposition]
 For measurable sets $B_1,\ldots,B_n$, independence of the input tuples gives
 $\Pp(\Phi(U_i,C_i,V_i)\in B_i,\ i=1,\ldots,n)=\prod_i\Pp((U_i,C_i,V_i)\in\Phi^{-1}(B_i))$.
 Identical input laws and the same transformation give identical output laws. Conditioning independent patient tuples on their own positive-event indicators preserves the corresponding conditional product law. Nothing in the argument requires consent to be outcome-independent; it requires the complete joint patient/consent mechanism to be stable across calibration and future data.
 \end{proof}
-\begin{proof}[Proof of Theorem~\ref{thm:weighted}]
+\begin{proof}[Proof of the known-ratio theorem]
 The random variables $wZL_j,wZ,wR_j$ all lie in $[0,B_w]$. One-sided Hoeffding bounds with failure probability $\delta/(2M+1)$ control the $M$ numerator upper deviations, one denominator lower deviation, and $M$ workload upper deviations. A union bound yields their simultaneous coverage. Change of measure gives $\E_P[wZL_j]=\E_Q[ZL_j]$, $\E_P[wZ]=\Pp_Q(Z=1)$, and $\E_P[wR_j]=\E_Q[R_j]$. When the denominator lower bound is positive, dividing its numerator upper bound by that lower bound bounds the target conditional risk. Truncation at one uses the Bernoulli range. The same simultaneous event covers data-dependent selection among accepted candidates.
 \end{proof}

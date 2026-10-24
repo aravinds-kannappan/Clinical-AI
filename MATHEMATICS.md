@@ -1,3 +1,17 @@
+# Paired performance under consent restrictions
+
+For a frozen predictor and decision rule, evaluate the full and permitted-input versions on the same patient. With bounded patient loss $L\in[0,1]$, define
+
+$$D_i=L_i^{\mathrm{restricted}}-L_i^{\mathrm{full}},\qquad\Delta=\mathbb E[D_i].$$
+
+For $J$ comparisons fixed independently of the evaluation sample, $D_i\in[-1,1]$ and Hoeffding's inequality plus a union bound imply, with probability at least $1-\delta$,
+
+$$\Delta_j\le\bar D_j+\sqrt{\frac{2\log(J/\delta)}{n}}\quad\text{for every }j.$$
+
+Proof: each upper-tail probability is at most $\exp(-nt^2/2)$; substitute the displayed deviation and sum the $J$ probabilities. Independence is required across evaluation patients, not across comparisons. For incident-positive conditional loss use the positive-patient sample and its conditional law. Predictors, policies and consent mechanisms must remain fixed for the stated deployment interpretation.
+
+A bound below a **prespecified** tolerance can support bounded-loss non-inferiority. It cannot determine the ethically acceptable tolerance. This is a classical concentration argument, not a new theorem in statistical learning. AUROC is a ranking functional; its paired bootstrap interval does not follow from this patient-loss statement. The reported study has no clinically validated non-inferiority margin and makes no equivalence claim.
+
 # Mathematical results
 
 Full statements and proofs are in [the manuscript](paper.pdf), with editable [LaTeX source](paper.tex). The simultaneous-confidence construction applies established Learn then Test reasoning; it is not a new general risk-control framework.

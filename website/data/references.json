@@ -1,0 +1,122 @@
+[
+  {
+    "key": "crc",
+    "text": "A. N. Angelopoulos, S. Bates, A. Fisch, L. Lei, and T. Schuster. Conformal Risk Control. ICLR, 2024.",
+    "url": "https://arxiv.org/abs/2208.02814"
+  },
+  {
+    "key": "ltt",
+    "text": "A. N. Angelopoulos, S. Bates, E. J. Cand\u00e8s, M. I. Jordan, and L. Lei. Learn then test: Calibrating predictive algorithms to achieve risk control. Annals of Applied Statistics, 2025.",
+    "url": "https://doi.org/10.1214/24-aoas1998"
+  },
+  {
+    "key": "wong2021",
+    "text": "A. Wong, E. Otles, J. P. Donnelly, et al. External Validation of a Widely Implemented Proprietary Sepsis Prediction Model in Hospitalized Patients. JAMA Internal Medicine, 181(8):1065\u20131070, 2021.",
+    "url": "https://doi.org/10.1001/jamainternmed.2021.2626"
+  },
+  {
+    "key": "efron1979",
+    "text": "B. Efron. Bootstrap Methods: Another Look at the Jackknife. Annals of Statistics, 7(1):1\u201326, 1979.",
+    "url": "https://doi.org/10.1214/aos/1176344552"
+  },
+  {
+    "key": "pareto",
+    "text": "B. Laufer-Goldshtein, A. Fisch, R. Barzilay, and T. Jaakkola. Efficiently Controlling Multiple Risks with Pareto Testing. ICLR, 2023.",
+    "url": "https://arxiv.org/abs/2210.07913"
+  },
+  {
+    "key": "vancalster2019",
+    "text": "B. Van Calster, D. J. McLernon, M. van Smeden, L. Wynants, and E. W. Steyerberg. Calibration: the Achilles heel of predictive analytics. BMC Medicine, 17:230, 2019.",
+    "url": "https://doi.org/10.1186/s12916-019-1466-7"
+  },
+  {
+    "key": "clopper",
+    "text": "C. J. Clopper and E. S. Pearson. The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika, 26(4):404\u2013413, 1934.",
+    "url": "https://doi.org/10.1093/biomet/26.4.404"
+  },
+  {
+    "key": "adam",
+    "text": "D. P. Kingma and J. Ba. Adam: A Method for Stochastic Optimization. ICLR, 2015.",
+    "url": "https://www.alphaxiv.org/pdf/1412.6980"
+  },
+  {
+    "key": "sklearn",
+    "text": "F. Pedregosa, G. Varoquaux, A. Gramfort, et al. Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 12:2825\u20132830, 2011.",
+    "url": "https://www.alphaxiv.org/pdf/1201.0490"
+  },
+  {
+    "key": "santoni2018",
+    "text": "F. Santoni de Sio and J. van den Hoven. Meaningful Human Control over Autonomous Systems: A Philosophical Account. Frontiers in Robotics and AI, 5:15, 2018.",
+    "url": "https://doi.org/10.3389/frobt.2018.00015"
+  },
+  {
+    "key": "harutyunyan2019",
+    "text": "H. Harutyunyan, H. Khachatrian, D. C. Kale, G. Ver Steeg, and A. Galstyan. Multitask learning and benchmarking with clinical time series data. Scientific Data, 6:96, 2019.",
+    "url": "https://doi.org/10.1038/s41597-019-0103-9"
+  },
+  {
+    "key": "kwon2026",
+    "text": "H. Kwon and D.-J. Kim. Conformal selective prediction with cost aware deferral for safe clinical triage under distribution shift. Scientific Reports, 16:10016, 2026.",
+    "url": "https://doi.org/10.1038/s41598-026-40637-w"
+  },
+  {
+    "key": "friedman2001",
+    "text": "J. H. Friedman. Greedy function approximation: A gradient boosting machine. Annals of Statistics, 29(5):1189\u20131232, 2001.",
+    "url": "https://doi.org/10.1214/aos/1013203451"
+  },
+  {
+    "key": "kaye2014",
+    "text": "J. Kaye, E. A. Whitley, D. Lund, M. Morrison, H. Teare, and K. Melham. Dynamic consent: a patient interface for twenty-first century research networks. European Journal of Human Genetics, published online 2014.",
+    "url": "https://doi.org/10.1038/ejhg.2014.71"
+  },
+  {
+    "key": "cho2014",
+    "text": "K. Cho, B. van Merri\u00ebnboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio. Learning Phrase Representations using RNN Encoder\u2013Decoder for Statistical Machine Translation. EMNLP, 2014.",
+    "url": "https://www.alphaxiv.org/pdf/1406.1078"
+  },
+  {
+    "key": "trews",
+    "text": "K. E. Henry et al. Factors driving provider adoption of the TREWS machine learning-based early warning system and its effects on sepsis treatment timing. Nature Medicine, 2022.",
+    "url": "https://doi.org/10.1038/s41591-022-01895-z"
+  },
+  {
+    "key": "physionet",
+    "text": "M. A. Reyna et al. Early Prediction of Sepsis from Clinical Data: The PhysioNet/Computing in Cardiology Challenge 2019, version 1.0.0.",
+    "url": "https://doi.org/10.13026/v64v-d857"
+  },
+  {
+    "key": "reyna2020",
+    "text": "M. A. Reyna, C. S. Josef, R. Jeter, S. P. Shashikumar, M. B. Westover, S. Nemati, G. D. Clifford, and A. Sharma. Early Prediction of Sepsis From Clinical Data: The PhysioNet/Computing in Cardiology Challenge 2019. Critical Care Medicine, 48(2):210\u2013217, 2020.",
+    "url": "https://doi.org/10.1097/CCM.0000000000004145"
+  },
+  {
+    "key": "weighted",
+    "text": "R. J. Tibshirani, R. Foygel Barber, E. J. Cand\u00e8s, and A. Ramdas. Conformal Prediction Under Covariate Shift. NeurIPS, 2019.",
+    "url": "https://www.alphaxiv.org/pdf/1904.06019"
+  },
+  {
+    "key": "rcps",
+    "text": "S. Bates, A. N. Angelopoulos, L. Lei, J. Malik, and M. I. Jordan. Distribution-free, risk-controlling prediction sets. Journal of the ACM, 2021.",
+    "url": "https://doi.org/10.1145/3478535"
+  },
+  {
+    "key": "saito2015",
+    "text": "T. Saito and M. Rehmsmeier. The Precision\u2013Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets. PLOS ONE, 10(3):e0118432, 2015.",
+    "url": "https://doi.org/10.1371/journal.pone.0118432"
+  },
+  {
+    "key": "hoeffding",
+    "text": "W. Hoeffding. Probability Inequalities for Sums of Bounded Random Variables. Journal of the American Statistical Association, 58(301):13\u201330, 1963.",
+    "url": "https://doi.org/10.1080/01621459.1963.10500830"
+  },
+  {
+    "key": "che2018",
+    "text": "Z. Che, S. Purushotham, K. Cho, D. Sontag, and Y. Liu. Recurrent Neural Networks for Multivariate Time Series with Missing Values. Scientific Reports, 8:6085, 2018.",
+    "url": "https://doi.org/10.1038/s41598-018-24271-9"
+  },
+  {
+    "key": "tracer",
+    "text": "Z. Durante, P. Tang, K. Chandrasegaran, et al. TRACER: A Multimodal Harness for Patient Care in Hospitals. Preprint, 2026.",
+    "url": "https://www.alphaxiv.org/pdf/2610.21266"
+  }
+]
