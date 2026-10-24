@@ -1,0 +1,23 @@
+{
+  "source": "/Users/aravindkannappan/.local/share/openresearch/files/consent-clinical-ai/end-to-end/data/raw/sepsis-public/sepsis-public-full.zip",
+  "sha256": "e696f634d99a8e292736123321c22e9d899c4a71bf5ffe8152af752c63b79bb8",
+  "sites": {
+    "A": {
+      "patients": 20336,
+      "hours": 790215,
+      "event_positive": 1790,
+      "eligible_incident": 1585,
+      "initial_positive": 203,
+      "onset_censored": 2
+    },
+    "B": {
+      "patients": 20000,
+      "hours": 761995,
+      "event_positive": 1142,
+      "eligible_incident": 906,
+      "initial_positive": 223,
+      "onset_censored": 13
+    }
+  },
+  "note": "Descriptive counts from public inputs, not a model experiment."
+}

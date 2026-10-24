@@ -6,7 +6,7 @@ This repository studies that question with **40,336 public PhysioNet/CinC 2019 p
 
 **Result:** better discrimination did not make the tested first-alert policies satisfy the declared incident-risk target. Consent and review-path constraints are auditable in the modeled system; their coexistence with effective clinical oversight is **not demonstrated**. This is a negative result for a specific policy family, not a general impossibility theorem.
 
-- [NeurIPS-style paper (PDF)](paper.pdf) · [LaTeX source](paper.tex)
+- [Two-column research paper (PDF)](paper.pdf) · [LaTeX source](paper.tex)
 - [Live interactive results, equations and discussion](https://consent-clinical-ai.vercel.app)
 - [Full-release report](results/revision/REPORT.md) · [Direct research conclusion](DISCUSSION.md)
 - [Mathematics](MATHEMATICS.md) · [Methods](METHODS.md) · [Data card](DATA_CARD.md)
@@ -33,15 +33,19 @@ The default stage is `revision`. This installs locked dependencies, runs 23 test
 
 Set `CONSENT_DATA_ROOT` and `CONSENT_RESULTS_DIR` to relocate inputs and outputs. A clean run trains every model. Exact original source archives and the hash-verified partial-run resume are described in [reproducibility/README.md](reproducibility/README.md).
 
-To regenerate paper tables and the figure from saved results:
+To regenerate paper tables and figures from saved results:
 
 ```bash
 uv run --locked python scripts/build_paper_results.py
-uv run --locked python figs/incident_frontier.py
+uv run --locked python figs/research_figures.py
 tectonic paper.tex
 ```
 
-The figure script reads the versioned `figs/frontiers.csv` snapshot; replace it from `results/revision/frontiers.csv` when deliberately producing a new analysis. The paper uses the official NeurIPS 2026 style in preprint mode. It is a research draft, not an accepted or submitted NeurIPS paper. Author: Aravind Kannappan.
+The figure script reads versioned snapshots in `figs/`: `frontiers.csv` and `consent.csv` from `results/revision/`, and `selected_policies.csv` from `results/revision-audit/`. Replace them only when deliberately producing a new analysis. The table generator updates four tables without overwriting the manuscript prose.
+
+The paper uses a two-column, 10-point research layout with full-width vector figures, detailed methods, theorem statements and appendix proofs, and 23 references. This layout follows the author’s preference; it is not the official single-column NeurIPS submission template. It is a research draft, not an accepted or submitted NeurIPS paper. Author: Aravind Kannappan.
+
+`cohort_statistics.json` records cohort and incident-eligibility counts. Recreate it with `uv run --locked python scripts/cohort_summary.py --archive data/raw/sepsis-public/sepsis-public-full.zip --output cohort_statistics.json`.
 
 ## Evidence map
 

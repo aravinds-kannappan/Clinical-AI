@@ -9,7 +9,7 @@ consent_ai
 tests
 *.md
 *.tex
-*.pdf
+/*.pdf
 uv.lock
 pyproject.toml
 run_all.sh

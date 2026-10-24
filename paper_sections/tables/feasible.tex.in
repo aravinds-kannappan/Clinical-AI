@@ -1,0 +1,7 @@
+\begin{table*}[t]\centering\small
+\caption{Feasibility of the validation-selected first-alert policy under conditional incident loss. Each row aggregates three seeds: ``Y'' means every seed meets the empirical criterion; ``N'' means none does. Storage and review checks concern the specified graph, not a deployed system. Actual human oversight was not measured.}
+\label{tab:feasible}
+\begin{tabular}{llccccc}\toprule
+Model & Site & Utility $>0$ & Risk $\le .05$ & Reviews $\le .5$ & Storage cut & Review path\\\midrule
+{{ROWS}}
+\bottomrule\end{tabular}\end{table*}

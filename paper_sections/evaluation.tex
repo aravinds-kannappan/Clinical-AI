@@ -1,0 +1,103 @@
+\section{Consent, calibration and oversight evaluation}
+\label{sec:evaluation}
+\subsection{Threshold family and certificate computation}
+For each frozen predictor, we pool its validation scores and take 51 equally spaced empirical quantiles from 0 to 1, adding thresholds 0 and 1.000001. Duplicate values are removed. The first endpoint alerts whenever monitoring is nonempty, and the last emits no alert for scores in $[0,1]$. The resulting grid is independent of the calibration and test outcomes conditional on training and validation.
+
+For each calibration patient and threshold, the code records an incident-loss indicator, an any-review indicator and the time of the first crossing. Conditional risk uses only incident-eligible patients; workload uses every calibration patient. Let $k_j^r$ be missed incidents among $n_+$ positives and $k_j^w$ be reviewed patients among $n$ total patients. For either binomial count $(k,N)$, an exact one-sided interval with tail probability $\eta$ has endpoints
+\begin{align}
+ \ell(k,N)&=\begin{cases}0,&k=0,\\
+ \mathrm{Beta}^{-1}(\eta;k,N-k+1),&k>0,
+ \end{cases}\\
+ u(k,N)&=\begin{cases}1,&k=N,\\
+ \mathrm{Beta}^{-1}(1-\eta;k+1,N-k),&k<N.
+ \end{cases}
+\end{align}
+We set $\eta=\delta/(4M)$ for $M$ grid policies, applying the bounds to both risk and workload \citep{clopper}. A zero-size sample receives $[0,1]$. Theorem~\ref{thm:certificate} then justifies the three outputs used throughout the results.
+
+\begin{algorithm}[t]
+\caption{Joint certification on a frozen grid}\label{alg:certify}
+\begin{algorithmic}[1]
+\Require Patient losses $L$, reviews $R$, eligibility $Z$
+\Require Frozen thresholds $\mathcal T$, targets $(\alpha,K,\delta)$
+\State $M\gets |\mathcal T|$; $\eta\gets\delta/(4M)$
+\For{$j=1,\ldots,M$}
+\State Compute exact risk bounds $(\ell_j^r,u_j^r)$ on $Z=1$
+\State Compute review bounds $(\ell_j^w,u_j^w)$ on all patients
+\EndFor
+\State $F\gets\{j:u_j^r\le\alpha\ \text{and}\ u_j^w\le K\}$
+\If{$F\ne\varnothing$}
+\State \Return certified, $\arg\min_{j\in F}u_j^w$
+\ElsIf{$\ell_j^r>\alpha$ or $\ell_j^w>K$ for every $j$}
+\State \Return grid infeasible
+\Else
+\State \Return undetermined
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+Among certified policies, the implementation selects the smallest workload upper bound. If none is certified, it does not deploy an empirically attractive policy under the name of a certificate. A grid-infeasible result requires every candidate to violate at least one lower-bound test; otherwise the result remains undetermined. Computation uses $O(nM)$ indicator work and storage in the present implementation. Streaming counts could reduce storage, but no such optimization is needed for these cohort sizes.
+
+Finite calibration size is relevant even when no misses are observed. For $k=0$, the upper risk bound is $1-\eta^{1/n_+}$. Thus zero observed misses can meet $\alpha$ only when
+\begin{equation}
+ n_+\ge \left\lceil\frac{\log\eta}{\log(1-\alpha)}\right\rceil.
+ \label{eq:cal-floor}
+\end{equation}
+For $M=53$, $\alpha=\delta=0.05$, this requires 163 positives. The actual local calibration pools contain 219--253 positives in A and 230--242 in B. Their failure is therefore not explained solely by a correction that would reject even a zero-miss rule.
+
+\subsection{Hospital transfer and demographic cells}
+We distinguish three evaluations: A calibration with A testing, A calibration with B testing, and B calibration with B testing. The first and third target a locally matched patient distribution. A frozen A rule has no asserted B guarantee merely because the same score function is used. B recalibration changes the threshold evidence, not the clinical predictor, which remains trained on A.
+
+Four demographic cells are prespecified: female, male, age below 65 and age at least 65. Sex and age cells overlap. Each receives failure budget $\delta/4$ and is evaluated at $K=0.5$. The code reports positive calibration support and group-specific certificate status. Sparse groups may remain unresolved even when a population-wide claim is available. The analysis does not infer demographic fairness from an aggregate certificate, and the available binary recorded gender variable does not represent the full range of gender identities.
+
+A supplementary hospital-shift diagnostic fits a logistic domain classifier to the first available feature row of A training patients and B calibration patients. Its estimated B probability $q(x)$ gives a sample-size-adjusted density-ratio estimate, clipped to $[0.05,20]$. On incident-positive A calibration patients, we compute weighted repeated-window loss and a CRC-inspired correction using the maximum fitted weight. The effective positive sample size is $(\sum_i w_i)^2/\sum_i w_i^2$. The resulting threshold is tested on B. Because the ratio is estimated and clipped and conditional invariance is unverified, this diagnostic is not an implementation of the known-ratio theorem with an exact guarantee.
+
+\subsection{Calibration-subset stability}
+To examine the role of calibration size, we repeatedly sample 25, 50, 100, 200 or 400 incident-positive calibration patients without replacement, when the local pool is large enough. There are 200 draws per available size, model, site and seed. Within a draw, a simultaneous one-sided risk upper bound uses tail probability $\delta/(2M)$. If multiple policies pass, the policy with the lowest empirical review frequency in the all-patient calibration pool is selected. This analysis certifies risk only; it does not add a workload guarantee to the subset experiment.
+
+We record whether a rule is certified, its realized test risk when it is, and whether that risk exceeds $\alpha$. Draws reuse the same calibration pool and test set and are therefore dependent. Their empirical frequency of exceedance is a stability diagnostic rather than a binomial estimate from independent deployment trials. If no rule is certified, the conditional exceedance frequency is undefined. It must not be reported as zero or interpreted as evidence of perfect coverage.
+
+\subsection{Discrimination, utility and uncertainty}
+Primary hourly discrimination uses only the pre-onset rows defined in Section~\ref{sec:data}. AUROC measures ranking across positive and negative rows; average precision summarizes the precision--recall curve; Brier score is the mean squared difference between a score and the binary label. Average precision is particularly relevant to rare positive labels \citep{saito2015}. Brier score reflects overall probability accuracy and should not be labeled a pure calibration metric \citep{vancalster2019}.
+
+For every model, site and seed, we draw 500 bootstrap samples of whole patients with replacement. All rows of a sampled patient receive the same multiplicity. AUROC and Brier score are recomputed using those multiplicities, and the 2.5th and 97.5th percentiles form the reported intervals. This cluster-level use of the bootstrap \citep{efron1979} preserves within-patient temporal dependence and treats patients as the sampling units. It conditions on the fitted model and split; it does not include uncertainty from a new model search or a new hospital population.
+
+The normalized challenge utility is
+\begin{equation}
+ U=\frac{U_{\rm observed}-U_{\rm inaction}}
+ {U_{\rm optimal}-U_{\rm inaction}},
+\end{equation}
+using the official additive utility implementation \citep{reyna2020}. For repeated alerts, predicted condition state is the hourly threshold decision. For the first-alert policy, the state remains positive after the first crossing. This latched state represents persistent positive prediction, not a new review at every later hour. Utility is evaluated over the full stay, while review count and incident loss follow the retrospective monitoring definition. Tests compare the vectorized utility calculation against the pinned official evaluator.
+
+A separate operating-point audit selects the threshold that maximizes validation utility for each model and policy, then freezes it before evaluating either test site. For these fixed policies, exact pointwise 95\% binomial intervals describe conditional incident risk. They are distinct from the simultaneous calibration certificate. The audit also decomposes first-alert misses into an early review and no review before onset. Test-frontier points are used only to describe the tradeoff surface, never to choose the reported operating policy.
+
+\subsection{Patient-specific consent and revocation}
+We simulate permission for two input groups, laboratory measurements and vital signs. For each patient, each group is denied independently with probability $p\in\{0,0.1,0.3,0.5\}$. Thus $p$ is a per-group probability, not the proportion of patients with any denial; the latter is $1-(1-p)^2$. Demographic and administrative variables remain available. The experiment studies heterogeneity across patients rather than uniformly removing a feature block from the whole population.
+
+In the admission opt-out scenario, denied last values and expanding means are set to missing throughout the trajectory, while denied observation counts are set to zero. This removes both recorded values and the associated measurement-history summaries. The previously fitted imputer or missing-value handling is then applied without retraining. The intervention does not infer values from future observations or preserve a denied historical count.
+
+In the revocation scenario, the same denial decision takes effect at zero-based hour 12. Denied summaries are cleared from that point onward, including information accumulated before withdrawal. For the GRU, the sequence is split at withdrawal and the subsequent segment starts with a new hidden state. This conservative reset also loses permitted information encoded in the previous state; the experiment does not attempt selective deletion from a mixed latent representation.
+
+For each scenario, calibration and both test sites are rescored using the frozen predictor. A calibration set from A is used to seek a joint certificate at $K=0.5$. When no certificate exists, the descriptive cost analysis uses a labeled empirical fallback: minimum-workload threshold among those with empirical risk at most 0.05, or minimum empirical risk if none qualifies. This fallback has no asserted risk guarantee. Consequently, consent curves combine the score intervention with scenario-specific empirical threshold selection and are not a fixed-threshold causal effect.
+
+Scenario seeds are reused to make permission patterns reproducible and comparisons stable. The stress experiment is not an independent repeated-sampling validation of the consent theorem. That theorem requires the complete patient/consent tuples to obey its stated sampling law. Real preferences, correlations between consent and health status, communication quality, and strategic selection are not observed in this dataset.
+
+\subsection{Reviewer queue and end-to-end loss}
+The queue uses the validation-selected first-alert threshold and the actual held-out patient score trajectories. Patient admission times are generated by exponentially distributed interarrival times with rates 0.5, 1 or 2 patients per hour. Each patient's request occurs at simulated admission plus that patient's first-alert hour. Requests are sorted by arrival time and handled by one first-come, first-served reviewer.
+
+For request $j$ at time $a_j$, constant service time $s$ and previous completion $d_{j-1}$, waiting and completion are
+\begin{equation}
+ q_j=\max\{0,d_{j-1}-a_j\},\qquad
+ d_j=\max\{a_j,d_{j-1}\}+s.
+\end{equation}
+Service times are 2, 5 or 10 minutes. Base reviewer sensitivity is 0.8, 0.9 or 1, and specificity is 0.9 or 0.99. A declared fatigue rule multiplies sensitivity by $\max\{0.5,1-0.05q_j\}$ when waiting is measured in hours. The resulting sensitivity governs a Bernoulli correct-review draw. A false consequential action is drawn with probability one minus specificity only for patients whose entire label sequence is negative.
+
+An incident succeeds end to end only if its first alert lies in the valid warning window, review is correct, and completion occurs before inferred onset. A perfect reviewer cannot recover an incident with no timely request under this policy. The simulation reports mean and 95th-percentile waiting, review count, false actions and conditional end-to-end missed risk. The $3\times3\times3\times2$ parameter combinations give 54 scenarios per model, site and seed, or 972 overall.
+
+These service, arrival and fatigue values are sensitivity assumptions. The TREWS study supplies evidence that response and adoption must be measured \citep{trews}, but response delay is not an estimate of active review duration. The queue therefore does not establish a staffing recommendation, a hospital-specific workload limit or an empirical model of clinician cognition. The corrected audit excludes all label-positive patients from the false-action class, including positives who are ineligible for the strict incident endpoint.
+
+\subsection{Information-flow and review-path checks}
+The structural component represents data sources, transformations, storage, review and consequential actions as a directed graph. Each edge carries the patient and processing purpose to which permission applies. Applying a consent mask removes prohibited flows; withdrawing a source invalidates cached state that depends on it. This model makes the tested policy explicit, but it does not inspect an external hospital application or prove that every real data flow has been represented.
+
+Mandatory review is checked as a path property. For sensitive source set $S$, consequential destinations $D$ and review nodes $H$, every $S$-to-$D$ path intersects $H$ exactly when deleting $H$ disconnects $S$ from $D$. This standard equivalence is tested by reachability after node removal. A reviewer placed somewhere in a graph is insufficient if a bypass remains.
+
+To move beyond the original small constructed graph, we generate 500 DAGs with 50--300 nodes. For ordered nodes $i<j$, an edge is included independently with probability $3/n$. Approximately 10\% of internal nodes are assigned as review nodes; node 0 is the source and node $n-1$ the action. We report whether an action path exists and whether one survives removal of review nodes. These simulations assess structural behavior across a broader family. They do not estimate the prevalence of bypasses in deployed clinical systems, and they do not turn a path constraint into evidence of effective human review.

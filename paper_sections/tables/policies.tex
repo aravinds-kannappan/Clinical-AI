@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering\small
+\caption{Validation-selected operating policies, means over three seeds. ``Repeated'' reviews every above-threshold hour. Utility uses full-stay states; risk and review count use the retrospective pre-onset endpoint. No test metric chooses a threshold.}
+\label{tab:policies}
+\begin{tabular}{lllrrr}\toprule
+Model & Site & Policy & Missed risk & Reviews/patient & Utility\\\midrule
+Logistic & A & First & 0.936 & 0.215 & 0.333 \\
+Logistic & A & Repeated & 0.298 & 8.077 & 0.342 \\
+Logistic & B & First & 0.916 & 0.296 & 0.085 \\
+Logistic & B & Repeated & 0.302 & 10.185 & 0.003 \\
+Boosting & A & First & 0.960 & 0.193 & 0.332 \\
+Boosting & A & Repeated & 0.318 & 6.741 & 0.380 \\
+Boosting & B & First & 0.970 & 0.091 & 0.125 \\
+Boosting & B & Repeated & 0.494 & 4.162 & 0.183 \\
+GRU & A & First & 0.949 & 0.160 & 0.347 \\
+GRU & A & Repeated & 0.406 & 6.124 & 0.352 \\
+GRU & B & First & 0.971 & 0.081 & 0.155 \\
+GRU & B & Repeated & 0.534 & 4.172 & 0.180 \\
+\bottomrule\end{tabular}\end{table*}

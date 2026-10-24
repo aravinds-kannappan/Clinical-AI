@@ -1,0 +1,20 @@
+\section{Known-ratio transfer bound}\label{sec:weighted-proof}
+\begin{theorem}[Known-ratio shift certificate]\label{thm:weighted}
+Suppose the target patient law $Q$ is absolutely continuous with respect to source law $P$, with known density ratio $0\le w\le B_w$ and $\E_Pw=1$. For a fixed grid and $n$ independent source patients define
+\[
+ \begin{aligned}
+ \widehat a_j&=n^{-1}\sum_i w_iZ_iL_{ij},\quad \widehat b=n^{-1}\sum_i w_iZ_i,\\
+ \widehat c_j&=n^{-1}\sum_i w_iR_{ij}.
+ \end{aligned}
+\]
+Set $\epsilon=B_w\sqrt{\log((2M+1)/\delta)/(2n)}$.
+With probability at least $1-\delta$, simultaneously for every $j$ with $\widehat b>\epsilon$,
+\[
+ \begin{aligned}
+ \E_Q[L_j\mid Z=1]&\le\min\left\{1,\frac{\widehat a_j+\epsilon}{\widehat b-\epsilon}\right\},\\
+ \E_Q[R_j]&\le\min\{1,\widehat c_j+\epsilon\}.
+ \end{aligned}
+\]
+Thus selecting a policy whose two upper bounds meet $(\alpha,K)$ controls both target quantities. If the denominator is nonpositive, the risk bound is uninformative.
+\end{theorem}
+This is a bounded-importance-weight Hoeffding argument. A feature-only density ratio is valid only under the corresponding conditional outcome invariance and support assumptions. A fitted, clipped domain classifier does not provide a known ratio or a verified bound on approximation error. Our empirical weighted comparison is explicitly exploratory, not an application of Theorem~\ref{thm:weighted} with a guaranteed ratio.
