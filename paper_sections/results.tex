@@ -1,5 +1,6 @@
-\section*{Alert-policy evaluation}
-The discrimination table summarizes all three splits. Boosting has the highest mean AUROC in A; the GRU has the highest mean AUROC in B. These are descriptive rankings: the seed-specific test populations overlap. Average precision remains low, and the class-weighted models are not calibrated probabilities. Full patient-bootstrap intervals and Brier scores are in the appendix.
+The paired comparisons describe how input restrictions change a fixed system. We next ask whether the resulting prediction and review machinery can satisfy an explicit timing and capacity requirement, examining first-alert policies, calibration evidence and simulated human review within the same evaluation.
+
+The discrimination table summarizes all three splits. Boosting has the highest mean AUROC in A; the GRU has the highest mean AUROC in B. These are descriptive rankings: the seed-specific test populations overlap. Average precision remains low, and the class-weighted models are not calibrated probabilities. The complete patient-bootstrap intervals and Brier scores are reported in the seed-specific uncertainty table.
 \input{paper_sections/tables/discrimination.tex}
 
 For every model and seed, the local A and B calibrations certify grid infeasibility at $\alpha=0.05$, for every tested budget from 0.1 to 1 review per patient. There are 90 local calibration/budget outcomes; each certificate retains its stated per-grid confidence interpretation. The result concerns the frozen grids, not all thresholds or all monitoring designs. Increasing review capacity cannot repair a grid whose first-alert timing already violates the risk target.

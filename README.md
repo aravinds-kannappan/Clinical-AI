@@ -1,4 +1,6 @@
-# Benchmarking AI Under Consent Constraints
+# Benchmarking Sepsis AI Clinical Systems Under Consent Constraints
+
+*Prediction and Alert Changes Over Time*
 
 Can a sepsis prediction system retain useful performance when patients restrict its inputs? This benchmark study compares full-input reference AI with the same AI under explicit, simulated information-access restrictions.
 
@@ -15,7 +17,7 @@ The public cohort contains **40,336 PhysioNet/CinC 2019 patients**. Three superv
 
 The primary comparison separates changes in input permissions from changes in the decision threshold. It reports paired discrimination, incident misses, review burden, utility and information-availability proxies. Permission assignment is simulated; the experiment does not collect consent, measure privacy leakage, or decide which performance loss patients should accept.
 
-A secondary evaluation studies the first-alert policy. Every tested local calibration grid is excluded at the 5% conditional missed-risk target, even with one review per patient. An early first alert can consume the review before the strict warning window. Positive challenge utility evaluates a different endpoint and does not repair this failure. The exclusion is per frozen model/grid, not a general impossibility result.
+The integrated policy evaluation studies the first-alert policy. Every tested local calibration grid is excluded at the 5% conditional missed-risk target, even with one review per patient. An early first alert can consume the review before the strict warning window. Positive challenge utility evaluates a different endpoint and does not repair this failure. The exclusion is per frozen model/grid, not a general impossibility result.
 
 The mathematical contribution makes the estimands and assumptions explicit: a paired bounded-loss criterion, first-alert feasibility characterization and simultaneous finite-grid confidence bounds. The concentration machinery is classical. The empirical contribution is the benchmark design and failure analysis, not a new predictor. Actual human oversight, clinical benefit, training consent and retraining under restricted features remain unmeasured.
 
@@ -42,9 +44,9 @@ tectonic figs/paired_design.tex
 tectonic paper.tex
 ```
 
-The figure script reads versioned snapshots in `figs/`: `frontiers.csv` and `consent.csv` from `results/revision/`, and `selected_policies.csv` from `results/revision-audit/`. Replace them only when deliberately producing a new analysis. The original table generator updates four tables without overwriting manuscript prose. The paired generator adds the complete AUROC table; paired figures read `paired_discrimination.csv` and `paired_policies.csv`, copied from `results/consent-comparison/`. The paper contains seven vector figures.
+The figure script reads versioned snapshots in `figs/`: `frontiers.csv` and `consent.csv` from `results/revision/`, and `selected_policies.csv` from `results/revision-audit/`. Replace them only when deliberately producing a new analysis. The original table generator updates four tables without overwriting manuscript prose. The paired generator adds the complete AUROC table; paired figures read `paired_discrimination.csv` and `paired_policies.csv`, copied from `results/consent-comparison/`. The paper contains seven vector figures. Consent comparisons, policy analysis, full proofs and oversight results are integrated into one continuous main text.
 
-The paper uses a two-column, 10-point research layout with full-width vector figures, detailed methods, theorem statements and appendix proofs, and 24 references. Sections, equations and captions are unnumbered, with author–year citations. This layout follows the author’s preference; it is not the official single-column NeurIPS submission template. It is a research draft, not an accepted or submitted NeurIPS paper. Author: Aravind Kannappan.
+The paper uses a two-column, 10-point research layout with full-width vector figures, detailed methods, theorem statements and full proofs, and 24 references. Sections, equations and captions are unnumbered, with author–year citations. This layout follows the author’s preference; it is not the official single-column NeurIPS submission template. It is a research draft, not an accepted or submitted NeurIPS paper. Author: Aravind Kannappan.
 
 `cohort_statistics.json` records cohort and incident-eligibility counts. Recreate it with `uv run --locked python scripts/cohort_summary.py --archive data/raw/sepsis-public/sepsis-public-full.zip --output cohort_statistics.json`.
 
