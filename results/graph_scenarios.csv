@@ -1,0 +1,4 @@
+scenario,source,nodes,edges,unreviewed_paths,reachable_storage_sinks,nurse_alert_reachable,action_reachable,minimum_vertex_cut
+permissive_bypass,SIMULATED SYSTEM GRAPH,13,15,2,3,True,True,"[""summary""]"
+mandatory_review,SIMULATED SYSTEM GRAPH,13,14,0,3,True,True,"[""physician""]"
+consent_and_review,SIMULATED SYSTEM GRAPH,13,10,0,0,True,True,"[""physician""]"

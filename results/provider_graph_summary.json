@@ -1,0 +1,9 @@
+{
+  "source": "DEMO DATA",
+  "nodes": 7692,
+  "edges": 14432,
+  "providers": 379,
+  "provider_projection_edges": 1504,
+  "semantics": "pre-cutoff ordering proxy; not note-access or validated teamwork",
+  "prediction_model": "none; structural descriptive graph only"
+}

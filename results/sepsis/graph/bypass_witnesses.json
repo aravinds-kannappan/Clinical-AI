@@ -1,0 +1,19 @@
+{
+  "permissive_bypass": [
+    [
+      "video",
+      "skeleton",
+      "gate",
+      "summary",
+      "action"
+    ],
+    [
+      "ehr",
+      "gate",
+      "summary",
+      "action"
+    ]
+  ],
+  "mandatory_review": [],
+  "consent_and_review": []
+}
