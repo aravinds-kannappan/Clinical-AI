@@ -8,6 +8,8 @@ useful predictions and finite review capacity.
 empirical evaluation uses **6,000 public PhysioNet sepsis patients**, with an external-hospital holdout. A separate **MIMIC-IV demo** evaluation is retained with its sparse-outcome limitations. Review queues and system graphs
 are simulated. Public UP-Fall skeletons provide a secondary modality check.
 
+**Conclusion:** Consent and mandatory-review constraints are technically feasible and auditable in this model. Their coexistence with clinically useful prediction and effective human oversight was **not established**. [Read the direct answer to the research question](DISCUSSION.md).
+
 ## Results
 
 - [Live interactive results and discussion](https://aravinds-kannappan.github.io/Clinical-AI/)
