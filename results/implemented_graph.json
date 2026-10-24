@@ -1,0 +1,256 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "observation",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "video"
+    },
+    {
+      "type": "movement_features",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "skeleton"
+    },
+    {
+      "type": "ehr_event",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "ehr"
+      ],
+      "id": "ehr"
+    },
+    {
+      "type": "model_output",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "gate"
+    },
+    {
+      "type": "summary",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "summary"
+    },
+    {
+      "type": "model_output",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "prediction"
+    },
+    {
+      "type": "review",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "pager"
+    },
+    {
+      "type": "review",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "physician"
+    },
+    {
+      "type": "clinical_action",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "action"
+    },
+    {
+      "type": "persistent_storage",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "ehr_write"
+    },
+    {
+      "type": "persistent_storage",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "archive"
+    },
+    {
+      "type": "persistent_storage",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "profile"
+    },
+    {
+      "type": "summary",
+      "timestamp": 0.0,
+      "patient": "p0",
+      "provenance": [
+        "video"
+      ],
+      "id": "cache"
+    }
+  ],
+  "edges": [
+    {
+      "type": "derived from",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "video",
+      "target": "skeleton"
+    },
+    {
+      "type": "derived from",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "skeleton",
+      "target": "gate"
+    },
+    {
+      "type": "queried by",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "ehr",
+      "target": "gate"
+    },
+    {
+      "type": "derived from",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "gate",
+      "target": "summary"
+    },
+    {
+      "type": "derived from",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "summary",
+      "target": "prediction"
+    },
+    {
+      "type": "derived from",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "summary",
+      "target": "cache"
+    },
+    {
+      "type": "reviewed by",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "prediction",
+      "target": "pager"
+    },
+    {
+      "type": "reviewed by",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "pager",
+      "target": "physician"
+    },
+    {
+      "type": "used to trigger",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "physician",
+      "target": "action"
+    },
+    {
+      "type": "derived from",
+      "timestamp": 0.0,
+      "latency": 1.0,
+      "purposes": [
+        "fall_detection",
+        "archiving",
+        "profiling"
+      ],
+      "patient": "p0",
+      "source": "cache",
+      "target": "prediction"
+    }
+  ]
+}

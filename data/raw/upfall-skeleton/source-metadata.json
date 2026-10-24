@@ -1,0 +1,169 @@
+{
+  "created": "2024-07-20T12:24:57.228876+00:00",
+  "modified": "2024-07-20T12:24:57.484734+00:00",
+  "id": 12773013,
+  "conceptrecid": "12773012",
+  "doi": "10.5281/zenodo.12773013",
+  "conceptdoi": "10.5281/zenodo.12773012",
+  "doi_url": "https://doi.org/10.5281/zenodo.12773013",
+  "metadata": {
+    "title": "3D skeletons UP-Fall Dataset",
+    "doi": "10.5281/zenodo.12773013",
+    "publication_date": "2024-07-18",
+    "description": "<p><strong>3D skeletons UP-Fall Dataset</strong></p>\n<p>&nbsp;</p>\n<p></p>\n<p>&nbsp;</p>\n<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Different between Fall and&nbsp; Impact detection&nbsp;</strong></p>\n<p>&nbsp;</p>\n<p><strong>&nbsp;Overview</strong></p>\n<p>This dataset aims to facilitate research in fall detection, particularly focusing on the precise detection of impact moments within fall events. The 3D skeletons data accuracy and comprehensiveness make it a valuable resource for developing and benchmarking fall detection algorithms. The dataset contains 3D skeletal data extracted from fall events and daily activities of 5 subjects performing fall scenarios&nbsp;</p>\n<p>&nbsp;</p>\n<p><strong>Data Collection</strong></p>\n<p>The skeletal data was extracted using a pose estimation algorithm, which processes images frames to determine the 3D coordinates of each joint. Sequences with less than 100 frames of extracted data were excluded to ensure the quality and reliability of the dataset. As a result, some subjects may have fewer CSV files.</p>\n<p><strong>CSV Structure</strong></p>\n<p>The data is organized by subjects, and each subject contains CSV files named according to the pattern&nbsp;<strong>C1S1A1T1</strong>, where:</p>\n<ul>\n<li><strong><em>C:</em></strong> Camera (1 or 2)</li>\n<li><strong><em>S</em></strong>: Subject (1 to 5)</li>\n<li><strong><em>A:</em></strong> Activity (1 to N, representing different activities)</li>\n<li><strong><em>T:</em></strong> Trial (1 to 3)</li>\n</ul>\n<p>&nbsp;</p>\n<p><strong>subject1/`: Contains CSV files for Subject 1.</strong></p>\n<ul>\n<li>C1S1A1T1.csv: Data from Camera 1, Activity 1, Trial 1 for Subject 1</li>\n<li>&nbsp;C1S1A2T1.csv: Data from Camera 1, Activity 2, Trial 1 for Subject 1</li>\n<li>&nbsp;C1S1A3T1.csv: Data from Camera 1, Activity 3, Trial 1 for Subject 1</li>\n<li>&nbsp;C2S1A1T1.csv: Data from Camera 2, Activity 1, Trial 1 for Subject 1</li>\n<li>&nbsp;C2S1A2T1.csv: Data from Camera 2, Activity 2, Trial 1 for Subject 1</li>\n<li>&nbsp;C2S1A3T1.csv: Data from Camera 2, Activity 3, Trial 1 for Subject 1<br><br></li>\n</ul>\n<p><strong>subject2/`: Contains CSV files for Subject 2.</strong></p>\n<ul>\n<li>C1S2A1T1.csv: Data from Camera 1, Activity 1, Trial 1 for Subject 2</li>\n<li>C1S2A2T1.csv: Data from Camera 1, Activity 2, Trial 1 for Subject 2</li>\n<li>C1S2A3T1.csv: Data from Camera 1, Activity 3, Trial 1 for Subject 2</li>\n<li>C2S2A1T1.csv: Data from Camera 2, Activity 1, Trial 1 for Subject 2</li>\n<li>C2S2A2T1.csv: Data from Camera 2, Activity 2, Trial 1 for Subject 2</li>\n<li>C2S2A3T1.csv: Data from Camera 2, Activity 3, Trial 1 for Subject 2</li>\n</ul>\n<p>subject3/, subject4/, subject5/: Similar structure as above, but may contain fewer CSV files due to the data extraction criteria mentioned above.</p>\n<p>&nbsp;</p>\n<p><strong>Column Descriptions</strong></p>\n<p>Each CSV file contains the following columns representing different skeletal joints and their respective coordinates in 3D space:</p>\n<table>\n<tbody>\n<tr>\n<td>\n<p>Column Name</p>\n</td>\n<td>\n<p>Description</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_1_x</p>\n</td>\n<td>\n<p>X coordinate of joint 1</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_1_y</p>\n</td>\n<td>\n<p>Y coordinate of joint 1</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_1_z</p>\n</td>\n<td>\n<p>Z coordinate of joint 1</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_2_x</p>\n</td>\n<td>\n<p>X coordinate of joint 2</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_2_y</p>\n</td>\n<td>\n<p>Y coordinate of joint 2</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_2_z</p>\n</td>\n<td>\n<p>Z coordinate of joint 2</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>...</p>\n</td>\n<td>\n<p>...</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_n_x</p>\n</td>\n<td>\n<p>X coordinate of joint n</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_n_y</p>\n</td>\n<td>\n<p>Y coordinate of joint n</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>joint_n_z</p>\n</td>\n<td>\n<p>Z coordinate of joint n</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>LABEL</p>\n</td>\n<td>\n<p>Label indicating impact (1) or non-impact (0)</p>\n</td>\n</tr>\n</tbody>\n</table>\n<p><strong>Example</strong></p>\n<p>Here is an example of what a row in one of the CSV files might look like:</p>\n<table>\n<tbody>\n<tr>\n<td>\n<p>joint_1_x</p>\n</td>\n<td>\n<p>joint_1_y</p>\n</td>\n<td>\n<p>joint_1_z</p>\n</td>\n<td>\n<p>joint_2_x</p>\n</td>\n<td>\n<p>joint_2_y</p>\n</td>\n<td>\n<p>joint_2_z</p>\n</td>\n<td>\n<p>...</p>\n</td>\n<td>\n<p>joint_n_x</p>\n</td>\n<td>\n<p>joint_n_y</p>\n</td>\n<td>\n<p>joint_n_33</p>\n</td>\n<td>\n<p>LABEL</p>\n</td>\n</tr>\n<tr>\n<td>\n<p>0.123</p>\n</td>\n<td>\n<p>0.456</p>\n</td>\n<td>\n<p>0.789</p>\n</td>\n<td>\n<p>0.234</p>\n</td>\n<td>\n<p>0.567</p>\n</td>\n<td>\n<p>0.890</p>\n</td>\n<td>\n<p>...</p>\n</td>\n<td>\n<p>0.345</p>\n</td>\n<td>\n<p>0.678</p>\n</td>\n<td>\n<p>0.901</p>\n</td>\n<td>\n<p>0</p>\n</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p><strong>Usage</strong></p>\n<p>This data can be used for developing and benchmarking impact fall detection algorithms. It provides detailed information on human posture and movement during falls, making it suitable for machine learning and deep learning applications in impact fall detection and prevention.</p>\n<p>&nbsp;</p>\n<p><strong>&nbsp;Using github</strong></p>\n<p><strong><br>1. Clone the repository:</strong></p>\n<p>&nbsp; &nbsp; -bash<br>&nbsp; &nbsp; git clone</p>\n<p>https://github.com/Tresor-Koffi/3D_skeletons-UP-Fall-Dataset</p>\n<p><strong>&nbsp;&nbsp;<br>2. Navigate to the directory:</strong></p>\n<p>&nbsp; &nbsp; -bash<br>&nbsp; &nbsp; -cd 3D_skeletons-UP-Fall-Dataset<br>&nbsp;&nbsp;</p>\n<h3>Examples</h3>\n<p>Here's a simple example of how to load and inspect a sample data file using Python:<br><em>```python</em><br><em>import pandas as pd</em></p>\n<p># Load a sample data file for Subject 1, Camera 1, Activity 1, Trial 1</p>\n<p><em>data = pd.read_csv('subject1/C1S1A1T1.csv')</em><br><em>print(data.head(</em>))</p>\n<p>&nbsp;</p>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "KOFFI, Tresor",
+        "affiliation": "CESI LINEACT"
+      }
+    ],
+    "contributors": [
+      {
+        "name": "Youssef, MOURCHID",
+        "affiliation": "CESI LINEACT",
+        "type": "Supervisor"
+      },
+      {
+        "name": "Mohammed, HINDAWI",
+        "affiliation": "CESI LINEACT",
+        "type": "Supervisor"
+      },
+      {
+        "name": "Yohan, DUPUIS",
+        "affiliation": "CESI LINEACT",
+        "type": "Supervisor"
+      }
+    ],
+    "keywords": [
+      "FALL DETECTION",
+      "IMPACT DETECTION"
+    ],
+    "dates": [
+      {
+        "type": "submitted"
+      }
+    ],
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "relations": {
+      "version": [
+        {
+          "index": 0,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "12773012"
+          }
+        }
+      ]
+    }
+  },
+  "title": "3D skeletons UP-Fall Dataset",
+  "links": {
+    "self": "https://zenodo.org/api/records/12773013",
+    "self_html": "https://zenodo.org/records/12773013",
+    "preview_html": "https://zenodo.org/records/12773013?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.12773013",
+    "self_doi": "https://doi.org/10.5281/zenodo.12773013",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.12773013",
+    "reserve_doi": "https://zenodo.org/api/records/12773013/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/12773012",
+    "parent_html": "https://zenodo.org/records/12773012",
+    "parent_doi": "https://doi.org/10.5281/zenodo.12773012",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.12773012",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:12773013/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:12773013/sequence/default",
+    "files": "https://zenodo.org/api/records/12773013/files",
+    "media_files": "https://zenodo.org/api/records/12773013/media-files",
+    "latest": "https://zenodo.org/api/records/12773013/versions/latest",
+    "latest_html": "https://zenodo.org/records/12773013/latest",
+    "versions": "https://zenodo.org/api/records/12773013/versions",
+    "draft": "https://zenodo.org/api/records/12773013/draft",
+    "access_links": "https://zenodo.org/api/records/12773013/access/links",
+    "access_grants": "https://zenodo.org/api/records/12773013/access/grants",
+    "access_users": "https://zenodo.org/api/records/12773013/access/users",
+    "access_request": "https://zenodo.org/api/records/12773013/access/request",
+    "access": "https://zenodo.org/api/records/12773013/access",
+    "communities": "https://zenodo.org/api/records/12773013/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/12773013/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/12773013/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/12773013/file-modification",
+    "quota_increase": "https://zenodo.org/api/records/12773013/quota-increase",
+    "requests": "https://zenodo.org/api/records/12773013/requests"
+  },
+  "updated": "2024-07-20T12:24:57.484734+00:00",
+  "recid": "12773013",
+  "revision": 4,
+  "files": [
+    {
+      "id": "36641c4e-3e43-4b60-b3c2-b778bb338130",
+      "key": "SUBJECT5.zip",
+      "size": 778011,
+      "checksum": "md5:2676346b213d6e0f4da6fda09f0b2b92",
+      "links": {
+        "self": "https://zenodo.org/api/records/12773013/files/SUBJECT5.zip/content"
+      }
+    },
+    {
+      "id": "842b3e5c-c4f5-4453-836a-9fd36f6d28c6",
+      "key": "SUBJECT1.zip",
+      "size": 941750,
+      "checksum": "md5:6c34ff6e898b42ecead633836206a5b0",
+      "links": {
+        "self": "https://zenodo.org/api/records/12773013/files/SUBJECT1.zip/content"
+      }
+    },
+    {
+      "id": "1439af60-2de6-467d-a49c-53445686b03c",
+      "key": "SUBJECT2.zip",
+      "size": 1109223,
+      "checksum": "md5:4db506e5a541ad2de84bf5009d440f13",
+      "links": {
+        "self": "https://zenodo.org/api/records/12773013/files/SUBJECT2.zip/content"
+      }
+    },
+    {
+      "id": "2466d55e-c121-4df1-a187-0ed04f269641",
+      "key": "SUBJECT4.zip",
+      "size": 249792,
+      "checksum": "md5:76a641d4bb79488a0563dde1041f95c8",
+      "links": {
+        "self": "https://zenodo.org/api/records/12773013/files/SUBJECT4.zip/content"
+      }
+    },
+    {
+      "id": "ca071ea0-a0b2-455f-b7fa-fd47afb6ba99",
+      "key": "SUBJECT3.zip",
+      "size": 941900,
+      "checksum": "md5:5f3d6b4a675491904afb002b7e75502b",
+      "links": {
+        "self": "https://zenodo.org/api/records/12773013/files/SUBJECT3.zip/content"
+      }
+    }
+  ],
+  "swh": {},
+  "owners": [
+    {
+      "id": "1161594"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 2243,
+    "unique_downloads": 2085,
+    "views": 3217,
+    "unique_views": 2918,
+    "version_downloads": 2243,
+    "version_unique_downloads": 2085,
+    "version_unique_views": 2918,
+    "version_views": 3217
+  },
+  "state": "done",
+  "submitted": true
+}

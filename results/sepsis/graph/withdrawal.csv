@@ -1,0 +1,7 @@
+policy,time,raw_to_archive,cached_to_archive,summary_to_profile
+direct_source_only,3.0,True,True,True
+direct_source_only,4.0,False,True,True
+direct_source_only,5.0,False,True,True
+provenance_aware,3.0,True,True,True
+provenance_aware,4.0,False,False,False
+provenance_aware,5.0,False,False,False

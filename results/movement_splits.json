@@ -1,0 +1,152 @@
+[
+  {
+    "seed": 11,
+    "test": 1,
+    "calibration": 2,
+    "train": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "seed": 11,
+    "test": 2,
+    "calibration": 3,
+    "train": [
+      1,
+      4,
+      5
+    ]
+  },
+  {
+    "seed": 11,
+    "test": 3,
+    "calibration": 4,
+    "train": [
+      1,
+      2,
+      5
+    ]
+  },
+  {
+    "seed": 11,
+    "test": 4,
+    "calibration": 5,
+    "train": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "seed": 11,
+    "test": 5,
+    "calibration": 1,
+    "train": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "seed": 29,
+    "test": 1,
+    "calibration": 2,
+    "train": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "seed": 29,
+    "test": 2,
+    "calibration": 3,
+    "train": [
+      1,
+      4,
+      5
+    ]
+  },
+  {
+    "seed": 29,
+    "test": 3,
+    "calibration": 4,
+    "train": [
+      1,
+      2,
+      5
+    ]
+  },
+  {
+    "seed": 29,
+    "test": 4,
+    "calibration": 5,
+    "train": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "seed": 29,
+    "test": 5,
+    "calibration": 1,
+    "train": [
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "seed": 47,
+    "test": 1,
+    "calibration": 2,
+    "train": [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "seed": 47,
+    "test": 2,
+    "calibration": 3,
+    "train": [
+      1,
+      4,
+      5
+    ]
+  },
+  {
+    "seed": 47,
+    "test": 3,
+    "calibration": 4,
+    "train": [
+      1,
+      2,
+      5
+    ]
+  },
+  {
+    "seed": 47,
+    "test": 4,
+    "calibration": 5,
+    "train": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "seed": 47,
+    "test": 5,
+    "calibration": 1,
+    "train": [
+      2,
+      3,
+      4
+    ]
+  }
+]

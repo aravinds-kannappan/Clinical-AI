@@ -1,0 +1,135 @@
+[
+  {
+    "dataset": "UP-Fall skeleton derivative",
+    "path": "data/raw/upfall-skeleton/SUBJECT1.zip",
+    "url": "https://zenodo.org/records/12773013/files/SUBJECT1.zip?download=1",
+    "sha256": "b1e7ddeee6faa546a0d5eedb6695146b6080415a2c30d7b2eb39cc64750ec92d",
+    "bytes": 941750,
+    "license": "CC BY 4.0",
+    "publisher_checksum_verified": true
+  },
+  {
+    "dataset": "UP-Fall skeleton derivative",
+    "path": "data/raw/upfall-skeleton/SUBJECT2.zip",
+    "url": "https://zenodo.org/records/12773013/files/SUBJECT2.zip?download=1",
+    "sha256": "fbde70938c6295c7b8aaea485af79bdac32162289a7fac39fc3a5e4d66fe6f2b",
+    "bytes": 1109223,
+    "license": "CC BY 4.0",
+    "publisher_checksum_verified": true
+  },
+  {
+    "dataset": "UP-Fall skeleton derivative",
+    "path": "data/raw/upfall-skeleton/SUBJECT3.zip",
+    "url": "https://zenodo.org/records/12773013/files/SUBJECT3.zip?download=1",
+    "sha256": "1ae18fd178f96811fce3cffbbe8076cfe300447aa4f1c943bb94c031cee152f5",
+    "bytes": 941900,
+    "license": "CC BY 4.0",
+    "publisher_checksum_verified": true
+  },
+  {
+    "dataset": "UP-Fall skeleton derivative",
+    "path": "data/raw/upfall-skeleton/SUBJECT4.zip",
+    "url": "https://zenodo.org/records/12773013/files/SUBJECT4.zip?download=1",
+    "sha256": "2740da96035fb94554c04972a19d94945c431dda326e90a51cdb39d2621488fd",
+    "bytes": 249792,
+    "license": "CC BY 4.0",
+    "publisher_checksum_verified": true
+  },
+  {
+    "dataset": "UP-Fall skeleton derivative",
+    "path": "data/raw/upfall-skeleton/SUBJECT5.zip",
+    "url": "https://zenodo.org/records/12773013/files/SUBJECT5.zip?download=1",
+    "sha256": "26154622d2585ab1eaccda13dc0139ec412157aee6832aa01e0a1ee61a1700b7",
+    "bytes": 778011,
+    "license": "CC BY 4.0",
+    "publisher_checksum_verified": true
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/hosp/patients.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/hosp/patients.csv.gz",
+    "sha256": "59dcc6cd8450ddf03ad32cc7d76e41caa4c9633541715987f590c74835cf6fae",
+    "bytes": 1083,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/hosp/admissions.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/hosp/admissions.csv.gz",
+    "sha256": "910b9f160ffdf1e08ea673585393f347c773ccc87d66875c627584a903ae8493",
+    "bytes": 11072,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/hosp/labevents.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/hosp/labevents.csv.gz",
+    "sha256": "d51a4cf1ea63245abe7d544b0d50a928e9ee2ec5eb9a5ce85500aed0bd6c6dfc",
+    "bytes": 1963979,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/hosp/prescriptions.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/hosp/prescriptions.csv.gz",
+    "sha256": "33c392ba5b9299b08eca0a61911ba106f0aebdba26ed31b856bb9ffd49fe3654",
+    "bytes": 606447,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/hosp/poe.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/hosp/poe.csv.gz",
+    "sha256": "bf850e1519f2c3df8c706dc5e2afcb83e86e1d6e4afd7c01426b6b07d25cfeef",
+    "bytes": 611200,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/icu/icustays.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/icu/icustays.csv.gz",
+    "sha256": "e05e81aa52a3022e522b6832a898101a69b84e64c17bb344d819e458d5bc21b3",
+    "bytes": 5667,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/icu/chartevents.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/icu/chartevents.csv.gz",
+    "sha256": "90f096ad3db847ed1aaec073f8d86053c51fea7b616d3b046410e030f083d560",
+    "bytes": 5549389,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/icu/inputevents.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/icu/inputevents.csv.gz",
+    "sha256": "69597dca47e554e16645ca505167e9f39b07c1724e915ba54ccfb40f5fa0078a",
+    "bytes": 788253,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/icu/d_items.csv.gz",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/icu/d_items.csv.gz",
+    "sha256": "1690467a822345226a041c1149237c418aa60098c6b699fb4cef64d73588a01f",
+    "bytes": 57073,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/SHA256SUMS.txt",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/SHA256SUMS.txt",
+    "sha256": "19dfd55fac45035ba8e9f4c7e59180ee5184e877504f098e517a434d2646366a",
+    "bytes": 2966,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  },
+  {
+    "dataset": "MIMIC-IV DEMO DATA v2.2",
+    "path": "data/raw/mimic-demo/LICENSE.txt",
+    "url": "https://physionet.org/files/mimic-iv-demo/2.2/LICENSE.txt",
+    "sha256": "bcdfcd4f31c790e30fb645dc36414907172405897adff329ad379eed85d12017",
+    "bytes": 25815,
+    "license": "Open Data Commons Open Database License (ODbL) v1.0"
+  }
+]
